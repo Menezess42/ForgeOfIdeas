@@ -20,7 +20,7 @@ body {
 
 /* === Variáveis para ajuste rápido (modificar para alinhar com a pixelart) === */
 :root{
-  /* posição/área da estante sobre o fundo (ajuste em px ou em %) */
+  posição/área da estante sobre o fundo (ajuste em px ou em %)
   --shelf-left: 44px;       /* distância da borda esquerda da janela */
   --shelf-top: 48px;        /* distância do topo */
   --shelf-width: 515px;     /* largura total do overlay da estante */
@@ -34,7 +34,7 @@ body {
 
 /* Container absoluto — sobrepõe o fundo sem alterá-lo */
 #shelf-overlay {
-  position: absolute;
+  position: fixed;
   left: var(--shelf-left);
   top: var(--shelf-top);
   width: var(--shelf-width);
