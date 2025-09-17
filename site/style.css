@@ -1,0 +1,177 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* --- Coloque o caminho da imagem entre as aspas abaixo --- */
+body {
+    background-image: url("./assets/background2.png"); /* <-- insira aqui: ex. "./assets/background.png" */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover; /* altere para "contain" se preferir que a imagem não seja cortada */
+    /* preserva o visual pixelado ao redimensionar/jogar zoom */
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    /* cor fallback caso a imagem não carregue */
+    background-color: #2b1a12;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+
+/* === Variáveis para ajuste rápido (modificar para alinhar com a pixelart) === */
+:root{
+  /* posição/área da estante sobre o fundo (ajuste em px ou em %) */
+  --shelf-left: 44px;       /* distância da borda esquerda da janela */
+  --shelf-top: 48px;        /* distância do topo */
+  --shelf-width: 515px;     /* largura total do overlay da estante */
+  --shelf-height: 880px;    /* altura total do overlay da estante */
+
+  /* dimensões internas */
+  --side-width: 40px;       /* largura da madeira lateral */
+  --row-height: 155px; /* ajuste fino até casar com a faixa da estante */
+  --slot-gap: 8px;     /* gap interno entre livros */
+}
+
+/* Container absoluto — sobrepõe o fundo sem alterá-lo */
+#shelf-overlay {
+  position: absolute;
+  left: var(--shelf-left);
+  top: var(--shelf-top);
+  width: var(--shelf-width);
+  height: var(--shelf-height);
+  display: flex;
+  z-index: 999;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  /* background: rgba(255, 100, 150, 0.35); */
+}
+
+/* ---------------- Lateral esquerda (botões) ---------------- */
+.shelf-side {
+  width: var(--side-width);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 6px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+
+/* botões apenas para visualização */
+.shelf-side .ctrl{
+  width: 50px;
+  height: 32px;
+  font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  background: rgba(255,120,150);
+  cursor: pointer;
+}
+
+/* ---------------- Lateral direita (scroll visual/futuro controle) ---------------- */
+.shelf-side-right {
+  width: 31px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: rgba(150, 200, 255, 0.25); /* azul translúcido */
+  border-radius: 6px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+/* ---------------- Área das prateleiras (com scroll) ---------------- */
+/* Área das prateleiras */
+.shelf-slots {
+  flex: 1;
+  margin: 54px 12px 45px 12px; /* alinha a primeira e última prateleira */
+  display: flex;
+  flex-direction: column;
+  gap: 0;                       /* sem espaçamento entre blocos, já que cada row deve bater no fundo */
+  overflow-y: auto;
+  background: rgba(0, 200, 200, 0.25);
+  border-radius: 6px;
+}
+
+/* Cada prateleira */
+/* .shelf-row { */
+/*   display: grid; */
+/*   grid-template-rows: 1fr 1fr;         /* 2 linhas iguais */ */
+/*   grid-template-columns: repeat(4, 1fr); */
+/*   gap: var(--slot-gap);                /* gap só entre os livros */ */
+/*   height: var(--row-height);           /* altura fixa, casa com a madeira */ */
+/*   background: rgba(30,30,80,0.08);     /* apenas para debug */ */
+/*   border-radius: 4px; */
+/* } */
+/**/
+
+/* cada slot ocupa o espaço inteiro da célula */
+.slot {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700; font-size: 0.85rem;
+  color: #111;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.25);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25) inset;
+  transition: transform .12s ease, box-shadow .12s ease;
+
+  /* faz o slot crescer para ocupar totalmente a célula */
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+/* /* cada slot (onde o projeto ficará) */ */
+/* .slot { */
+/*   display:flex; */
+/*   align-items:center; */
+/*   justify-content:center; */
+/*   font-weight:700; */
+/*   font-size: 0.85rem; */
+/*   color: #111; */
+/*   border-radius: 4px; */
+/*   border: 1px solid rgba(0,0,0,0.25); */
+/*   box-shadow: 0 2px 4px rgba(0,0,0,0.25) inset; */
+/*   transition: transform .12s ease, box-shadow .12s ease; */
+/* } */
+
+/* hover — só para visual tuning */
+.slot:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.35);
+}
+
+/* cores distintas por coluna */
+.slot:nth-child(4n+1) { background: rgba(255,200,60,0.2); }
+.slot:nth-child(4n+2) { background: rgba(120,210,160,0.2); }
+.slot:nth-child(4n+3) { background: rgba(120,170,255,0.2); }
+.slot:nth-child(4n+4) { background: rgba(255,140,160,0.2); }
+
+/* regra base de todas */
+.shelf-row {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--slot-gap);
+  background: rgba(255,30,80,0.08);
+  border-radius: 4px;
+  margin-bottom: 0; /* zera aqui e ajusta manual depois */
+}
+
+/* alturas individuais */
+.shelf-row:nth-of-type(1) { height: 159px; margin-bottom: 22px; }
+.shelf-row:nth-of-type(2) { height: 159px; margin-bottom: 22px; margin-top: 23px;}
+.shelf-row:nth-of-type(3) { height: 159px; margin-bottom: 20px; margin-top: 28px;}
+.shelf-row:nth-of-type(4) { height: 159px; margin-bottom: 0;  margin-top: 28px;}
+
+/* opcional: scrollbar visual maior para facilitar testes */
+.shelf-slots::-webkit-scrollbar { width: 12px; }
+.shelf-slots::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.25);
+  border-radius:6px;
+}
