@@ -5,13 +5,15 @@ html, body {
 
 /* --- Coloque o caminho da imagem entre as aspas abaixo --- */
 body {
-    background-image: url("./assets/background2.png"); /* <-- insira aqui: ex. "./assets/background.png" */
+    background-image: url("./assets/backgroundWall.png"); /* <-- insira aqui: ex. "./assets/background.png" */
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover; /* altere para "contain" se preferir que a imagem não seja cortada */
+    background-size: cover; /* Scale the image to cover the entire element */
+    background-attachment: fixed; /* Fix the background image relative to the viewport */
+    background-position: center center; /* Center the background image */
     /* preserva o visual pixelado ao redimensionar/jogar zoom */
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
+    /* image-rendering: pixelated;*/
+    /*image-rendering: crisp-edges;*/
     /* cor fallback caso a imagem não carregue */
     background-color: #2b1a12;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -93,7 +95,7 @@ body {
   flex-direction: column;
   gap: 0;                       /* sem espaçamento entre blocos, já que cada row deve bater no fundo */
   overflow-y: auto;
-  background: rgba(0, 200, 200, 0.25);
+  /* background: rgba(0, 200, 200, 0.25); */
   border-radius: 6px;
 }
 
@@ -147,10 +149,10 @@ body {
 }
 
 /* cores distintas por coluna */
-.slot:nth-child(4n+1) { background: rgba(255,200,60,0.2); }
-.slot:nth-child(4n+2) { background: rgba(120,210,160,0.2); }
-.slot:nth-child(4n+3) { background: rgba(120,170,255,0.2); }
-.slot:nth-child(4n+4) { background: rgba(255,140,160,0.2); }
+.slot:nth-child(4n+1) { background: rgba(255,200,60,0.5); }
+.slot:nth-child(4n+2) { background: rgba(120,210,160,0.5); }
+.slot:nth-child(4n+3) { background: rgba(120,170,255,0.5); }
+.slot:nth-child(4n+4) { background: rgba(255,140,160,0.5); }
 
 /* regra base de todas */
 .shelf-row {
@@ -164,10 +166,10 @@ body {
 }
 
 /* alturas individuais */
-.shelf-row:nth-of-type(1) { height: 159px; margin-bottom: 22px; }
-.shelf-row:nth-of-type(2) { height: 159px; margin-bottom: 22px; margin-top: 23px;}
-.shelf-row:nth-of-type(3) { height: 159px; margin-bottom: 20px; margin-top: 28px;}
-.shelf-row:nth-of-type(4) { height: 159px; margin-bottom: 0;  margin-top: 28px;}
+    .shelf-row:nth-of-type(1) { height: 159px; margin-bottom: 22px; margin-top: 1px; margin-right: 2px;}
+.shelf-row:nth-of-type(2) { height: 159px; margin-bottom: 22px; margin-top: 23px; margin-right: 2px;}
+.shelf-row:nth-of-type(3) { height: 159px; margin-bottom: 20px; margin-top: 28px; margin-right: 2px;}
+.shelf-row:nth-of-type(4) { height: 159px; margin-bottom: 0;  margin-top: 28px; margin-right: 2px;}
 
 /* opcional: scrollbar visual maior para facilitar testes */
 .shelf-slots::-webkit-scrollbar { width: 12px; }
