@@ -19,7 +19,7 @@
             pkgs.yarn
             pkgs.git
             pkgs.tailwindcss
-            pkgs.postcss
+            pkgs.nodePackages.postcss
             pkgs.autoprefixer
             pkgs.vite
           ];
