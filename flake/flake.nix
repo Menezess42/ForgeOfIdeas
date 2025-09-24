@@ -11,7 +11,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        baseShell = essentials.devShell.${system}.js;
+        baseShell = essentials.devShells.${system}.js;
       in {
         devShell = pkgs.mkShell {
           name = "ForgeOfIdeas-shell";
