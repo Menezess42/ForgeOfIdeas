@@ -16,11 +16,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 body {
   margin: 0;
-  background-image: url("../Assets/backgroundWall.png");
-  display: flex;
-  place-items: center;
+  background-image: url("../Assets/backgroundWall2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   min-width: 320px;
   min-height: 100vh;
 }

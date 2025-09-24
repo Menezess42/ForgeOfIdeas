@@ -1,8 +1,8 @@
 // src/components/Shelf.jsx
 import '../Styles/Components.css'
-export default function Shelf() {
+export default function Furnace() {
   return (
-    <div className="Shelf">
+    <div className="Furnace">
     </div>
   );
 }

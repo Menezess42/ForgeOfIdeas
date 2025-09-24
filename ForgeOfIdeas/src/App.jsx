@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import './Styles/App.css'
-import Shelf from './Components/Shelf.jsx'
+import Header from './Components/Header.jsx'
+import Content from './Components/Content.jsx'
+import Footer from './Components/Footer.jsx'
 
-function App() {
+function App(){
 
   return (
       <>
-      {/* <Header /> */}
-      {/* < Content /> */}
-      {/* <Footer /> */}
+      <Header />
+      < Content />
+      <Footer />
       </>
   )
 }
