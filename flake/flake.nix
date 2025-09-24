@@ -26,6 +26,7 @@
             pkgs.vite
             pkgs.typescript-language-server
             pkgs.typescript
+            pkgs.vscode-langservers-extracted
           ] ++ baseShell.buildInputs;
 
           shellHook = ''
