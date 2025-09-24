@@ -4,12 +4,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    essentials.url = "path:/mnt/hdmenezess42/GitProjects/flakeEssentials";
   };
 
-  outputs = { self, nixpkgs, flake-utils, }:
+  outputs = { self, nixpkgs, flake-utils, essentials}:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        baseShell = essentials.devShell.${system}.js;
       in {
         devShell = pkgs.mkShell {
           name = "ForgeOfIdeas-shell";
@@ -22,7 +24,7 @@
             pkgs.nodePackages.postcss
             pkgs.autoprefixer
             pkgs.vite
-          ];
+          ] ++ baseShell.buildInputs;
 
           shellHook = ''
             echo "🔨 Welcome to The ForgeOfIdeas!"

@@ -1,16 +1,14 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Shelf from './components/Shelf.jsx'
+import './Styles/App.css'
+import Shelf from './Components/Shelf.jsx'
 
 function App() {
 
   return (
       <>
-      <Header />
-      < Content />
-      <Footer />
+      {/* <Header /> */}
+      {/* < Content /> */}
+      {/* <Footer /> */}
       </>
   )
 }

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -17,7 +18,7 @@
 }
 body {
   margin: 0;
-  background-image: url("./assets/backgroundWall.png");
+  background-image: url("../Assets/backgroundWall.png");
   display: flex;
   place-items: center;
   min-width: 320px;
