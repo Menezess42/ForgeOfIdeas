@@ -1,6 +1,4 @@
 {
-  description = "ForgeOfIdeas - Cozy Pixel Art Project Tracker (React + Tailwind DevShell)";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -13,7 +11,7 @@
         pkgs = import nixpkgs { inherit system; };
         baseShell = essentials.devShells.${system}.js;
       in {
-        devShell = pkgs.mkShell {
+        devShell = pkgs.mkShell rec{
           name = "ForgeOfIdeas-shell";
 
           buildInputs = [
