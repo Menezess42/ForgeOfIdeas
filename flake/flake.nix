@@ -24,6 +24,8 @@
             pkgs.nodePackages.postcss
             pkgs.autoprefixer
             pkgs.vite
+            pkgs.typescript-language-server
+            pkgs.typescript
           ] ++ baseShell.buildInputs;
 
           shellHook = ''
