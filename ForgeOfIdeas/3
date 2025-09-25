@@ -16,7 +16,6 @@
   height: 42px;
   margin-left: 20px;
   margin-right: 20px;
-  cursor: pointer;
 }
 
 .Logo-1{
@@ -34,51 +33,38 @@
     gap: 10px;
     margin-left: 20px;
     margin-right: 20px;
+    /* background-color: rgb(159, 138, 142, 0.25); */
     width: auto;
 }
-
 
 .Shelf{
     background-color:rgb(255, 0, 0, 0.25);
     background-size: 480px;
-    width: 480px;
+    width: 500px;
     height: 852px;
     background-image: url("../Assets/shellf.png");
     background-repeat: no-repeat; /* Prevents image repetition */
     background-position: center;
 }
-
-.Anvil {
-  /* background-color: rgb(0, 0, 255, 0.25); */
-  display: flex;
-  width: 250px;
-  height: 290px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end; /* cola no fundo */
-}
-.Furnace{
-    background-image: url("../Assets/furnace.png");
-    width: 420px;
-    height: 515px;
-    background-repeat: no-repeat; /* Prevents image repetition */
-    background-position: center; /* Centers the image */
+.Anvil{
+    background-color: rgb(0, 0, 255, 0.25);
+    display: flex;
+    width: 250px;
+    height: 290px;
+    flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
 }
 .Idea{
     width:50px;
     height:50px;
     background-color: rgb(247, 148, 30);
     text-align: center;
-    border-radius: 10px;
-    border-color: rgb(210, 110, 0);
-    border-width: 5px;
-    border-style: solid;
 }
-
 .Anvil-img{
+    /* height: 100px; */
     width: 200px;
 }
-
 .Furnace{
     background-image: url("../Assets/furnace.png");
     width: 420px;
@@ -96,5 +82,6 @@
     width: 100%;
     height: 42px;
 }
-.Social { width: 22px;
+.Social {
+  width: 22px;
 }
