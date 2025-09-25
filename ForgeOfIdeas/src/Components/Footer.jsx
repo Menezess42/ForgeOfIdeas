@@ -22,7 +22,6 @@ return (
         <img className="Social" src={insta} alt="logo" />
         <h3>Insta</h3>
       </div>
-
       <div
         className="Brand"
         onClick={() => window.open("https://github.com/Menezess42", "_blank")}
