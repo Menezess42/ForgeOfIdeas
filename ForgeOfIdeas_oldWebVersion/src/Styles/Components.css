@@ -1,7 +1,7 @@
 .Header {
   display: flex;
   align-items: center;
-  justify-content: center; /* centraliza o grupo no meio */
+  justify-content: center;
   background-color: #002c3c;
   padding: 0;
   color: rgb(247, 148, 30);
@@ -70,11 +70,10 @@
     height: 100px;
 }
 .Button {
-  /* background-color: #A0A8B0; */
     background-color: rgb(111, 118, 125, 0.2); 
-  color: #1a1a1a;              /* texto/ícone escuro pra contraste */
+  color: #1a1a1a;
   border: solid;
-  border-radius: 2px;          /* leve arredondado, opcional */
+  border-radius: 2px;
   border-width: 5px;
   border-color: rgb(0, 0, 0, 0.6);
   cursor: pointer;
@@ -98,11 +97,11 @@
 }
 
 .Button:hover {
-  background-color: #8A929A;   /* escurece no hover */
+  background-color: #8A929A;
 }
 
 .Button:active {
-  background-color: #6F767D;   /* escurece mais no clique */
+  background-color: #6F767D;
 }
 .IdeasShelf{
     background-color: rgb(255, 55, 100, 0.25);
@@ -117,8 +116,9 @@
   height: 290px;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end; /* cola no fundo */
-}
+  justify-content: flex-end;
+  }
+
 .Furnace{
     background-image: url("../Assets/furnace.png");
 }
@@ -141,8 +141,8 @@
     background-image: url("../Assets/furnace.png");
     width: 420px;
     height: 515px;
-    background-repeat: no-repeat; /* Prevents image repetition */
-    background-position: center; /* Centers the image */
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .Footer{
