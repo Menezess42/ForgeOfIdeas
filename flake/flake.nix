@@ -10,6 +10,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
         baseShell = essentials.devShells.${system}.js;
+        programs.nix-ld.enable = true;
       in {
         devShell = pkgs.mkShell rec{
           name = "ForgeOfIdeas-shell";
