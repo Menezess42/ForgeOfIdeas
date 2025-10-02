@@ -1,6 +1,7 @@
 {
     "appId": "com.dwarfsoftware.electron-course",
     "files":["dist-electron","dist-react"],
+    "extraResources": ["dist-electron/preload.cjs"],
     "icon": "./Forgrin.png",
     "mac":{
         "target": "dmg"
