@@ -15,9 +15,12 @@ type EventPayloadMapping = {
     getStaticData: StaticData;
 };
 
+type UnsubscribeFunction = () => void;
+
 interface Window {
     electron: {
-      subscribeStatistic: (callback: (statistics: Statistics) => void) => void;
+      subscribeStatistic: (callback: (statistics: Statistics) => void) => UnsubscribeFunction;
         getStaticData: ()=> Promise<StaticData>;
     };
 }
+
