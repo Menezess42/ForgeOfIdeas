@@ -1,7 +1,7 @@
 // /src/electron/main.ts
 import {app, BrowserWindow, ipcMain} from 'electron';
 import path from 'path';
-import {isDev, ipcHandle} from  './util.js';
+import {isDev, ipcMainHandle} from  './util.js';
 import { getStaticData, pollResources } from './resourceManager.js';
 import { getPreloadPath, getUIPath } from './pathResolver.js';
 // type test = string;
@@ -11,17 +11,17 @@ app.on("ready", () => {
         webPreferences: {
             preload: getPreloadPath(),
         }
+        // frame: false, // menu bar disabled
     });
     if (isDev()){
         mainWindow.loadURL('http://localhost:5123');
-    }
-    else{
-    mainWindow.loadFile(getUIPath());
+    } else{
+            mainWindow.loadFile(getUIPath());
     }
 
     pollResources(mainWindow);
 
-    ipcHandle("getStaticData", ()=>{
+    ipcMainHandle("getStaticData", ()=>{
         return getStaticData();
     });
 });
