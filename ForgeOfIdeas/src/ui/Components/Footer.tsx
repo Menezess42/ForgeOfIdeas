@@ -1,9 +1,9 @@
 import '../Styles/Components.css'
-import twitch from '/twitch.png'
-import github from '/github.png'
+import twitch from '../Assets/twitch.png'
+import github from '../Assets/github.png'
 import ds from '../Assets/Forgrin.png'
-import yt from '/yt.png'
-import insta from '/instagram.png'
+import yt from '../Assets/yt.png'
+import insta from '../Assets/instagram.png'
 export default function Content(){
 return (
     <footer className="Footer">
