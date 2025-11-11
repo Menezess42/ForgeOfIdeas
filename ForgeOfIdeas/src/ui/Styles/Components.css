@@ -159,3 +159,26 @@
     width: 22px;
     opacity: 0.50;
 }
+
+.popBackground{
+    position: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.624);
+}
+
+.forms{
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #002c3c;
+    color: #00D2c3;
+    padding: 4rem;
+    border-radius: 8px;
+}
+.formsH2{
+    color: #f7941e;
+}
