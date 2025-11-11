@@ -10,7 +10,7 @@ const path_1 = __importDefault(require("path"));
 const electron_1 = require("electron");
 const util_js_1 = require("./util.js");
 function getPreloadPath() {
-    return path_1.default.join(electron_1.app.getAppPath(), (0, util_js_1.isDev)() ? '.' : '..', '/preload.js');
+    return path_1.default.join(electron_1.app.getAppPath(), (0, util_js_1.isDev)() ? '.' : '..', '/preload.cjs');
 }
 function baseDirPath() {
     return path_1.default.join(electron_1.app.getAppPath(), (0, util_js_1.isDev)() ? '.' : '..', 'Ideas/');

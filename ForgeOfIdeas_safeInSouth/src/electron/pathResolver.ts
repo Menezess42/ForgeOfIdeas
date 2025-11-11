@@ -6,7 +6,7 @@ export function getPreloadPath(){
     return path.join(
         app.getAppPath(),
         isDev() ? '.' : '..',
-        '/preload.js'
+        '/preload.cjs'
     );
 }
 

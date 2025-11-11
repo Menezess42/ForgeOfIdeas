@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../Styles/Components.css";
-import {PopUp_forms} from './PopUp_forms.tsx';
+// import {PopUp_forms} from './PopUp_forms.tsx';
 export default function Shelf() {
     const [open, setOpen] = useState<boolean>(false);
     console.log(open);
@@ -13,7 +13,7 @@ export default function Shelf() {
             </div>
 
             <div className="IdeasShelf">
-            <PopUp_forms isOpen={open}/>
+            {/* <PopUp_forms isOpen={open}/> */}
             </div>
 
             <div className="ButtonDiv">
