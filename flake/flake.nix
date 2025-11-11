@@ -26,13 +26,11 @@
           ] ++ baseShell.buildInputs;
 
           shellHook = ''
-          export ELECTRON_OVERRIDE_DIST_PATH="${pkgs.electron}/bin"
-          echo "🔨 Welcome to The ForgeOfIdeas!"
-          echo "Electron path override set to: $ELECTRON_OVERRIDE_DIST_PATH"
-          echo "Run 'yarn create vite my-app --template react' to bootstrap a new project"
-          echo "Then: cd my-app && echo 'Ready to hack with Tailwind + Vite 🎨'"
+            echo "🔨 Welcome to The ForgeOfIdeas!"
+            echo "Run 'yarn create vite my-app --template react' to bootstrap a new project"
+            echo "Then: cd my-app && echo 'Ready to hack with Tailwind + Vite 🎨'"
           '';
         };
       }
-      );
+    );
 }
