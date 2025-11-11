@@ -6,8 +6,16 @@ export function getPreloadPath(){
     return path.join(
         app.getAppPath(),
         isDev() ? '.' : '..',
-        '/preload.cjs'
+        '/preload.js'
     );
+}
+
+export function baseDirPath(){
+    return path.join(
+        app.getAppPath(),
+        isDev() ? '.': '..',
+        'Ideas/'
+    )
 }
 
 export function getUIPath(){
