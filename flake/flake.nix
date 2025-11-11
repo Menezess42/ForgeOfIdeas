@@ -22,7 +22,6 @@
             pkgs.tailwindcss
             pkgs.nodePackages.postcss
             pkgs.autoprefixer
-            pkgs.vite
             pkgs.electron
             # pkgs.typescript-language-server
             # pkgs.typescript
