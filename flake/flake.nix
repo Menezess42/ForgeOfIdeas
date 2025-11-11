@@ -23,10 +23,6 @@
             pkgs.nodePackages.postcss
             pkgs.autoprefixer
             pkgs.electron
-            # pkgs.typescript-language-server
-            # pkgs.typescript
-            # pkgs.vscode-langservers-extracted
-            # pkgs.tailwindcss-language-server
           ] ++ baseShell.buildInputs;
 
           shellHook = ''
