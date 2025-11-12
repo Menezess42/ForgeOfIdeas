@@ -26,7 +26,7 @@
           ] ++ baseShell.buildInputs;
 
           shellHook = ''
-          cd /mnt/hdmenezess42/GitProjects/ForgeOfIdeas/forge-of-ideas
+          cd ./forge-of-ideas
           mkdir -p node_modules/.bin
           ln -sf $(which electron) node_modules/.bin/electron
           echo "🔨 Welcome to The ForgeOfIdeas!"
