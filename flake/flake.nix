@@ -26,9 +26,10 @@
           ] ++ baseShell.buildInputs;
 
           shellHook = ''
-            echo "🔨 Welcome to The ForgeOfIdeas!"
-            echo "Run 'yarn create vite my-app --template react' to bootstrap a new project"
-            echo "Then: cd my-app && echo 'Ready to hack with Tailwind + Vite 🎨'"
+          cd ../forge-of-ideas
+          mkdir -p node_modules/.bin
+          ln -sf $(which electron) node_modules/.bin/electron
+          echo "🔨 Welcome to The ForgeOfIdeas!"
           '';
         };
       }
