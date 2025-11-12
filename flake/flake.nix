@@ -27,11 +27,15 @@
 
           shellHook = ''
           echo "🔨 Welcome to The ForgeOfIdeas!"
-          mkdir -p forge-of-ideas/node_modules/.bin
-          ln -sf ${pkgs.electron}/bin/electron node_modules/.bin/electron
-          echo "Linked Electron from Nixpkgs -> node_modules/.bin/electron"
-          echo "Run 'yarn create @quick-start/electron' to bootstrap your project 🚀"
-          '';
+          if [ -d forge-of-ideas/node_modules ]; then
+              mkdir -p forge-of-ideas/node_modules/.bin
+                  ln -sf ${pkgs.electron}/bin/electron forge-of-ideas/node_modules/.bin/electron
+                  echo "Linked Nix Electron into forge-of-ideas/node_modules/.bin/"
+          else
+              echo "ℹ️ No forge-of-ideas directory yet — create it first with:"
+                  echo "   yarn create @quick-start/electron forge-of-ideas"
+                  fi
+                  '';
         };
       }
     );
