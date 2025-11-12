@@ -27,7 +27,7 @@
 
           shellHook = ''
           echo "🔨 Welcome to The ForgeOfIdeas!"
-          mkdir -p node_modules/.bin
+          mkdir -p forge-of-ideas/node_modules/.bin
           ln -sf ${pkgs.electron}/bin/electron node_modules/.bin/electron
           echo "Linked Electron from Nixpkgs -> node_modules/.bin/electron"
           echo "Run 'yarn create @quick-start/electron' to bootstrap your project 🚀"
