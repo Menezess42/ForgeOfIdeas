@@ -1,0 +1,12 @@
+{
+    "appId": "com.dwarf-Software.forge-of-ideas",
+    "files": ["dist-electron", "dist-react"],
+    "icon": "./desktopIcon.png",
+    "mac":{
+        "target": "AppImage",
+        "category": "Utility"
+    },
+    "win":{
+        "target": ["portable", "msi"]
+    }
+}
