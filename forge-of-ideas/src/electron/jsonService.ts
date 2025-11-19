@@ -1,4 +1,4 @@
-import { getIdeasPath} from './ensureDirs.js';
+import { getIdeasPath} from './ensureBaseFiles.js';
 import path from 'path';
 import fs from 'fs';
 

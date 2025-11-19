@@ -1,7 +1,7 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import * as path from 'path';
 import { isDev } from './utils.js';
-import {ensureIdeasFolder} from './ensureDirs.js';
+import {ensureAnvilFile, ensureIdeasFolder, ensureShelfFile} from './ensureBaseFiles.js';
 import { getPreloadPath } from './pathResolver.js';
 import {saveJsonToIdeas} from './jsonService.js';
 
@@ -11,6 +11,8 @@ ipcMain.on('save-data', (event, json) => {
 
 app.on("ready", ()=>{
     ensureIdeasFolder();
+    ensureShelfFile();
+    ensureAnvilFile();
     const mainWindow = new BrowserWindow({
         webPreferences: {
             preload: getPreloadPath()
