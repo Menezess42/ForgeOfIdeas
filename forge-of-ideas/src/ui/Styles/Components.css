@@ -103,10 +103,17 @@
 .Button:active {
   background-color: #6F767D;
 }
-.IdeasShelf{
-    background-color: rgb(255, 55, 100, 0.25);
-    margin-top: 25%;
-    margin-bottom: 21%;
+.IdeasShelf {
+    /* background-color: rgba(255, 55, 100, 0.25); */
+    margin-top: 27%;
+    margin-bottom: 23%;
+    margin-left: 1%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* opcional */
+    
+    height: auto; /* ou defina um valor fixo, ex: 400px */
 }
 
 .Anvil {
@@ -283,4 +290,56 @@
 .h1Modal{
     text-align: center;
     color: #f7941e;
+}
+
+.idea-square:hover {
+  transform: scale(1.05);
+}
+
+/* .shelf-1, .shelf-2, .shelf-3, .shelf-4 { */
+/*   display: flex; */
+/*   background-color: white; */
+/*   flex-wrap: wrap; */
+/*   align-content: flex-end; */
+/*   gap: 3px; */
+/*   padding: 5px 5px 0px 5px;  /* ← ZERA o padding-bottom */
+/*   height: 135px; */
+/*   min-height: 120px; */
+/* } */
+
+.shelf-1, .shelf-2, .shelf-3, .shelf-4 {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  gap: 3px;
+  padding: 5px 5px 0px 5px;
+  height: 135px;
+  min-height: 120px;
+  position: relative;  /* ← permite usar top */
+  margin-left: 5px;
+}
+
+.shelf-1 {
+  top: 6px;  /* ← ajusta individualmente */
+}
+
+.shelf-2 {
+  top: 7px;
+}
+
+.shelf-3 {
+  top: 8px;
+}
+
+.shelf-4 {
+  top: 4px;
+}
+
+.idea-square {
+  width: calc(22%);
+  height: calc(50% - 5.0px);
+  border: 3px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }

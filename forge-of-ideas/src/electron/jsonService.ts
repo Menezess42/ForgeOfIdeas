@@ -7,12 +7,22 @@ interface IdeaData {
     nivel: 1 | 2 | 3;
     cor: string;
     descricao: string;
+    path?: string;
 }
-
+//
 interface shelfStructure{
     "1": Record<string, { cor: string, path: string}>;
     "2": Record<string, { cor: string, path: string}>;
     "3": Record<string, { cor: string, path: string}>;
+}
+interface ShelfIdea {
+  cor: string;
+  path: string;
+}
+interface ShelfStructure {
+  "1": Record<string, ShelfIdea>;
+  "2": Record<string, ShelfIdea>;
+  "3": Record<string, ShelfIdea>;
 }
 
 export function saveJsonToIdeas(json: unknown){
@@ -39,4 +49,30 @@ export function saveJsonToIdeas(json: unknown){
     };
 
     fs.writeFileSync(shelfPath, JSON.stringify(shelf, null, 2), 'utf-8');
+}
+
+export function loadShelfData(): IdeaData[] {
+  const shelfPath = path.join(getIdeasPath(), 'shelf.json');
+  const shelfContent = fs.readFileSync(shelfPath, 'utf-8');
+  const shelf: ShelfStructure = JSON.parse(shelfContent); // ← TIPAGEM AQUI
+  
+  const allIdeas: IdeaData[] = [];
+  
+  // Percorre os níveis em ordem (1, 2, 3)
+  for (const nivel of ['1', '2', '3'] as const) {
+    const ideasDoNivel = shelf[nivel];
+    
+    // Para cada ideia desse nível
+    for (const [nome, dados] of Object.entries(ideasDoNivel)) {
+      allIdeas.push({
+        nome: nome,
+        nivel: Number(nivel) as 1 | 2 | 3,
+        cor: dados.cor,
+        descricao: '', // ← VAZIO por enquanto (só tem no arquivo individual)
+        path: dados.path
+      });
+    }
+  }
+  
+  return allIdeas;
 }

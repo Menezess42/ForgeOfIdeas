@@ -3,10 +3,14 @@ import * as path from 'path';
 import { isDev } from './utils.js';
 import {ensureAnvilFile, ensureIdeasFolder, ensureShelfFile} from './ensureBaseFiles.js';
 import { getPreloadPath } from './pathResolver.js';
-import {saveJsonToIdeas} from './jsonService.js';
+import {saveJsonToIdeas, loadShelfData} from './jsonService.js';
 
 ipcMain.on('save-data', (event, json) => {
     saveJsonToIdeas(json);
+});
+
+ipcMain.handle('load-ideas', () => {
+  return loadShelfData();
 });
 
 app.on("ready", ()=>{
