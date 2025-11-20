@@ -1,20 +1,20 @@
 import "../Styles/Components.css";
 import { useState} from 'react';
+import  type { IdeaData} from './Modal';
 
-export default function Shelf() {
-    const handleButtonClick = async () => {
-        window.api.saveClick();
-        window.api.saveData({
-            title: "Teste",
-            createdAt: new Date().toISOString()
-        });
-    };
+interface ShelfProps{
+    openModal: ()=>void;
+    ideas: IdeaData[];
+}
+
+
+export default function Shelf({openModal, ideas}: ShelfProps) {
     return (
         <div className="Shelf">
             <div className="ButtonDiv item-1">
                 <div className="ButtonArea BA-left">
                     <button 
-                    onClick = {handleButtonClick}
+                    onClick = {openModal}
                     className="Button B-plus"><h1>+</h1></button>
                 </div>
             </div>
