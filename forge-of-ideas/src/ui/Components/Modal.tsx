@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../Styles/Components.css'; // seu CSS
+import '../Styles/Components.css';
 
 interface ModalProps {
   isOpen: boolean;
@@ -14,34 +14,42 @@ export interface IdeaData {
   descricao: string;
 }
 
+
 export default function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
   const [nome, setNome] = useState('');
   const [nivel, setNivel] = useState<1 | 2 | 3>(1);
   const [cor, setCor] = useState('#000000');
   const [descricao, setDescricao] = useState('');
+  const [error, setError] = useState<string | null>(null); 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     const data: IdeaData = { nome, nivel, cor, descricao };
-    onSubmit(data);
     
-    // Limpa o formulário
+    const validationError = onSubmit(data);
+    
+    if (validationError) {
+      setError(validationError);
+      setTimeout(() => setError(null), 3000); // clear after 3s
+      return; // doesn't close modal
+    }
+    
     setNome('');
     setNivel(1);
     setCor('#000000');
     setDescricao('');
+    setError(null);
     
     onClose();
   };
-
-  if (!isOpen) return null; // Não renderiza se estiver fechado
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h1 className="h1Modal">Ideia</h1>
-        
+      {error && <div className="error-toast">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div>
             <label>Nome:</label>
@@ -54,16 +62,41 @@ export default function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
           </div>
 
           <div>
-            <label>Nível:</label>
-            <select
-              value={nivel}
-              onChange={(e) => setNivel(Number(e.target.value) as 1 | 2 | 3)}
-              required
-            >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-            </select>
+          <label>Nível:</label>
+          <div className="radio-group">
+          <label className="radio-option">
+          <input
+          type="radio"
+          name="nivel"
+          value={1}
+          checked={nivel === 1}
+          onChange={(e) => setNivel(Number(e.target.value) as 1 | 2 | 3)}
+          />
+          <span>1</span>
+          </label>
+
+          <label className="radio-option">
+          <input
+          type="radio"
+          name="nivel"
+          value={2}
+          checked={nivel === 2}
+          onChange={(e) => setNivel(Number(e.target.value) as 1 | 2 | 3)}
+          />
+          <span>2</span>
+          </label>
+
+          <label className="radio-option">
+          <input
+          type="radio"
+          name="nivel"
+          value={3}
+          checked={nivel === 3}
+          onChange={(e) => setNivel(Number(e.target.value) as 1 | 2 | 3)}
+          />
+          <span>3</span>
+          </label>
+          </div>
           </div>
 
           <div>

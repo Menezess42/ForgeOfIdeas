@@ -9,37 +9,36 @@ import { useState, useEffect } from 'react'
 export default function Content(){
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [ideas, setIdeas] = useState<IdeaData[]>([]);
-    
-    // Carrega as ideias quando o componente monta
     useEffect(() => {
         const loadIdeas = async () => {
             const loadedIdeas = await window.api.loadIdeas();
             setIdeas(loadedIdeas);
         };
         loadIdeas();
-    }, []); // Array vazio = executa só uma vez ao montar
-    
+    }, []);
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
-    
-    const handleModalSubmit = (data: IdeaData) => {
-        console.log('Nova ideia recebida: ', data);
+    const [error, setError] = useState<string | null>(null);
+    const handleModalSubmit = (data: IdeaData): string | null => {
+        const ideaExists = ideas.some(idea => idea.nome === data.nome);
 
-        // Adiciona a nova ideia
+        if (ideaExists) {
+            return `Existent Idea name: "${data.nome}"!`;
+        }
+
         const updatedIdeas = [...ideas, data];
-
-        // Reordena por nível (1, 2, 3)
         updatedIdeas.sort((a, b) => a.nivel - b.nivel);
-
-        // Atualiza o estado com array ordenado
         setIdeas(updatedIdeas);
-
-        // Salva nos arquivos
         window.api.saveData(data);
-    } 
+
+        return null; // no error
+    }
+
+{error && <div className="error-toast">{error}</div>}
 
     return (
         <main className="Content">
+        {error && <div className="error-toast">{error}</div>}
             <Modal
                 isOpen={isModalOpen}
                 onClose={closeModal}
@@ -51,35 +50,3 @@ export default function Content(){
         </main>
     );
 }
-// import { useState } from 'react'
-//
-//
-// export default function Content(){
-//     const [isModalOpen, setIsModalOpen] = useState(false)
-//     const [ideas, setIdeas] = useState<IdeaData[]>([]); // Armazena todas as ideias
-//
-//     const openModal = () => setIsModalOpen(true);
-//     const closeModal = () => setIsModalOpen(false);
-//
-//     const handleModalSubmit = (data: IdeaData) => {
-//         console.log('Nova ideia recebida: ', data);
-//
-//         // "salva" no react
-//         setIdeas([...ideas, data]);
-//
-//         // Salva nos arquivos
-//         window.api.saveData(data);
-//     }
-// return (
-//     <main className="Content">
-//     < Modal
-//     isOpen={isModalOpen}
-//     onClose={closeModal}
-//     onSubmit={handleModalSubmit}
-//     />
-//     <Shelf openModal={openModal} ideas={ideas} />
-//     <Anvil/>
-//     <Furnace />
-//     </main>
-// );
-// }
