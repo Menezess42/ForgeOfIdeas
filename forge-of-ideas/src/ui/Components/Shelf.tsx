@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../Styles/Shelf.css";
-import type { IdeaData } from './Modal';
+import type { IdeaData } from './IdeaRegistrationModal';
 
 interface ShelfProps {
   openModal: () => void; 

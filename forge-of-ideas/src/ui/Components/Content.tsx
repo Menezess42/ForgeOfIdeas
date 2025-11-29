@@ -2,13 +2,13 @@ import '../Styles/Content.css'
 import Shelf from './Shelf.jsx'
 import Anvil from './Anvil.jsx'
 import Furnace from './Furnace.jsx'
-import Modal from './Modal.jsx'
-import type {IdeaData} from './Modal.tsx'
+import Modal from './IdeaRegistrationModal.jsx'
+import type {IdeaData} from './IdeaRegistrationModal.jsx'
 import { useState, useEffect } from 'react'
 
 export default function Content(){
 
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
     const [ideas, setIdeas] = useState<IdeaData[]>([]);
 
     useEffect(() => {
@@ -19,12 +19,12 @@ export default function Content(){
         loadIdeas();
     }, []);
 
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    const openRegistrationModal = () => setIsRegistrationModalOpen(true);
+    const closeRegistrationModal = () => setIsRegistrationModalOpen(false);
 
     const [error, setError] = useState<string | null>(null);
 
-    const handleModalSubmit = (data: IdeaData): string | null => {
+    const handleRegistrationSubmit = (data: IdeaData): string | null => {
         const ideaExists = ideas.some(idea => idea.nome === data.nome);
 
         if (ideaExists) {
@@ -45,11 +45,11 @@ export default function Content(){
         <main className="Content">
         {error && <div className="error-toast">{error}</div>}
             <Modal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                onSubmit={handleModalSubmit}
+                isOpen={isRegistrationModalOpen}
+                onClose={closeRegistrationModal}
+                onSubmit={handleRegistrationSubmit}
             />
-            <Shelf openModal={openModal} ideas={ideas} />
+            <Shelf openModal={openRegistrationModal} ideas={ideas} />
             <Anvil/>
             <Furnace />
         </main>
