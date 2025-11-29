@@ -7,8 +7,10 @@ import type {IdeaData} from './Modal.tsx'
 import { useState, useEffect } from 'react'
 
 export default function Content(){
+
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [ideas, setIdeas] = useState<IdeaData[]>([]);
+
     useEffect(() => {
         const loadIdeas = async () => {
             const loadedIdeas = await window.api.loadIdeas();
@@ -16,9 +18,12 @@ export default function Content(){
         };
         loadIdeas();
     }, []);
+
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+
     const [error, setError] = useState<string | null>(null);
+
     const handleModalSubmit = (data: IdeaData): string | null => {
         const ideaExists = ideas.some(idea => idea.nome === data.nome);
 
