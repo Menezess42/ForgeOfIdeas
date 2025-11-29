@@ -2,7 +2,7 @@ import '../Styles/Content.css'
 import Shelf from './Shelf.jsx'
 import Anvil from './Anvil.jsx'
 import Furnace from './Furnace.jsx'
-import Modal from './IdeaRegistrationModal.jsx'
+import RegistrationModal from './IdeaRegistrationModal.jsx'
 import type {IdeaData} from './IdeaRegistrationModal.jsx'
 import { useState, useEffect } from 'react'
 
@@ -44,7 +44,7 @@ export default function Content(){
     return (
         <main className="Content">
         {error && <div className="error-toast">{error}</div>}
-            <Modal
+            <RegistrationModal
                 isOpen={isRegistrationModalOpen}
                 onClose={closeRegistrationModal}
                 onSubmit={handleRegistrationSubmit}

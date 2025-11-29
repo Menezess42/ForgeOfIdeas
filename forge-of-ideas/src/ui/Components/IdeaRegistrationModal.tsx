@@ -16,10 +16,10 @@ export interface IdeaData {
 }
 
 
-export default function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
+export default function RegistrationModal({ isOpen, onClose, onSubmit }: ModalProps) {
   const [nome, setNome] = useState('');
   const [nivel, setNivel] = useState<1 | 2 | 3>(1);
-  const [cor, setCor] = useState('#000000');
+  const [cor, setCor] = useState('#eac26c');
   const [descricao, setDescricao] = useState('');
   const [error, setError] = useState<string | null>(null); 
 
