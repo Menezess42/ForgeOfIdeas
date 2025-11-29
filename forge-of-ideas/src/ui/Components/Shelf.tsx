@@ -5,10 +5,9 @@ import type { IdeaData } from './Modal';
 interface ShelfProps {
   openModal: () => void; 
   ideas: IdeaData[];
-  openVisualizationModal: () => void; 
 }
 
-export default function Shelf({ openModal, ideas, openVisualizationModal }: ShelfProps) {
+export default function Shelf({ openModal, ideas}: ShelfProps) {
   const [offset, setOffset] = useState(0);
 
   const getBorderColor = (nivel: 1 | 2 | 3): string => {
