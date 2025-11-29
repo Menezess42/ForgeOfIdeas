@@ -1,0 +1,12 @@
+.Furnace{
+    background-image: url("../Assets/furnace.png");
+}
+
+.Furnace{
+    background-image: url("../Assets/furnace.png");
+    width: 420px;
+    height: 515px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+

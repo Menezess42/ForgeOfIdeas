@@ -1,0 +1,36 @@
+.Content{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+}
+
+.error-toast {
+  position: fixed;
+  top: -100px; /* starts above screen */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #002c3c;
+  color: #f7941e;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  z-index: 2000;
+  animation: slideDown 3s ease-in-out;
+}
+
+@keyframes slideDown {
+  0% {
+    top: -100px;
+  }
+  10%, 90% {
+    top: 20px; /* stays at top for most of duration */
+  }
+  100% {
+    top: -100px;
+  }
+}

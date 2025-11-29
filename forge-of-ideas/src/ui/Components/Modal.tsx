@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import '../Styles/Components.css';
+import '../Styles/Modal.css';
+import '../Styles/Content.css';
 
 interface ModalProps {
   isOpen: boolean;

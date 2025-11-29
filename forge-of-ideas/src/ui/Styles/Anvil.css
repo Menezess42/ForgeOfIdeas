@@ -1,0 +1,12 @@
+.Anvil {
+    display: flex;
+    width: 250px;
+    height: 290px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.Anvil-img{
+    width: 200px;
+}

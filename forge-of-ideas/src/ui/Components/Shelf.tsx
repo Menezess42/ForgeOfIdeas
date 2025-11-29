@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../Styles/Components.css";
+import "../Styles/Shelf.css";
 import type { IdeaData } from './Modal';
 
 interface ShelfProps {

@@ -1,0 +1,135 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  color: #00d2c3;
+  background-image: url("../Assets/backgroundWall2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 2rem;
+  border-radius: 8px;
+  min-width: 400px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.h1Modal{
+    text-align: center;
+    color: #f7941e;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.radio-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.radio-option span {
+  font-size: 1rem;
+}
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.modal-buttons button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.modal-buttons button[type="button"] {
+  color: white;
+  background-color: #212121;
+}
+
+.modal-buttons button[type="submit"] {
+  background-color: #002c3c;
+  color: white;
+}
+
+.modal-buttons button:hover {
+  opacity: 0.9;
+}
+
+.forms{
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #002c3c;
+    color: #00D2c3;
+    padding: 4rem;
+    border-radius: 8px;
+}
+.formsH2{
+    color: #f7941e;
+}
+
+
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.modal-content form > div {
+  margin-bottom: 1rem;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  background-color: #212121;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.modal-content input[type="color"] {
+  padding: 0.25rem;
+  height: 40px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.modal-content textarea {
+  min-height: 100px;
+  resize: vertical;
+}

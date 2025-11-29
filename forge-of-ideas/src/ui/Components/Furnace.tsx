@@ -1,5 +1,5 @@
 // src/components/Shelf.jsx
-import '../Styles/Components.css'
+import '../Styles/Furnace.css'
 export default function Furnace() {
   return (
     <div className="Furnace">

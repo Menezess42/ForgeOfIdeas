@@ -1,4 +1,4 @@
-import '../Styles/Components.css'
+import '../Styles/Content.css'
 import Shelf from './Shelf.jsx'
 import Anvil from './Anvil.jsx'
 import Furnace from './Furnace.jsx'

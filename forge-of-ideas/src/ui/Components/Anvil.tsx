@@ -1,5 +1,5 @@
 // src/components/Anvil.jsx
-import '../Styles/Components.css'
+import '../Styles/Anvil.css'
 import anvil from '../Assets/anvil.png'
 export default function Anvil() {
   return (
