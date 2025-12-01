@@ -9,6 +9,15 @@ import { useState, useEffect } from 'react'
 export default function Content(){
 
     const [ideas, setIdeas] = useState<IdeaData[]>([]);
+    const [selectedIdea, setSelectedIdea] = useState<IdeaData | null>(null);
+
+    const handleIdeaClick = async(ideaPath: string) => {
+        const ideaDetails = await window.api.getIdeaDetails(ideaPath);
+        ideaDetails.path = ideaPath;
+        setSelectedIdea(ideaDetails);
+        openDisplayModal();
+    }
+
     useEffect(() => {
         const loadIdeas = async () => {
             const loadedIdeas = await window.api.loadIdeas();
@@ -18,36 +27,42 @@ export default function Content(){
     }, []);
     const [error, setError] = useState<string | null>(null);
 
-    // REGISTRATION modal STUFF
     const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
 
     const openRegistrationModal = () => setIsRegistrationModalOpen(true);
     const closeRegistrationModal = () => setIsRegistrationModalOpen(false);
 
-    const handleRegistrationSubmit = (data: IdeaData): string | null => {
+    const handleRegistrationSubmit = async (data: IdeaData): Promise<string | null> => {
         const ideaExists = ideas.some(idea => idea.nome === data.nome);
 
         if (ideaExists) {
             return `Existent Idea name: "${data.nome}"!`;
         }
 
-        const updatedIdeas = [...ideas, data];
-        updatedIdeas.sort((a, b) => a.nivel - b.nivel);
-        setIdeas(updatedIdeas);
-        window.api.saveData(data);
+        try {
+            const savedPath = await window.api.saveData(data);
 
-        return null;
+            if (!savedPath) {
+                return "Erro ao salvar a ideia";
+            }
+
+            const updatedData: IdeaData = { ...data, path: savedPath };
+            const updatedIdeas = [...ideas, updatedData];
+            updatedIdeas.sort((a, b) => a.nivel - b.nivel);
+            setIdeas(updatedIdeas);
+
+            return null; // Sucesso - modal vai fechar
+        } catch (error) {
+            console.error('Error saving idea:', error);
+            return "Erro ao salvar a ideia";
+        }
     }
 
-    // DISPLAY modal STFF
     const [isDisplaymodalOpen, setIsDisplayModalOpen] = useState(false)
 
     const openDisplayModal = () => setIsDisplayModalOpen(true);
     const closeDisplayModal = () => setIsDisplayModalOpen(false);
 
-    // delete
-    // editor
-    // forge
 
 {error && <div className="error-toast">{error}</div>}
 
@@ -62,8 +77,9 @@ export default function Content(){
             <IdeaDisplayModal
                 isOpen={isDisplaymodalOpen}
                 onClose={closeDisplayModal}
+                ideaData={selectedIdea}
             />
-            <Shelf openRegistrationModal={openRegistrationModal} ideas={ideas} openDisplayModal={openDisplayModal}/>
+            <Shelf openRegistrationModal={openRegistrationModal} ideas={ideas} onIdeaClick={handleIdeaClick}/>
             <Anvil/>
             <Furnace />
         </main>

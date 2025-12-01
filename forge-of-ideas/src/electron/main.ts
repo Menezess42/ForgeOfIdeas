@@ -3,14 +3,38 @@ import * as path from 'path';
 import { isDev } from './utils.js';
 import {ensureAnvilFile, ensureIdeasFolder, ensureShelfFile} from './ensureBaseFiles.js';
 import { getPreloadPath } from './pathResolver.js';
-import {saveJsonToIdeas, loadShelfData} from './jsonService.js';
+import {saveJsonToIdeas, loadShelfData, readIdeaFile} from './jsonService.js';
 
-ipcMain.on('save-data', (event, json) => {
-    saveJsonToIdeas(json);
+
+interface IdeaData {
+    nome: string;
+    nivel: 1 | 2 | 3;
+    cor: string;
+    descricao: string;
+    path?: string;
+}
+
+ipcMain.handle('save-data', async (event, data: IdeaData) => {
+    try {
+        const savedPath = saveJsonToIdeas(data);
+        return savedPath;
+    } catch (error) {
+        console.error('Error in save-data handler:', error);
+        throw error;
+    }
 });
-
 ipcMain.handle('load-ideas', () => {
   return loadShelfData();
+});
+
+ipcMain.handle('get-idea-details', async (event, ideaPath: string) => {
+    try{
+        const ideaDetails = await readIdeaFile(ideaPath);
+        return ideaDetails;
+    }catch (error){
+        console.error('Error loading idea details:', error);
+        throw error;
+    }
 });
 
 app.on("ready", ()=>{

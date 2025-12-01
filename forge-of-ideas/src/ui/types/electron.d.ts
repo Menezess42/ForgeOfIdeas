@@ -2,8 +2,9 @@ import type { IdeaData } from '../Modal';
 
 export interface ElectronAPI {
     saveClick: () => void;
-    saveData: (json: unknown) => void;
+    saveData: (json: json) => void;
     loadIdeas: () => Promise<IdeaData[]>;
+    getIdeaDetails: (ideaPath: string) => Promise<IdeaData>;
 }
 
 declare global {
@@ -15,7 +16,7 @@ declare global {
         nivel: 1 | 2 | 3;
         cor: string;
         descricao: string;
-        path?: string;
+        path: string;
     }
 }
 

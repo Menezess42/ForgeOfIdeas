@@ -5,17 +5,8 @@ import '../Styles/Content.css';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: IdeaData) => void;
+  onSubmit: (data: IdeaData) => Promise <string | null>;
 }
-
-// interface IdeaData {
-//   nome: string;
-//   nivel: 1 | 2 | 3;
-//   cor: string;
-//   descricao: string;
-//   path?: string;
-// }
-
 
 export default function RegistrationModal({ isOpen, onClose, onSubmit }: ModalProps) {
   const [nome, setNome] = useState('');
@@ -23,27 +14,27 @@ export default function RegistrationModal({ isOpen, onClose, onSubmit }: ModalPr
   const [cor, setCor] = useState('#eac26c');
   const [descricao, setDescricao] = useState('');
   const [error, setError] = useState<string | null>(null); 
+  const [path, setPath] = useState('');
+  const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const data: IdeaData = { nome, nivel, cor, descricao };
-    
-    const validationError = onSubmit(data);
-    
-    if (validationError) {
-      setError(validationError);
-      setTimeout(() => setError(null), 3000); // clear after 3s
-      return; // doesn't close modal
-    }
-    
-    setNome('');
-    setNivel(1);
-    setCor('#000000');
-    setDescricao('');
-    setError(null);
-    
-    onClose();
+      const data: IdeaData = { nome, nivel, cor, descricao, path};
+
+      const validationError = await onSubmit(data);
+
+      if (validationError) {
+          setError(validationError);
+          setTimeout(() => setError(null), 3000);
+          return;
+      }
+
+      setNome('');
+      setNivel(1);
+      setCor('##eac26c');
+      setDescricao('');
+      setError(null);
+
+      onClose();
   };
   if (!isOpen) return null;
 

@@ -5,9 +5,10 @@ interface ShelfProps {
   openRegistrationModal: () => void; 
   ideas: IdeaData[];
   openDisplayModal: () => void; 
+  onIdeaClick: (ideaPath: string) => void;
 }
 
-export default function Shelf({ openRegistrationModal, ideas, openDisplayModal}: ShelfProps) {
+export default function Shelf({ openRegistrationModal, ideas, onIdeaClick}: ShelfProps) {
   const [offset, setOffset] = useState(0);
 
   const getBorderColor = (nivel: 1 | 2 | 3): string => {
@@ -18,9 +19,7 @@ export default function Shelf({ openRegistrationModal, ideas, openDisplayModal}:
     };
     return colors[nivel];
   };
-  const placeHolder = ()=>{
-      console.log("placeHolder")
-  }
+
   const handleUp = () => {
       if (offset + 32 < ideas.length){
           setOffset(offset+8);
@@ -59,9 +58,8 @@ export default function Shelf({ openRegistrationModal, ideas, openDisplayModal}:
           <div key={shelfIndex}>
           <div className={`shelf-${shelfIndex + 1}`}>
           {shelfIdeas.map((idea, ideaIndex) => (
-              console.log(idea.path),
               <div
-              onClick={openDisplayModal}
+              onClick={() => onIdeaClick(idea.path)}
               key={ideaIndex}
               className="idea-square"
               style={{

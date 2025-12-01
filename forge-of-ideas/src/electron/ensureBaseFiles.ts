@@ -2,11 +2,6 @@ import {app} from 'electron';
 import path from 'path';
 import fs from 'fs';
 
-
-
-
-
-
 function getBasePath(): string{
     const isProd = app.isPackaged;
 
