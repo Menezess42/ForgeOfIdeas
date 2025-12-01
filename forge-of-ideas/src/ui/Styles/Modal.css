@@ -133,3 +133,22 @@
   min-height: 100px;
   resize: vertical;
 }
+
+.description-container{
+    flex: 1;
+    overflow-y: auto;
+    margin: 1rem;
+    background-color: #2e2e2e;
+    border-radius: 4px;
+    max-height: 300px;
+    padding: 1rem;
+    max-width: 600px;
+}
+
+.description-text{
+    margin: 0;
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}

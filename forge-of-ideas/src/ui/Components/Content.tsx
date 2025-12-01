@@ -3,14 +3,12 @@ import Shelf from './Shelf.jsx'
 import Anvil from './Anvil.jsx'
 import Furnace from './Furnace.jsx'
 import RegistrationModal from './IdeaRegistrationModal.jsx'
-import type {IdeaData} from './IdeaRegistrationModal.jsx'
+import IdeaDisplayModal from './IdeaDisplayModal.jsx'
 import { useState, useEffect } from 'react'
 
 export default function Content(){
 
-    const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
     const [ideas, setIdeas] = useState<IdeaData[]>([]);
-
     useEffect(() => {
         const loadIdeas = async () => {
             const loadedIdeas = await window.api.loadIdeas();
@@ -18,11 +16,13 @@ export default function Content(){
         };
         loadIdeas();
     }, []);
+    const [error, setError] = useState<string | null>(null);
+
+    // REGISTRATION modal STUFF
+    const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
 
     const openRegistrationModal = () => setIsRegistrationModalOpen(true);
     const closeRegistrationModal = () => setIsRegistrationModalOpen(false);
-
-    const [error, setError] = useState<string | null>(null);
 
     const handleRegistrationSubmit = (data: IdeaData): string | null => {
         const ideaExists = ideas.some(idea => idea.nome === data.nome);
@@ -36,8 +36,18 @@ export default function Content(){
         setIdeas(updatedIdeas);
         window.api.saveData(data);
 
-        return null; // no error
+        return null;
     }
+
+    // DISPLAY modal STFF
+    const [isDisplaymodalOpen, setIsDisplayModalOpen] = useState(false)
+
+    const openDisplayModal = () => setIsDisplayModalOpen(true);
+    const closeDisplayModal = () => setIsDisplayModalOpen(false);
+
+    // delete
+    // editor
+    // forge
 
 {error && <div className="error-toast">{error}</div>}
 
@@ -49,7 +59,11 @@ export default function Content(){
                 onClose={closeRegistrationModal}
                 onSubmit={handleRegistrationSubmit}
             />
-            <Shelf openModal={openRegistrationModal} ideas={ideas} />
+            <IdeaDisplayModal
+                isOpen={isDisplaymodalOpen}
+                onClose={closeDisplayModal}
+            />
+            <Shelf openRegistrationModal={openRegistrationModal} ideas={ideas} openDisplayModal={openDisplayModal}/>
             <Anvil/>
             <Furnace />
         </main>

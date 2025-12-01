@@ -1,13 +1,13 @@
 import { useState } from "react";
 import "../Styles/Shelf.css";
-import type { IdeaData } from './IdeaRegistrationModal';
 
 interface ShelfProps {
-  openModal: () => void; 
+  openRegistrationModal: () => void; 
   ideas: IdeaData[];
+  openDisplayModal: () => void; 
 }
 
-export default function Shelf({ openModal, ideas}: ShelfProps) {
+export default function Shelf({ openRegistrationModal, ideas, openDisplayModal}: ShelfProps) {
   const [offset, setOffset] = useState(0);
 
   const getBorderColor = (nivel: 1 | 2 | 3): string => {
@@ -46,7 +46,7 @@ export default function Shelf({ openModal, ideas}: ShelfProps) {
       <div className="ButtonDiv item-1">
         <div className="ButtonArea BA-left">
           <button 
-            onClick={openModal}
+            onClick={openRegistrationModal}
             className="Button B-plus"
           >
             <h1>+</h1>
@@ -59,8 +59,9 @@ export default function Shelf({ openModal, ideas}: ShelfProps) {
           <div key={shelfIndex}>
           <div className={`shelf-${shelfIndex + 1}`}>
           {shelfIdeas.map((idea, ideaIndex) => (
+              console.log(idea.path),
               <div
-              onClick={placeHolder}
+              onClick={openDisplayModal}
               key={ideaIndex}
               className="idea-square"
               style={{

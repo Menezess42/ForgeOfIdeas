@@ -8,12 +8,13 @@ interface ModalProps {
   onSubmit: (data: IdeaData) => void;
 }
 
-export interface IdeaData {
-  nome: string;
-  nivel: 1 | 2 | 3;
-  cor: string;
-  descricao: string;
-}
+// interface IdeaData {
+//   nome: string;
+//   nivel: 1 | 2 | 3;
+//   cor: string;
+//   descricao: string;
+//   path?: string;
+// }
 
 
 export default function RegistrationModal({ isOpen, onClose, onSubmit }: ModalProps) {
