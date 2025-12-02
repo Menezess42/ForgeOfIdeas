@@ -82,3 +82,49 @@ export async function readIdeaFile(ideaPath: string): Promise<IdeaData>{
         throw new Error(`Failed to read idea file: ${error.message}`);
     }
 }
+
+
+export function saveEdit(newData: IdeaData, oldData: IdeaData): string {
+    const ideasPath = getIdeasPath();
+    const oldPath = oldData.path;
+
+    const nameChanged = newData.nome !== oldData.nome;
+    const levelChanged = newData.nivel !== oldData.nivel;
+
+    const oldFileName = `${oldData.nome}.json`;
+    const newFileName = `${newData.nome}.json`;
+
+    const oldFilePath = path.join(ideasPath, oldFileName);
+    const newFilePath = path.join(ideasPath, newFileName);
+
+    // ---- Atualizar shelf ----
+    const shelfPath = getShelfPath();
+    const shelfContent = fs.readFileSync(shelfPath, "utf-8");
+    const shelf: shelfStructure = JSON.parse(shelfContent);
+
+    // Remover entrada antiga do shelf
+    const oldLevelKey = String(oldData.nivel) as "1" | "2" | "3";
+    delete shelf[oldLevelKey][oldData.nome];
+
+    // Criar nova entrada no shelf
+    const newLevelKey = String(newData.nivel) as "1" | "2" | "3";
+    shelf[newLevelKey][newData.nome] = {
+        cor: newData.cor,
+        path: newFilePath
+    };
+
+    // Se o nome mudou → excluir arquivo antigo e criar um novo
+    if (nameChanged) {
+        if (fs.existsSync(oldFilePath)) {
+            fs.unlinkSync(oldFilePath);
+        }
+    }
+
+    // Escrever arquivo atualizado
+    fs.writeFileSync(newFilePath, JSON.stringify(newData, null, 2), "utf-8");
+
+    // Atualizar shelf
+    fs.writeFileSync(shelfPath, JSON.stringify(shelf, null, 2), "utf-8");
+
+    return newFilePath;
+}

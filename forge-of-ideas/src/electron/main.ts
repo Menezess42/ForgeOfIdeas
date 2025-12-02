@@ -3,7 +3,7 @@ import * as path from 'path';
 import { isDev } from './utils.js';
 import {ensureAnvilFile, ensureIdeasFolder, ensureShelfFile} from './ensureBaseFiles.js';
 import { getPreloadPath } from './pathResolver.js';
-import {saveJsonToIdeas, loadShelfData, readIdeaFile} from './jsonService.js';
+import {saveJsonToIdeas, loadShelfData, readIdeaFile, saveEdit} from './jsonService.js';
 
 
 interface IdeaData {
@@ -13,6 +13,16 @@ interface IdeaData {
     descricao: string;
     path?: string;
 }
+
+ipcMain.handle("save-edit", (event, newData: IdeaData, oldData: IdeaData) => {
+    try {
+        const updatedPath = saveEdit(newData, oldData);
+        return updatedPath;
+    } catch (error) {
+        console.error("Error editing idea:", error);
+        throw error;
+    }
+});
 
 ipcMain.handle('save-data', async (event, data: IdeaData) => {
     try {

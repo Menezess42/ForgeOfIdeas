@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../Styles/Modal.css';
 import '../Styles/Content.css';
 
@@ -6,15 +6,35 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: IdeaData) => Promise <string | null>;
+  isEdit: boolean;
+  selectedIdea: IdeaData;
 }
 
-export default function RegistrationModal({ isOpen, onClose, onSubmit }: ModalProps) {
+export default function RegistrationModal({ isOpen, onClose, onSubmit, isEdit, selectedIdea }: ModalProps) {
+
   const [nome, setNome] = useState('');
   const [nivel, setNivel] = useState<1 | 2 | 3>(1);
   const [cor, setCor] = useState('#eac26c');
   const [descricao, setDescricao] = useState('');
   const [error, setError] = useState<string | null>(null); 
   const [path, setPath] = useState('');
+
+  useEffect(() => {
+      if (isEdit) {
+          setNome(selectedIdea.nome);
+          setNivel(selectedIdea.nivel);
+          setCor(selectedIdea.cor);
+          setDescricao(selectedIdea.descricao);
+          setPath(selectedIdea.path);
+      } else {
+          setNome('');
+          setNivel(1);
+          setCor('#eac26c');
+          setDescricao('');
+          setPath('');
+      }
+  }, [isEdit, selectedIdea]);
+
   const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
 

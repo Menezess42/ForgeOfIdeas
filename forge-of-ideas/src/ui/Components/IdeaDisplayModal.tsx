@@ -6,16 +6,25 @@ interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     ideaData: IdeaData;
+    setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    openRegistrationModal: () => void; 
 }
 
-
-
-export default function IdeaDisplayModal({ isOpen, onClose, ideaData}: ModalProps) {
-    console.log(ideaData);
+export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit, openRegistrationModal}: ModalProps) {
     const [error, setError] = useState<string | null>(null); 
 
 
     if (!isOpen) return null;
+
+    function handleEdit(){
+        setIsEdit(true);
+        onClose();
+        openRegistrationModal();
+    }
+
+    function button4DeleteIdea(){
+        onClose();
+    }
 
     return (
         <div className="modal-overlay" onClick={onClose}>
@@ -27,8 +36,8 @@ export default function IdeaDisplayModal({ isOpen, onClose, ideaData}: ModalProp
         </div>
         <div className="modal-buttons">
         <button type="button" onClick={onClose}>Close</button>
-        <button type="button">Edit</button>
-        <button type="button">Delete</button>
+        <button type="button" onClick={handleEdit}>Edit</button>
+        <button type="button" onClick={button4DeleteIdea}>Delete</button>
         <button type="button">Forge</button>
         </div>
         </div>

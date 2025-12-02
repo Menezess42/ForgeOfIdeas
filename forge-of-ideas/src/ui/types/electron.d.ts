@@ -1,10 +1,10 @@
 import type { IdeaData } from '../Modal';
 
 export interface ElectronAPI {
-    saveClick: () => void;
     saveData: (json: json) => void;
     loadIdeas: () => Promise<IdeaData[]>;
     getIdeaDetails: (ideaPath: string) => Promise<IdeaData>;
+    saveEdit: (data: IdeaData) => Promise<void>;
 }
 
 declare global {
