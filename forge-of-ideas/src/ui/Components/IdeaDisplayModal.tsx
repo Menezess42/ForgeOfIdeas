@@ -8,9 +8,11 @@ interface ModalProps {
     ideaData: IdeaData;
     setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
     openRegistrationModal: () => void; 
+    forgeIdea: () => Promise<string | null>; 
+    isForge: boolean;
 }
 
-export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit, openRegistrationModal}: ModalProps) {
+export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit, openRegistrationModal, forgeIdea, isForge}: ModalProps) {
     const [error, setError] = useState<string | null>(null); 
 
 
@@ -22,7 +24,13 @@ export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit,
         openRegistrationModal();
     }
 
+
     function button4DeleteIdea(){
+        onClose();
+    }
+
+    async function buttonForgeIdea(){
+        await forgeIdea();
         onClose();
     }
 
@@ -35,10 +43,20 @@ export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit,
         <h2 className="description-text">{ideaData.descricao}</h2>
         </div>
         <div className="modal-buttons">
-        <button type="button" onClick={onClose}>Close</button>
-        <button type="button" onClick={handleEdit}>Edit</button>
-        <button type="button" onClick={button4DeleteIdea}>Delete</button>
-        <button type="button">Forge</button>
+        {!isForge ? (
+            <>
+            <button type="button" onClick={onClose}>Close</button>
+            <button type="button" onClick={handleEdit}>Edit</button>
+            <button type="button" onClick={button4DeleteIdea}>Delete</button>
+            <button type="button" onClick={buttonForgeIdea}>Forge</button>
+            </>
+            
+        ) : (
+        <>
+        <button type="button">forged</button>
+        <button type="button">Delete</button>
+        </>
+        )}
         </div>
         </div>
         </div>

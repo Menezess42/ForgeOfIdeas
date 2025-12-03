@@ -26,10 +26,12 @@ interface ShelfStructure {
   "2": Record<string, ShelfIdea>;
   "3": Record<string, ShelfIdea>;
 }
+
 export function saveJsonToIdeas(json: IdeaData): string {
     const data = json;
     const ideasPath = getIdeasPath();
     const ideaFileName = `${data.nome}.json`;
+    data.path= path.join(ideasPath, ideaFileName);;
     const ideaFilePath = path.join(ideasPath, ideaFileName);
     fs.writeFileSync(ideaFilePath, JSON.stringify(json, null, 2), 'utf-8');
     const shelfPath = getShelfPath()
@@ -42,7 +44,41 @@ export function saveJsonToIdeas(json: IdeaData): string {
     };
     fs.writeFileSync(shelfPath, JSON.stringify(shelf, null, 2), 'utf-8');
     
-    return ideaFilePath; // RETORNA O CAMINHO
+    return ideaFilePath;
+}
+
+function removeIdeaFromShelf(ideaNome: string): string {
+    try {
+        const shelfPath = getShelfPath();
+        const shelfContent = fs.readFileSync(shelfPath, 'utf-8');
+        const shelf = JSON.parse(shelfContent);
+        
+        let found = false;
+        
+        for (const nivel of ['1', '2', '3']) {
+            if (shelf[nivel] && shelf[nivel][ideaNome]) {
+                delete shelf[nivel][ideaNome];
+                found = true;
+                break;
+            }
+        }
+        
+        if (!found) {
+            return "Can't delete";
+        }
+        
+        fs.writeFileSync(shelfPath, JSON.stringify(shelf, null, 2), 'utf-8');
+        
+        return "ok";
+    } catch (error) {
+        return "Can't delete";
+    }
+}
+
+export function forgeIdea(data: IdeaData): IdeaData {
+    const a = removeIdeaFromShelf(data.nome);
+    console.log(a);
+    return data;
 }
 
 export function loadShelfData(): IdeaData[] {
@@ -67,6 +103,13 @@ export function loadShelfData(): IdeaData[] {
   }
   
   return allIdeas;
+}
+
+export function loadForge(): IdeaData{
+  const anvilPath = path.join(getIdeasPath(), 'anvil.json');
+  const anvilContent = fs.readFileSync(anvilPath, 'utf-8');
+  const anvil: IdeaData = JSON.parse(anvilContent);
+  return anvil;
 }
 
 export async function readIdeaFile(ideaPath: string): Promise<IdeaData>{

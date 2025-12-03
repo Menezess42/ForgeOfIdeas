@@ -86,9 +86,6 @@
     border-style: solid;
 }
 
-.idea-square:hover {
-  transform: scale(1.05);
-}
 
 .shelf-1, .shelf-2, .shelf-3, .shelf-4 {
   display: flex;
@@ -125,4 +122,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: transform 0.2s;
+}
+.idea-square:hover {
+  transform: scale(1.05);
 }

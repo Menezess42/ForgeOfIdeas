@@ -12,6 +12,10 @@ export default function Content(){
     const [selectedIdea, setSelectedIdea] = useState<IdeaData | null>(null);
 
     const [isEdit, setIsEdit] = useState(false);
+    const [isForge, setIsForge] = useState(false);
+
+    const [forgingIdea, setForgingIdea] = useState<IdeaData|null>(null);
+
 
     const handleIdeaClick = async(ideaPath: string) => {
         const ideaDetails = await window.api.getIdeaDetails(ideaPath);
@@ -26,7 +30,15 @@ export default function Content(){
             setIdeas(loadedIdeas);
         };
         loadIdeas();
+        const loadForgeIdea = async () => {
+            const loadedForgeIdea = await window.api.loadForgeIdea();
+            if(loadedForgeIdea){
+                setForgingIdea(loadedForgeIdea)
+            }
+        };
+        loadForgeIdea();
     }, []);
+
     const [error, setError] = useState<string | null>(null);
 
     const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
@@ -87,6 +99,20 @@ export default function Content(){
         }
     };
 
+    const forgeIdea = async (): Promise<string | null> => {
+        try{
+            if(!forgingIdea){
+                const forgin = await window.api.forgeIdea(selectedIdea);
+                setIdeas(ideas.filter(item => item.nome !== selectedIdea?.nome));
+                return null;
+            }
+            return "Anvil dont accept more then one Idea"
+        } catch(error){
+            console.error("ERRO ao forjar:", error);
+            return "Error! Can't forge";
+        }
+    }
+
     const [isDisplaymodalOpen, setIsDisplayModalOpen] = useState(false)
 
     const openDisplayModal = () => setIsDisplayModalOpen(true);
@@ -111,9 +137,18 @@ export default function Content(){
                 isEdit={isEdit}
                 setIsEdit={setIsEdit}
                 openRegistrationModal={openRegistrationModal}
+                forgeIdea={forgeIdea}
+                setIsForge={setIsForge}
+                isForge={isForge}
             />
-            <Shelf openRegistrationModal={openRegistrationModal} ideas={ideas} onIdeaClick={handleIdeaClick}/>
-            <Anvil/>
+            <Shelf openRegistrationModal={openRegistrationModal} ideas={ideas} onIdeaClick={handleIdeaClick}
+            setIsForge={setIsForge}
+            />
+            <Anvil
+            onIdeaClick={handleIdeaClick}
+            forgeIdea={forgingIdea}
+            setIsForge={setIsForge}
+            />
             <Furnace />
         </main>
     );

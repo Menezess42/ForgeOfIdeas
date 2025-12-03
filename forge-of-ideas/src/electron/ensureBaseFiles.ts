@@ -52,10 +52,8 @@ export function getShelfPath(): string {
 export function ensureAnvilFile(): string {
     const ideasPath = getIdeasPath(); // pasta já existente
     const anvilPath = path.join(ideasPath, 'anvil.json');
-
     if (!fs.existsSync(anvilPath)) {
-        const initialContent = {};
-        fs.writeFileSync(anvilPath, JSON.stringify(initialContent, null, 2), 'utf-8');
+        fs.writeFileSync(anvilPath, JSON.stringify(null, null, 2), 'utf-8');
     }
 
     return anvilPath;

@@ -50,7 +50,7 @@ export default function RegistrationModal({ isOpen, onClose, onSubmit, isEdit, s
 
       setNome('');
       setNivel(1);
-      setCor('##eac26c');
+      setCor('#eac26c');
       setDescricao('');
       setError(null);
 

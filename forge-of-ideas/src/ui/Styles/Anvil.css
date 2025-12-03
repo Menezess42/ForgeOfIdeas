@@ -10,3 +10,15 @@
 .Anvil-img{
     width: 200px;
 }
+
+.idea-square {
+  width: calc(22%);
+  height: calc(50% - 5.0px);
+  border: 3px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.idea-square:hover {
+  transform: scale(1.05);
+}

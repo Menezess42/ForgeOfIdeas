@@ -5,6 +5,8 @@ export interface ElectronAPI {
     loadIdeas: () => Promise<IdeaData[]>;
     getIdeaDetails: (ideaPath: string) => Promise<IdeaData>;
     saveEdit: (data: IdeaData) => Promise<void>;
+    forgeIdea: (data: IdeaData) => Promise<IdeaData>;
+    loadForgeIdea: () => Promise<IdeaData>;
 }
 
 declare global {

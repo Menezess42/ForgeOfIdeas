@@ -6,9 +6,10 @@ interface ShelfProps {
   ideas: IdeaData[];
   openDisplayModal: () => void; 
   onIdeaClick: (ideaPath: string) => void;
+    setIsForge: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Shelf({ openRegistrationModal, ideas, onIdeaClick}: ShelfProps) {
+export default function Shelf({ openRegistrationModal, ideas, onIdeaClick, setIsForge}: ShelfProps) {
   const [offset, setOffset] = useState(0);
 
   const getBorderColor = (nivel: 1 | 2 | 3): string => {
@@ -39,7 +40,10 @@ export default function Shelf({ openRegistrationModal, ideas, onIdeaClick}: Shel
       ideas.slice(offset + 24, offset + 32)
     ];
 
-  
+  function openDisplay(ideaPath: string){
+      setIsForge(false);
+      onIdeaClick(ideaPath);
+  }
   return (
     <div className="Shelf">
       <div className="ButtonDiv item-1">
@@ -59,7 +63,7 @@ export default function Shelf({ openRegistrationModal, ideas, onIdeaClick}: Shel
           <div className={`shelf-${shelfIndex + 1}`}>
           {shelfIdeas.map((idea, ideaIndex) => (
               <div
-              onClick={() => onIdeaClick(idea.path)}
+              onClick={() => openDisplay(idea.path)}
               key={ideaIndex}
               className="idea-square"
               style={{

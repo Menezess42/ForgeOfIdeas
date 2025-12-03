@@ -3,7 +3,7 @@ import * as path from 'path';
 import { isDev } from './utils.js';
 import {ensureAnvilFile, ensureIdeasFolder, ensureShelfFile} from './ensureBaseFiles.js';
 import { getPreloadPath } from './pathResolver.js';
-import {saveJsonToIdeas, loadShelfData, readIdeaFile, saveEdit} from './jsonService.js';
+import {saveJsonToIdeas, loadShelfData, readIdeaFile, saveEdit, loadForge, forgeIdea} from './jsonService.js';
 
 
 interface IdeaData {
@@ -33,8 +33,26 @@ ipcMain.handle('save-data', async (event, data: IdeaData) => {
         throw error;
     }
 });
+
+ipcMain.handle('forge-idea', async (event, data: IdeaData)=> {
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    try{
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        console.log(data)
+        const anvil = forgeIdea(data);
+        return anvil;
+    } catch (error) {
+        console.error('Error in save-data handler:', error);
+        throw error;
+    }
+})
+
 ipcMain.handle('load-ideas', () => {
   return loadShelfData();
+});
+
+ipcMain.handle('load-forge-idea', () => {
+  return loadForge();
 });
 
 ipcMain.handle('get-idea-details', async (event, ideaPath: string) => {
