@@ -11,7 +11,7 @@
 
 .error-toast {
   position: fixed;
-  top: -100px; /* starts above screen */
+  top: -100px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #002c3c;
@@ -28,7 +28,7 @@
     top: -100px;
   }
   10%, 90% {
-    top: 20px; /* stays at top for most of duration */
+    top: 20px;
   }
   100% {
     top: -100px;

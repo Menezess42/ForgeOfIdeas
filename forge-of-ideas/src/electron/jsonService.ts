@@ -16,8 +16,7 @@ interface shelfStructure{
     "3": Record<string, { cor: string, path: string}>;
 }
 
-interface ShelfIdea {
-  cor: string;
+interface ShelfIdea { cor: string;
   path: string;
 }
 
@@ -64,14 +63,14 @@ function removeIdeaFromShelf(ideaNome: string): string {
         }
         
         if (!found) {
-            return "Can't delete";
+            return "Error Not Found";
         }
         
         fs.writeFileSync(shelfPath, JSON.stringify(shelf, null, 2), 'utf-8');
         
         return "ok";
-    } catch (error) {
-        return "Can't delete";
+    } catch(error) {
+        return "Error";
     }
 }
 
@@ -108,24 +107,30 @@ export function loadShelfData(): IdeaData[] {
   return allIdeas;
 }
 
-export function loadForge(): IdeaData{
+export function loadForge(): IdeaData|null{
   const anvilPath = path.join(getIdeasPath(), 'anvil.json');
   const anvilContent = fs.readFileSync(anvilPath, 'utf-8');
+  if(!anvilContent)
+      return null
   const anvil: IdeaData = JSON.parse(anvilContent);
   return anvil;
 }
 
 export async function readIdeaFile(ideaPath: string): Promise<IdeaData>{
-    console.log('Entrou em readIdeaFile')
     try{
         const fullPath = path.resolve(ideaPath);
         // const fileContent = await fs.readFile(fullPath, 'utf-8');
         const fileContent = await fs.readFileSync(fullPath, 'utf-8');
         const ideaData: IdeaData = JSON.parse(fileContent);
         return ideaData;
-    } catch (error){
+    } catch (error) {
         console.error(`Error reading idea file at ${ideaPath}: `, error);
-        throw new Error(`Failed to read idea file: ${error.message}`);
+
+        if (error instanceof Error) {
+            throw new Error(`Failed to read idea file: ${error.message}`);
+        }
+
+        throw new Error(`Failed to read idea file: ${String(error)}`);
     }
 }
 
@@ -166,11 +171,45 @@ export function saveEdit(newData: IdeaData, oldData: IdeaData): string {
         }
     }
 
-    // Escrever arquivo atualizado
     fs.writeFileSync(newFilePath, JSON.stringify(newData, null, 2), "utf-8");
 
-    // Atualizar shelf
     fs.writeFileSync(shelfPath, JSON.stringify(shelf, null, 2), "utf-8");
 
     return newFilePath;
+}
+
+function removeIdeaFromAnvil(ideaNome: string): string {
+    try {
+        const anvilPath = getAnvilPath();
+        const anvilContent = fs.readFileSync(anvilPath, 'utf-8');
+        const anvil = JSON.parse(anvilContent);
+
+        let found = false;
+
+        if (anvil.nome && ideaNome) {
+            found = true;
+        }
+
+        if (!found) {
+            return "Error Not Found";
+        }
+
+        fs.writeFileSync(anvilPath,  JSON.stringify("", null, 2), "utf-8");
+
+        return "ok";
+    } catch (error) {
+        return "Error Not Found";
+    }
+}
+
+export function deleteIdea(data: IdeaData): string|null{
+    let response;
+    response = removeIdeaFromAnvil(data.nome);
+    if(response=="Error Not Found")
+        response = removeIdeaFromShelf(data.nome);
+    if(response=="ok" && data.path){
+        fs.unlinkSync(data.path);
+        return null;
+    }
+    return "Error";
 }

@@ -63,16 +63,15 @@
   background-color: #6F767D;
 }
 .IdeasShelf {
-    /* background-color: rgba(255, 55, 100, 0.25); */
     margin-top: 27%;
     margin-bottom: 23%;
     margin-left: 1%;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* opcional */
+    justify-content: space-between;
     
-    height: auto; /* ou defina um valor fixo, ex: 400px */
+    height: auto;
 }
 
 .Idea{

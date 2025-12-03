@@ -61,11 +61,11 @@ export default function RegistrationModal({ isOpen, onClose, onSubmit, isEdit, s
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h1 className="h1Modal">Ideia</h1>
+        <h1 className="h1Modal">Idea</h1>
       {error && <div className="error-toast">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Nome:</label>
+            <label>Name:</label>
             <input
               type="text"
               value={nome}
@@ -75,7 +75,7 @@ export default function RegistrationModal({ isOpen, onClose, onSubmit, isEdit, s
           </div>
 
           <div>
-          <label>Nível:</label>
+          <label>Priority:</label>
           <div className="radio-group">
           <label className="radio-option">
           <input
@@ -113,7 +113,7 @@ export default function RegistrationModal({ isOpen, onClose, onSubmit, isEdit, s
           </div>
 
           <div>
-            <label>Cor:</label>
+            <label>Color:</label>
             <input
               type="color"
               id="color-picker"
@@ -123,7 +123,7 @@ export default function RegistrationModal({ isOpen, onClose, onSubmit, isEdit, s
           </div>
 
           <div>
-            <label>Descrição:</label>
+            <label>Description:</label>
             <textarea
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
@@ -132,8 +132,8 @@ export default function RegistrationModal({ isOpen, onClose, onSubmit, isEdit, s
           </div>
 
           <div className="modal-buttons">
-            <button type="button" onClick={onClose}>Cancelar</button>
-            <button type="submit">Salvar</button>
+            <button type="button" onClick={onClose}>Cancel</button>
+            <button type="submit">Save</button>
           </div>
         </form>
       </div>

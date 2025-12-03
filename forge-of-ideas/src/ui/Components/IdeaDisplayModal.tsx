@@ -9,10 +9,11 @@ interface ModalProps {
     setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
     openRegistrationModal: () => void; 
     forgeIdea: () => Promise<string | null>; 
+    deleteIdea: () => Promise<string | null>; 
     isForge: boolean;
 }
 
-export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit, openRegistrationModal, forgeIdea, isForge}: ModalProps) {
+export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit, openRegistrationModal, forgeIdea, isForge, deleteIdea}: ModalProps) {
     const [error, setError] = useState<string | null>(null); 
 
 
@@ -26,7 +27,7 @@ export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit,
 
 
     function button4DeleteIdea(){
-        onClose();
+        deleteIdea();
     }
 
     async function buttonForgeIdea(){
@@ -51,8 +52,8 @@ export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit,
             </>
         ) : (
         <>
-        <button type="button">forged</button>
-        <button type="button">Delete</button>
+        <button type="button" onClick={button4DeleteIdea}>forged</button>
+        <button type="button"onClick={button4DeleteIdea}>Delete</button>
         </>
         )}
         </div>

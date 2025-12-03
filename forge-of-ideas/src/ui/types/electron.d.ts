@@ -7,6 +7,7 @@ export interface ElectronAPI {
     saveEdit: (data: IdeaData) => Promise<void>;
     forgeIdea: (data: IdeaData) => Promise<IdeaData>;
     loadForgeIdea: () => Promise<IdeaData>;
+    deleteIdea: (data: IdeaData) => Promise<string|null>;
 }
 
 declare global {

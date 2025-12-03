@@ -39,7 +39,6 @@ export function ensureShelfFile(): string {
     if (!fs.existsSync(shelfPath)) {
         const initialContent = { "3": {}, "2": {}, "1": {} };
         fs.writeFileSync(shelfPath, JSON.stringify(initialContent, null, 2), 'utf-8');
-        console.log(`shelf.json criado em: ${shelfPath}`);
     }
 
     return shelfPath;

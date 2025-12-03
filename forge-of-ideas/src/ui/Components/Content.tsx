@@ -98,7 +98,6 @@ export default function Content(){
     const forgeIdea = async (): Promise<string | null> => {
         try{
             if(!forgingIdea){
-                console.log("Entrou no if mas não devia pois já tem forja: ", forgingIdea)
                 const forgin = await window.api.forgeIdea(selectedIdea);
                 if(forgin){
                     setIdeas(ideas.filter(item => item.nome !== selectedIdea?.nome));
@@ -109,16 +108,68 @@ export default function Content(){
                 return null;
             }else{
                 setError("Forge is occupied!");
-                console.log("Forge is occupied!");
             }
-            return "Anvil dont accept more then one Idea"
+            return "Forge dont accept more then one Idea"
         } catch(error){
             console.error("ERROR in the forge:", error);
             return "Error! Can't forge";
         }
     }
 
-{error && <div className="error-toast">{error}</div>}
+    const deleteForgeIdea = async (): Promise<string|null> =>{
+        let response = await window.api.deleteIdea(selectedIdea);
+
+        if(response)
+                return response;
+        else{
+        setForgingIdea(null);
+        closeDisplayModal();
+        }
+        return response;
+    }
+
+    const deleteShelfIdea = async (): Promise<string|null> =>{
+        let response = await window.api.deleteIdea(selectedIdea);
+
+        if(response)
+            return response;
+        else{
+        setIdeas(ideas.filter(item => item.nome !== selectedIdea?.nome));
+        closeDisplayModal();
+        }
+        return response;
+    }
+
+    const DeleteIdea = async (): Promise<string | null> => {
+        try{
+            let response;
+            if(selectedIdea?.nome == forgingIdea?.nome){
+               response = deleteForgeIdea();
+            }else{
+                response = deleteShelfIdea();
+            }
+            closeDisplayModal();
+            setSelectedIdea(null);
+            if(response!="ok"){
+                return "Can't delete this Idea";
+            }
+            setError(null);
+            return null;
+        } catch(error){
+            console.error("ERROR to delete:", error);
+            return "Error! Can't delete";
+        }
+    }
+
+    useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                setError(null);
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [error]);
 
     return (
         <main className="Content">
@@ -140,6 +191,7 @@ export default function Content(){
                 forgeIdea={forgeIdea}
                 setIsForge={setIsForge}
                 isForge={isForge}
+                deleteIdea={DeleteIdea}
             />
             <Shelf openRegistrationModal={openRegistrationModal} ideas={ideas} onIdeaClick={handleIdeaClick}
             setIsForge={setIsForge}
