@@ -1,63 +1,61 @@
-import {app} from 'electron';
-import path from 'path';
-import fs from 'fs';
+import fs from "fs";
+import path from "path";
 
-function getBasePath(): string{
-    const isProd = app.isPackaged;
+function getBasePath(): string {
+    const root = process.env.IDEAS_ROOT;
 
-    if (isProd){
-        const executableDir = path.dirname(app.getPath('exe'));
-        return path.join(executableDir, '..');
+    if (!root) {
+        throw new Error("IDEAS_ROOT is not set. The user has not selected the Ideas folder yet.");
     }
 
-    return app.getAppPath()
+    return root;
 }
 
-function resolveIdeasPath(): string{
-    const basePath = getBasePath();
-    return path.join(basePath, 'Ideas');
+function resolveIdeasPath(): string {
+    return path.join(getBasePath(), "Ideas");
 }
 
-export function ensureIdeasFolder(): string{
+export function ensureIdeasFolder(): string {
     const ideasPath = resolveIdeasPath();
 
-    if (!fs.existsSync(ideasPath)){
-        fs.mkdirSync(ideasPath, {recursive: true});
+    if (!fs.existsSync(ideasPath)) {
+        fs.mkdirSync(ideasPath, { recursive: true });
     }
 
     return ideasPath;
 }
 
-export function getIdeasPath(): string{
+export function getIdeasPath(): string {
     return resolveIdeasPath();
 }
 
 export function ensureShelfFile(): string {
     const ideasPath = getIdeasPath();
-    const shelfPath = path.join(ideasPath, 'shelf.json');
+    const shelfPath = path.join(ideasPath, "shelf.json");
 
     if (!fs.existsSync(shelfPath)) {
         const initialContent = { "3": {}, "2": {}, "1": {} };
-        fs.writeFileSync(shelfPath, JSON.stringify(initialContent, null, 2), 'utf-8');
+        fs.writeFileSync(shelfPath, JSON.stringify(initialContent, null, 2), "utf-8");
     }
 
     return shelfPath;
 }
 
 export function getShelfPath(): string {
-    return path.join(getIdeasPath(), 'shelf.json');
+    return path.join(getIdeasPath(), "shelf.json");
 }
 
 export function ensureAnvilFile(): string {
-    const ideasPath = getIdeasPath(); // pasta já existente
-    const anvilPath = path.join(ideasPath, 'anvil.json');
+    const ideasPath = getIdeasPath();
+    const anvilPath = path.join(ideasPath, "anvil.json");
+
     if (!fs.existsSync(anvilPath)) {
-        fs.writeFileSync(anvilPath, JSON.stringify(null, null, 2), 'utf-8');
+        fs.writeFileSync(anvilPath, JSON.stringify(null, null, 2), "utf-8");
     }
 
     return anvilPath;
 }
 
 export function getAnvilPath(): string {
-    return path.join(getIdeasPath(), 'anvil.json');
+    return path.join(getIdeasPath(), "anvil.json");
 }
