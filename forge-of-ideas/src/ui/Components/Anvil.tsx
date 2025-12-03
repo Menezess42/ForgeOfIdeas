@@ -3,7 +3,7 @@ import '../Styles/Anvil.css'
 import anvil from '../Assets/anvil.png'
 
 interface anvilProps{
-    forgeIdea: IdeaData;
+    forgeIdea: IdeaData|null;
     onIdeaClick: (ideaPath: string) => void;
     setIsForge: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -21,7 +21,8 @@ export default function Anvil({onIdeaClick, forgeIdea, setIsForge}: anvilProps) 
   
   function clickIdea(){
       setIsForge(true);
-      onIdeaClick(forgeIdea.path)
+      if(forgeIdea)
+          onIdeaClick(forgeIdea.path)
   }
 
   return (

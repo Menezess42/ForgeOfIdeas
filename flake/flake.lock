@@ -6,8 +6,8 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1764361060,
-        "narHash": "sha256-IMVo1d1uY2ailHz59V9XRVanuuj8NhwCAVydVOzjlt0=",
+        "lastModified": 1764797033,
+        "narHash": "sha256-DvphCuGtb0hN1MJbq9Wxb1mKDyNrQLCg7y5Yf9YlHIE=",
         "path": "/mnt/hdmenezess42/GitProjects/flakeEssentials",
         "type": "path"
       },
@@ -70,11 +70,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1764230294,
-        "narHash": "sha256-Z63xl5Scj3Y/zRBPAWq1eT68n2wBWGCIEF4waZ0bQBE=",
+        "lastModified": 1764642553,
+        "narHash": "sha256-mvbFFzVBhVK1FjyPHZGMAKpNiqkr7k++xIwy+p/NQvA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0d59e0290eefe0f12512043842d7096c4070f30e",
+        "rev": "f720de59066162ee879adcc8c79e15c51fe6bfb4",
         "type": "github"
       },
       "original": {

@@ -4,9 +4,8 @@ import "../Styles/Shelf.css";
 interface ShelfProps {
   openRegistrationModal: () => void; 
   ideas: IdeaData[];
-  openDisplayModal: () => void; 
   onIdeaClick: (ideaPath: string) => void;
-    setIsForge: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsForge: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Shelf({ openRegistrationModal, ideas, onIdeaClick, setIsForge}: ShelfProps) {

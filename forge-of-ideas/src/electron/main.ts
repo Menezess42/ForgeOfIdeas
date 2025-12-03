@@ -45,12 +45,7 @@ ipcMain.handle('save-data', async (event, data: IdeaData) => {
 });
 
 ipcMain.handle('forge-idea', async (event, data: IdeaData)=> {
-    try{
-        const anvil = forgeIdea(data);
-        return anvil;
-    } catch (error) {
-        throw error;
-    }
+    return forgeIdea(data);
 })
 
 ipcMain.handle('load-ideas', () => {
@@ -76,6 +71,7 @@ app.on("ready", ()=>{
     ensureShelfFile();
     ensureAnvilFile();
     const mainWindow = new BrowserWindow({
+        autoHideMenuBar: true,
         webPreferences: {
             preload: getPreloadPath()
         }

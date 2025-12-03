@@ -54,6 +54,7 @@ export default function Content(){
 
             try {
                 const savedPath = await window.api.saveData(data);
+                // @ts-ignore
                 if (!savedPath) return "Erro ao salvar a ideia";
 
                 const updatedData: IdeaData = { ...data, path: savedPath };
@@ -67,6 +68,8 @@ export default function Content(){
             }
         }
         const old = selectedIdea;
+
+        // @ts-ignore
         const nameChanged = old.nome !== data.nome;
 
         if (nameChanged) {
@@ -77,14 +80,17 @@ export default function Content(){
         }
 
         try {
+
+            // @ts-ignore
             const updatedPath = await window.api.saveEdit(data, old);
 
             const updatedIdeas = ideas.map(i =>
+                                           // @ts-ignore
                                            i.path === old.path
                                                ? { ...data, path: updatedPath }
                                                : i
                                           ).sort((a, b) => a.nivel - b.nivel);
-
+                                          // @ts-ignore
                                           setIdeas(updatedIdeas);
                                           setIsEdit(false);
 
@@ -150,6 +156,7 @@ export default function Content(){
             }
             closeDisplayModal();
             setSelectedIdea(null);
+            // @ts-ignore
             if(response!="ok"){
                 return "Can't delete this Idea";
             }
@@ -185,11 +192,9 @@ export default function Content(){
                 isOpen={isDisplaymodalOpen}
                 onClose={closeDisplayModal}
                 ideaData={selectedIdea}
-                isEdit={isEdit}
                 setIsEdit={setIsEdit}
                 openRegistrationModal={openRegistrationModal}
                 forgeIdea={forgeIdea}
-                setIsForge={setIsForge}
                 isForge={isForge}
                 deleteIdea={DeleteIdea}
             />

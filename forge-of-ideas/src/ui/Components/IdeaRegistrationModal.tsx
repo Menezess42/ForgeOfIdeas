@@ -7,7 +7,7 @@ interface ModalProps {
   onClose: () => void;
   onSubmit: (data: IdeaData) => Promise <string | null>;
   isEdit: boolean;
-  selectedIdea: IdeaData;
+  selectedIdea: IdeaData|null;
 }
 
 export default function RegistrationModal({ isOpen, onClose, onSubmit, isEdit, selectedIdea }: ModalProps) {
@@ -20,7 +20,7 @@ export default function RegistrationModal({ isOpen, onClose, onSubmit, isEdit, s
   const [path, setPath] = useState('');
 
   useEffect(() => {
-      if (isEdit) {
+      if (isEdit && selectedIdea) {
           setNome(selectedIdea.nome);
           setNivel(selectedIdea.nivel);
           setCor(selectedIdea.cor);

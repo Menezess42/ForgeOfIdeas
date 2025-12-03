@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import '../Styles/Modal.css';
 import '../Styles/Content.css';
 
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
-    ideaData: IdeaData;
+    ideaData: IdeaData|null;
     setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
     openRegistrationModal: () => void; 
     forgeIdea: () => Promise<string | null>; 
@@ -14,8 +13,6 @@ interface ModalProps {
 }
 
 export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit, openRegistrationModal, forgeIdea, isForge, deleteIdea}: ModalProps) {
-    const [error, setError] = useState<string | null>(null); 
-
 
     if (!isOpen) return null;
 
@@ -37,10 +34,9 @@ export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit,
     return (
         <div className="modal-overlay" onClick={onClose}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h1 className="h1Modal">{ideaData.nome}</h1>
-        {error && <div className="error-toast">{error}</div>}
+        <h1 className="h1Modal">{ideaData && ideaData.nome}</h1>
         <div className="description-container">
-        <h2 className="description-text">{ideaData.descricao}</h2>
+        <h2 className="description-text">{ideaData && ideaData.descricao}</h2>
         </div>
         <div className="modal-buttons">
         {!isForge ? (
