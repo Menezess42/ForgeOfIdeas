@@ -31,7 +31,6 @@ export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit,
 
     async function buttonForgeIdea(){
         await forgeIdea();
-        onClose();
     }
 
     return (
@@ -50,7 +49,6 @@ export default function IdeaDisplayModal({ isOpen, onClose, ideaData, setIsEdit,
             <button type="button" onClick={button4DeleteIdea}>Delete</button>
             <button type="button" onClick={buttonForgeIdea}>Forge</button>
             </>
-            
         ) : (
         <>
         <button type="button">forged</button>

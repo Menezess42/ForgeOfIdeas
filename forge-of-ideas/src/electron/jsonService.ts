@@ -1,4 +1,4 @@
-import { getIdeasPath, getShelfPath} from './ensureBaseFiles.js';
+import { getAnvilPath, getIdeasPath, getShelfPath} from './ensureBaseFiles.js';
 import path from 'path';
 import fs from 'fs';
 
@@ -77,7 +77,10 @@ function removeIdeaFromShelf(ideaNome: string): string {
 
 export function forgeIdea(data: IdeaData): IdeaData {
     const a = removeIdeaFromShelf(data.nome);
-    console.log(a);
+    if(a=="ok"){
+        const anvilPath = getAnvilPath();
+        fs.writeFileSync(anvilPath, JSON.stringify(data, null, 2), 'utf-8');
+    }
     return data;
 }
 

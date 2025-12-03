@@ -59,6 +59,6 @@ export function ensureAnvilFile(): string {
     return anvilPath;
 }
 
-export function getanvilPath(): string {
+export function getAnvilPath(): string {
     return path.join(getIdeasPath(), 'anvil.json');
 }

@@ -10,12 +10,17 @@ export default function Content(){
 
     const [ideas, setIdeas] = useState<IdeaData[]>([]);
     const [selectedIdea, setSelectedIdea] = useState<IdeaData | null>(null);
-
     const [isEdit, setIsEdit] = useState(false);
     const [isForge, setIsForge] = useState(false);
-
     const [forgingIdea, setForgingIdea] = useState<IdeaData|null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
+    const [isDisplaymodalOpen, setIsDisplayModalOpen] = useState(false)
 
+    const openDisplayModal = () => setIsDisplayModalOpen(true);
+    const closeDisplayModal = () => setIsDisplayModalOpen(false);
+    const openRegistrationModal = () => setIsRegistrationModalOpen(true);
+    const closeRegistrationModal = () => setIsRegistrationModalOpen(false);
 
     const handleIdeaClick = async(ideaPath: string) => {
         const ideaDetails = await window.api.getIdeaDetails(ideaPath);
@@ -39,13 +44,6 @@ export default function Content(){
         loadForgeIdea();
     }, []);
 
-    const [error, setError] = useState<string | null>(null);
-
-    const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
-
-    const openRegistrationModal = () => setIsRegistrationModalOpen(true);
-    const closeRegistrationModal = () => setIsRegistrationModalOpen(false);
-
     const handleRegistrationSubmit = async (data: IdeaData): Promise<string | null> => {
 
         if (!isEdit) {
@@ -68,8 +66,6 @@ export default function Content(){
                 return "Erro ao salvar a ideia";
             }
         }
-
-        // ---- Fluxo de edição ----
         const old = selectedIdea;
         const nameChanged = old.nome !== data.nome;
 
@@ -102,21 +98,25 @@ export default function Content(){
     const forgeIdea = async (): Promise<string | null> => {
         try{
             if(!forgingIdea){
+                console.log("Entrou no if mas não devia pois já tem forja: ", forgingIdea)
                 const forgin = await window.api.forgeIdea(selectedIdea);
-                setIdeas(ideas.filter(item => item.nome !== selectedIdea?.nome));
+                if(forgin){
+                    setIdeas(ideas.filter(item => item.nome !== selectedIdea?.nome));
+                    setForgingIdea(forgin)
+                    closeDisplayModal()
+                }
+                setError(null);
                 return null;
+            }else{
+                setError("Forge is occupied!");
+                console.log("Forge is occupied!");
             }
             return "Anvil dont accept more then one Idea"
         } catch(error){
-            console.error("ERRO ao forjar:", error);
+            console.error("ERROR in the forge:", error);
             return "Error! Can't forge";
         }
     }
-
-    const [isDisplaymodalOpen, setIsDisplayModalOpen] = useState(false)
-
-    const openDisplayModal = () => setIsDisplayModalOpen(true);
-    const closeDisplayModal = () => setIsDisplayModalOpen(false);
 
 {error && <div className="error-toast">{error}</div>}
 
