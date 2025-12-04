@@ -156,7 +156,7 @@ export default function Content(){
             }
             closeDisplayModal();
             setSelectedIdea(null);
-            // @ts-ignore
+            //@ts-ignore
             if(response!="ok"){
                 return "Can't delete this Idea";
             }

@@ -22,6 +22,8 @@ interface IdeaData {
   path?: string;
 }
 
+app.setName("forgeOfIdeas");
+app.setPath("userData", path.join(app.getPath("userData"), "..", app.getName()));
 
 ipcMain.handle("save-edit", (event, newData: IdeaData, oldData: IdeaData) => {
   try {
@@ -110,7 +112,6 @@ ipcMain.handle("get-config", async () => {
   return config;
 });
 
-
 ipcMain.handle("choose-ideas-folder", async () => {
   try {
     const result = await dialog.showOpenDialog({
@@ -122,25 +123,45 @@ ipcMain.handle("choose-ideas-folder", async () => {
 
     const folder = result.filePaths[0];
 
+    // Atualiza config e salva
     config.ideasRoot = folder;
     saveConfig(config);
 
+    // Atualiza IDEAS_ROOT imediatamente
+    process.env.IDEAS_ROOT = folder;
+
+    // Garante base de dados imediatamente
+    try {
+      ensureIdeasFolder();
+      ensureShelfFile();
+      ensureAnvilFile();
+    } catch (err) {
+      console.error("Erro ao garantir estrutura de Ideas após escolha:", err);
+    }
+
+    // Retorna já pronto para uso
     return folder;
   } catch (err) {
     console.error("Error in choose-ideas-folder handler:", err);
     throw err;
   }
 });
-app.setName("forgeOfIdeas");
+
 app.on("ready", () => {
 
   const cfg = loadConfig();
 
   const mainWindow = new BrowserWindow({
-    autoHideMenuBar: true,
-    webPreferences: {
-      preload: getPreloadPath()
-    }
+      autoHideMenuBar: true,
+      show: false, // <- ESSENCIAL
+      webPreferences: {
+          preload: getPreloadPath()
+      }
+  });
+
+  // Só mostra quando o DOM estiver pronto
+  mainWindow.webContents.once("dom-ready", () => {
+      mainWindow.show();
   });
 
  
