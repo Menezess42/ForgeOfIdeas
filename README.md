@@ -1,4 +1,10 @@
-# Forge of Ideas
+<div align="center">
+<h1>Forge of Ideas</h1>
+
+  <img src="https://github.com/user-attachments/assets/0c25c8f6-469e-4498-8cd3-b82ae578a190" alt="grandmai" width="500">
+<p>You can find a video demonstration <a href="https://www.youtube.com/watch?v=l8lRgloj0T0">here</a></p>
+<hr/>
+</div>
 
 Forge of Ideas is a productivity desktop application built with **Electron + React + TypeScript + Vite**.  
 Its goal is simple: help you **organize, prioritize, and forge (develop)** your ideas — while enforcing a healthy rule:
