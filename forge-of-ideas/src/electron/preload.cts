@@ -22,3 +22,5 @@ electron.contextBridge.exposeInMainWorld('api', {
     chooseIdeasFolder: () => electron.ipcRenderer.invoke("choose-ideas-folder"),
     getConfig: () => electron.ipcRenderer.invoke("get-config"),
 })
+
+

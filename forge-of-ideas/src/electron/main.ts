@@ -131,7 +131,7 @@ ipcMain.handle("choose-ideas-folder", async () => {
     throw err;
   }
 });
-
+app.setName("forgeOfIdeas");
 app.on("ready", () => {
 
   const cfg = loadConfig();
