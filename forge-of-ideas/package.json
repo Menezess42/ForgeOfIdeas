@@ -20,6 +20,7 @@
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "transpile": "^2.8.0",
     "zustand": "^5.0.9"
   },
   "devDependencies": {
