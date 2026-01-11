@@ -145,21 +145,21 @@ export default function Content(){
         }
         return response;
     }
-
     const DeleteIdea = async (): Promise<string | null> => {
         try{
             let response;
             if(selectedIdea?.nome == forgingIdea?.nome){
-               response = deleteForgeIdea();
+               response = await deleteForgeIdea();  // ✅ COM AWAIT
             }else{
-                response = deleteShelfIdea();
+                response = await deleteShelfIdea();  // ✅ COM AWAIT
             }
-            closeDisplayModal();
-            setSelectedIdea(null);
-            //@ts-ignore
-            if(response!="ok"){
+            
+            if(response !== null){  // ✅ Comparação correta
                 return "Can't delete this Idea";
             }
+            
+            closeDisplayModal();
+            setSelectedIdea(null);
             setError(null);
             return null;
         } catch(error){
@@ -167,7 +167,28 @@ export default function Content(){
             return "Error! Can't delete";
         }
     }
-
+    // const DeleteIdea = async (): Promise<string | null> => {
+    //     try{
+    //         let response;
+    //         if(selectedIdea?.nome == forgingIdea?.nome){
+    //            response = deleteForgeIdea();
+    //         }else{
+    //             response = deleteShelfIdea();
+    //         }
+    //         closeDisplayModal();
+    //         setSelectedIdea(null);
+    //         //@ts-ignore
+    //         if(response!="ok"){
+    //             return "Can't delete this Idea";
+    //         }
+    //         setError(null);
+    //         return null;
+    //     } catch(error){
+    //         console.error("ERROR to delete:", error);
+    //         return "Error! Can't delete";
+    //     }
+    // }
+    //
     useEffect(() => {
         if (error) {
             const timer = setTimeout(() => {
