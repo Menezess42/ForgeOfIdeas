@@ -186,7 +186,7 @@ function removeIdeaFromAnvil(ideaNome: string): string {
 
         let found = false;
 
-        if (anvil.nome && ideaNome) {
+        if (anvil.nome == ideaNome) {
             found = true;
         }
 
