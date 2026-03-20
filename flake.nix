@@ -67,16 +67,16 @@
                         ln -s $out/bin/${pname} $out/bin/foi
 
                         cat > $out/share/applications/${pname}.desktop <<EOF
-[Desktop Entry]
-Name=Forge of Ideas
-Comment=Productivity application
-Exec=${pname}
-Icon=${pname}
-Terminal=false
-Type=Application
-Categories=Utility;
-StartupNotify=true
-EOF
+                        [Desktop Entry]
+                        Name=Forge of Ideas
+                        Comment=Productivity application
+                        Exec=${pname}
+                        Icon=${pname}
+                        Terminal=false
+                        Type=Application
+                        Categories=Utility;
+                        StartupNotify=true
+                        EOF
                     '';
 
                     meta = with pkgs.lib; {
@@ -86,9 +86,6 @@ EOF
                     };
                 };
 
-                # --------------------------------------------
-                # NEW: App export (necessário para menu/rofi)
-                # --------------------------------------------
                 apps.default = {
                     type = "app";
                     program = "${self.packages.${system}.default}/bin/forgeOfIdeas";
