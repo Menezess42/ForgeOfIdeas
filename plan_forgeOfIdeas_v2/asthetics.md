@@ -11,6 +11,21 @@ Idea title Inter SemiBold #E6D5B8 16px. Description Inter Regular #8A9BB0 12px. 
 
 Overall style: flat UI, dark engineering, data-dense, brutalist editorial, sci-fi minimal. No depth, no shadows, no glow, no gradients, no rounded corners. Typography and borders are the only structure.
 
+RIGHT COLUMN — CONTEXTUAL PANEL (form state — create or edit):
+Small label "NEW IDEA" or "EDIT IDEA" at the very top in JetBrains 
+Mono Medium uppercase #8A9BB0 10px. Below, small label "TITLE" in 
+JetBrains Mono Medium uppercase #8A9BB0 10px. Below, a short rectangle 
+1px border #415A77 background #22303C, low height, for title input. 
+Below, small label "DESCRIPTION" in JetBrains Mono Medium uppercase 
+#8A9BB0 10px. Below, a taller squarish rectangle 1px border #415A77 
+background #22303C, for description input. Below, a row of three small 
+hexagons side by side — first filled #FF6A00 with number 1 inside Inter 
+Bold #0D1B2A, second filled #00D2C3 with number 2 inside Inter Bold 
+#0D1B2A, third filled #415A77 with number 3 inside Inter Bold #E6D5B8. 
+At the bottom two buttons stacked: SAVE 1px border #00D2C3 text #00D2C3 
+Inter Bold uppercase background #22303C. CANCEL 1px border #415A77 
+text #E6D5B8 Inter Bold uppercase background #22303C.
+
 
 # Contextual image
 ![Alt text](./contextual_image.png)
