@@ -14,7 +14,7 @@ export default function Root() {
     });
   }, []);
 
-  if (booting) return null; // nada aparecendo, sem flicker
+  if (booting) return null;
 
   return <App />;
 }
