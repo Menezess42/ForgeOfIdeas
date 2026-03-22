@@ -12,15 +12,12 @@ export default function MainLayout(){
 
     return (
         <main className="grid-container">
-            <section className="col shelf">
-                <Shelf/>
-            </section>
-            <section className="col shelf">
-                <Anvil/>
-            </section>
-            <section className="col shelf">
-                <ContextWindow/>
-            </section>
+            <div className="col shelf">
+            </div>
+            <div className="col shelf">
+            </div>
+            <div className="col shelf">
+            </div>
         </main>
     );
 }
