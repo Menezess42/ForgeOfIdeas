@@ -14,9 +14,11 @@ pkgs.mkShell rec {
             pkgs.nodePackages.postcss
             pkgs.autoprefixer
             pkgs.electron
+            pkgs.stdenv.cc.cc.lib
     ] ++ baseShell.buildInputs;
 
     shellHook = ''
         echo "🔨 Welcome to The ForgeOfIdeas!"
+        export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH"
         '';
 }

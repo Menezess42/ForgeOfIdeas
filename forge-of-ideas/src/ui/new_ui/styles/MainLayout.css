@@ -1,0 +1,15 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  height: 100vh;
+
+  background: var(--bg-main);
+
+  padding: 16px;
+  gap: 16px;
+}
+
+.col {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+}
