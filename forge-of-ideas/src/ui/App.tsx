@@ -1,4 +1,4 @@
-import './Styles/App.css';
+// import './Styles/App.css';
 import './new_ui/styles/App.css';
 import MainLayout from './new_ui/Components/MainLayout';
 import Content from './Components/Content';
@@ -12,6 +12,7 @@ function App() {
     return <EnsureDir />;
   }
 
+  // return <Content />;
   return <MainLayout />;
 }
 
