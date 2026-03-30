@@ -1,5 +1,5 @@
 // import './Styles/App.css';
-import './new_ui/styles/App.css';
+import './new_ui/styles/app.css';
 import MainLayout from './new_ui/Components/MainLayout';
 import Content from './Components/Content';
 import EnsureDir from './Components/EnsureDir';
