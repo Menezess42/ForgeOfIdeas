@@ -1,0 +1,15 @@
+.hex {
+  position: relative;
+  display: inline-block;
+}
+
+.hex svg {
+  display: block; /* remove espaço estranho abaixo do svg */
+}
+
+.hex-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
