@@ -1,11 +1,12 @@
 import '../styles/hex.css';
 
 type HexProps = {
-    size?: number;
-    color?: string;
-    label?: string;
-    stroke?: string;
-    strokeWidth?: number;
+  size?: number;
+  color?: string;
+  label?: string;
+  stroke?: string;
+  strokeWidth?: number;
+  className?: string;
 };
 
 export default function Hex({
@@ -14,12 +15,13 @@ export default function Hex({
     label,
     stroke,
    strokeWidth,
+    className
 }: HexProps) {
     const height = size;
     const width = size;
 
     return (
-        <div style={{ width, height, position: "relative" }}>
+<div className={`hex ${className || ""}`} style={{ width, height, position: "relative" }} >
             <svg
                 viewBox="0 0 100 100"
                 width="100%"
@@ -42,14 +44,7 @@ export default function Hex({
             </svg>
 
             {label && (
-                <div
-                    style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                    }}
-                >
+                <div className="hex-label">
                     {label}
                 </div>
             )}

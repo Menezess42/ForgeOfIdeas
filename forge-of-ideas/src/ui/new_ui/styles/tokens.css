@@ -1,13 +1,14 @@
 :root {
-  --bg-main: #1a1a1a;
-  --bg-surface: #22303C;
-  --border: #415A77;
+    --bg-main: #1a1a1a;
+    --bg-surface: #22303C;
+    --border: #415A77;
 
-  --accent-orange: #FF6A00;
-  --accent-cyan: #00D2C3;
+    --accent-orange: #FF6A00;
+    --accent-cyan: #00D2C3;
 
-  --text-primary: #E6D5B8;
-  --text-secondary: #8A9BB0;
+    --text-primary: #E6D5B8;
+    --text-secondary: #8A9BB0;
+    --text-dark: #0D1B2A;
 
     --font-primary: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;

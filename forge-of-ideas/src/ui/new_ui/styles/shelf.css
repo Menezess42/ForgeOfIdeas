@@ -10,24 +10,75 @@
     /* background-color: #000000; */
 }
 .v-indicators{
-/* background-color: #ffffff; */
+    /* background-color: #ffffff; */
 }
 .cards{
-/* background-color: #f2ff5f; */
+    /* background-color: #f2ff5f; */
 }
 .buttons{
-/
+    /
     * background-color: #12ff5a; */
 }
 
 .hex-grid {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 15px;
 
-  justify-content: center;
+    justify-content: center;
 }
 
 .hex-buttons{
     padding-bottom: 20px;
+}
+
+.hex-orange .hex-label {
+    color: var(--text-dark);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+
+.hex-cyan .hex-label {
+    color: var(--text-dark);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+
+.hex-dark .hex-label {
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+
+.hex-bUp .hex-label {
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+.hex-bDown .hex-label {
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+.hex-bPlus .hex-label {
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 70px;
+}
+.hex-bUp .hex-label {
+  transform: translate(-50%, -50%);
+}
+
+.hex-bDown .hex-label {
+  transform: translate(-50%, -45%);
+}
+
+.hex-bPlus .hex-label {
+  transform: translate(-50%, -52%);
 }
