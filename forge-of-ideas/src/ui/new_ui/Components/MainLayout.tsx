@@ -1,25 +1,40 @@
-// import '../Styles/Content.css'
-// import Anvil from './Anvil.jsx'
-// import Furnace from './Furnace.jsx'
-// import RegistrationModal from './IdeaRegistrationModal.jsx'
-// import IdeaDisplayModal from './IdeaDisplayModal.jsx'
-// import { useState, useEffect } from 'react'
-
+import { useState } from 'react';
 import '../styles/tokens.css';
 import '../styles/mainLayout.css';
-import Shelf from './Shelf.jsx'
+import Shelf from './Shelf.tsx';
+import Context from './ContextWindow.tsx';
 
-export default function MainLayout(){
+export type AppMode = "idle" | "create" | "read" | "edit";
 
-    return (
-        <main className="grid-container">
-            <div className="col shelf">
-                <Shelf/>
-            </div>
-            <div className="col anvil">
-            </div>
-            <div className="col context">
-            </div>
-        </main>
-    );
+export type AppState = {
+  mode: AppMode;
+  payload: string | null; // future use: card path for read/edit
+};
+
+export default function MainLayout() {
+  const [appState, setAppState] = useState<AppState>({ mode: "idle", payload: null });
+
+  const handleModeChange = (mode: AppMode, payload: string | null = null) => {
+    setAppState({ mode, payload });
+  };
+
+  return (
+    <main className="grid-container">
+      <div className="col shelf">
+        <Shelf
+          onModeChange={(mode) => handleModeChange(mode)}
+          activeMode={appState.mode}
+        />
+      </div>
+      <div className="col anvil">
+        {/* <Anvil /> */}
+      </div>
+      <div className="col context">
+        <Context
+          appState={appState}
+          onModeChange={handleModeChange}
+        />
+      </div>
+    </main>
+  );
 }
