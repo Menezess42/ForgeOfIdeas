@@ -1,25 +1,13 @@
 .shelf-grid-container{
     display: grid;
     grid-template-rows: auto 1fr auto;
-    /* background-color: #ad203c; */
     box-sizing: border-box;
     height: 100%;
     gap: 8px;
 }
-.row{
-    /* background-color: #000000; */
-}
-.v-indicators{
-    /* background-color: #ffffff; */
-}
 .cards{
     background-color: #f2ff5f;
 }
-.buttons{
-    /
-    * background-color: #12ff5a; */
-}
-
 .hex-grid {
     display: grid;
     grid-template-columns: repeat(3, auto);

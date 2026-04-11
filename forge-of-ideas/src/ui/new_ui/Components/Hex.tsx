@@ -1,4 +1,5 @@
 import '../styles/hex.css';
+import { useState } from 'react';
 
 type HexProps = {
   size?: number;
@@ -10,8 +11,12 @@ type HexProps = {
   // Interaction props
   onClick?: () => void;
   isActive?: boolean;
+  // Color-based state
   activeColor?: string;
   hoverColor?: string;
+  // Stroke-based state
+  activeStroke?: string;
+  hoverStroke?: string;
 };
 
 export default function Hex({
@@ -25,31 +30,41 @@ export default function Hex({
   isActive = false,
   activeColor,
   hoverColor,
+  activeStroke,
+  hoverStroke,
 }: HexProps) {
-  const height = size;
-  const width = size;
+  const [isHovered, setIsHovered] = useState(false);
 
   const isInteractive = !!onClick;
 
-  // Resolve fill color based on state
-  const resolvedColor = isActive && activeColor ? activeColor : color;
+  // Resolve fill
+  const resolvedFill = isActive && activeColor
+    ? activeColor
+    : isHovered && hoverColor
+      ? hoverColor
+      : color;
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isInteractive || isActive) return;
-    const polygon = (e.currentTarget as HTMLDivElement).querySelector("polygon");
-    if (polygon && hoverColor) polygon.setAttribute("fill", hoverColor);
+  // Resolve stroke
+  const resolvedStroke = isActive && activeStroke
+    ? activeStroke
+    : isHovered && hoverStroke
+      ? hoverStroke
+      : stroke;
+
+  const handleMouseEnter = () => {
+    if (!isInteractive) return;
+    setIsHovered(true);
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isInteractive || isActive) return;
-    const polygon = (e.currentTarget as HTMLDivElement).querySelector("polygon");
-    if (polygon) polygon.setAttribute("fill", resolvedColor);
+  const handleMouseLeave = () => {
+    if (!isInteractive) return;
+    setIsHovered(false);
   };
 
   return (
     <div
       className={`hex ${className || ""} ${isInteractive ? "hex-interactive" : ""} ${isActive ? "hex-active" : ""}`}
-      style={{ width, height, position: "relative", cursor: isInteractive ? "pointer" : "default" }}
+      style={{ width: size, height: size, position: "relative", cursor: isInteractive ? "pointer" : "default" }}
       onClick={isInteractive ? onClick : undefined}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -69,8 +84,8 @@ export default function Hex({
             6.7,75
             6.7,25
           "
-          fill={resolvedColor}
-          stroke={stroke}
+          fill={resolvedFill}
+          stroke={resolvedStroke}
           strokeWidth={strokeWidth}
         />
       </svg>

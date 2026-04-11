@@ -8,7 +8,7 @@ export type AppMode = "idle" | "create" | "read" | "edit";
 
 export type AppState = {
   mode: AppMode;
-  payload: string | null; // future use: card path for read/edit
+  payload: string | null;
 };
 
 export default function MainLayout() {
