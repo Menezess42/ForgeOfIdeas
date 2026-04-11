@@ -1,20 +1,10 @@
 import type { AppState, AppMode } from './MainLayout.tsx';
-
+import CreateForms from "./CreateForms.tsx";
 type ContextProps = {
   appState: AppState;
   onModeChange: (mode: AppMode, payload?: string | null) => void;
 };
 
-// Placeholder — substitua pelo seu componente real quando estiver pronto
-function CreateView({ onCancel }: { onCancel: () => void }) {
-  return (
-    <div className="context-view create-view">
-      <h2>Nova entrada</h2>
-      <p>Formulário de criação aqui...</p>
-      <button onClick={onCancel}>Cancelar</button>
-    </div>
-  );
-}
 
 export default function Context({ appState, onModeChange }: ContextProps) {
   const handleCancel = () => {
@@ -23,7 +13,7 @@ export default function Context({ appState, onModeChange }: ContextProps) {
 
   switch (appState.mode) {
     case "create":
-      return <CreateView onCancel={handleCancel} />;
+      return <CreateForms onCancel={handleCancel} />;
 
     case "read":
       // implementar depois com appState.payload
