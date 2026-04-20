@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/tokens.css';
 import '../styles/mainLayout.css';
 import Shelf from './Shelf.tsx';
@@ -28,13 +28,20 @@ export default function MainLayout() {
         setAppState({ mode, payload });
     };
 
-    // useEffect(() => {
-    //     const loadIdeas = async () => {
-    //         const loadIdeas = await window.api.loadIdeas();
-    //         setIdeas(loadIdeas);
-    //     };
-    //     loadIdeas();
-    // }, []);
+    useEffect(() => {
+        const loadIdeas = async () => {
+            const loadedIdeas = await window.api.loadIdeas();
+            setIdeas(loadedIdeas);
+        };
+        loadIdeas();
+        // const loadForgeIdea = async () => {
+        //     const loadedForgeIdea = await window.api.loadForgeIdea();
+        //     if(loadedForgeIdea){
+        //         setForgingIdea(loadedForgeIdea)
+        //     }
+        // };
+        // loadForgeIdea();
+    }, []);
 
     const handleRegistration = async(data: IdeaData): Promise<string | null> => {
         const exists = ideas.some(i => i.title === data.title);
@@ -64,6 +71,7 @@ export default function MainLayout() {
                 <Shelf
                     onModeChange={(mode) => handleModeChange(mode)}
                     activeMode={appState.mode}
+                    ideasList={ideas}
                 />
             </div>
             <div className="col anvil">
