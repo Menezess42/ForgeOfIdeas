@@ -1,23 +1,24 @@
 import '../styles/tokens.css';
 import '../styles/shelf.css';
 import Hex from './Hex.tsx';
- 
+
 type ShelfProps = {
-  onModeChange: (mode: "idle" | "create") => void;
-  activeMode: "idle" | "create" | "read" | "edit";
+    onModeChange: (mode: "idle" | "create") => void;
+    activeMode: "idle" | "create" | "read" | "edit";
+    ideasList: IdeaData[];
 };
- 
-export default function Shelf({ onModeChange, activeMode }: ShelfProps) {
-  const ctr_lvl1 = "0";
-  const ctr_lvl2 = "0";
-  const ctr_lvl3 = "0";
- 
-  const isCreateActive = activeMode === "create";
- 
-  const handlePlusClick = () => {
-    onModeChange(isCreateActive ? "idle" : "create");
-  };
- 
+
+export default function Shelf({ onModeChange, activeMode, ideasList}: ShelfProps) {
+    const ctr_lvl1 = "0";
+    const ctr_lvl2 = "0";
+    const ctr_lvl3 = "0";
+
+    const isCreateActive = activeMode === "create";
+
+    const handlePlusClick = () => {
+        onModeChange(isCreateActive ? "idle" : "create");
+    };
+
     return (
         <main className="shelf-grid-container">
             <div className="row v-indicators">
