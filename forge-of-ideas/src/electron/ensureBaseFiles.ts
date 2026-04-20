@@ -34,8 +34,7 @@ export function ensureShelfFile(): string {
     const shelfPath = path.join(ideasPath, "shelf.json");
 
     if (!fs.existsSync(shelfPath)) {
-        const initialContent = { "3": {}, "2": {}, "1": {} };
-        fs.writeFileSync(shelfPath, JSON.stringify(initialContent, null, 2), "utf-8");
+        fs.writeFileSync(shelfPath, JSON.stringify({}, null, 2), "utf-8");
     }
 
     return shelfPath;
@@ -50,7 +49,7 @@ export function ensureAnvilFile(): string {
     const anvilPath = path.join(ideasPath, "anvil.json");
 
     if (!fs.existsSync(anvilPath)) {
-        fs.writeFileSync(anvilPath, JSON.stringify(null, null, 2), "utf-8");
+        fs.writeFileSync(anvilPath, JSON.stringify({}, null, 2), "utf-8");
     }
 
     return anvilPath;
