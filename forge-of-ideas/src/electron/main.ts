@@ -6,7 +6,7 @@ import { ensureAnvilFile, ensureIdeasFolder, ensureShelfFile } from './ensureBas
 import { getPreloadPath } from './pathResolver.js';
 import {
   saveJsonToIdeas,
-  loadShelfData,
+  // loadShelfData,
   readIdeaFile,
   saveEdit,
   loadForge,
@@ -14,15 +14,17 @@ import {
   deleteIdea
 } from './jsonService.js';
 
+import {loadShelfData} from './shelfHandler.js';
+
 import {createIdea} from './ideasHandler.js';
 
-// interface IdeaData {
-//   nome: string;
-//   nivel: 1 | 2 | 3;
-//   cor: string;
-//   descricao: string;
-//   path?: string;
-// }
+interface IdeaData2 {
+  nome: string;
+  nivel: 1 | 2 | 3;
+  cor: string;
+  descricao: string;
+  path?: string;
+}
 
 interface IdeaData {
     title: string;
@@ -44,7 +46,10 @@ ipcMain.handle('create-idea', async (event, data: IdeaData) => {
   }
 });
 
-ipcMain.handle("save-edit", (event, newData: IdeaData, oldData: IdeaData) => {
+ipcMain.handle('load-ideas', () => { return loadShelfData();
+});
+
+ipcMain.handle("save-edit", (event, newData: IdeaData2, oldData: IdeaData2) => {
   try {
     const updatedPath = saveEdit(newData, oldData);
     return updatedPath;
@@ -54,7 +59,7 @@ ipcMain.handle("save-edit", (event, newData: IdeaData, oldData: IdeaData) => {
   }
 });
 
-ipcMain.handle('delete-idea', (event, data: IdeaData) => {
+ipcMain.handle('delete-idea', (event, data: IdeaData2) => {
   try {
     const response = deleteIdea(data);
     return response;
@@ -74,12 +79,10 @@ ipcMain.handle('delete-idea', (event, data: IdeaData) => {
 //   }
 // });
 
-ipcMain.handle('forge-idea', async (event, data: IdeaData) => {
+ipcMain.handle('forge-idea', async (event, data: IdeaData2) => {
   return forgeIdea(data);
 });
 
-ipcMain.handle('load-ideas', () => { return loadShelfData();
-});
 
 ipcMain.handle('load-forge-idea', () => {
   return loadForge();
