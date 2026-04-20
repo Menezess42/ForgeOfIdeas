@@ -14,16 +14,35 @@ import {
   deleteIdea
 } from './jsonService.js';
 
+import {createIdea} from './ideasHandler.js';
+
+// interface IdeaData {
+//   nome: string;
+//   nivel: 1 | 2 | 3;
+//   cor: string;
+//   descricao: string;
+//   path?: string;
+// }
+
 interface IdeaData {
-  nome: string;
-  nivel: 1 | 2 | 3;
-  cor: string;
-  descricao: string;
-  path?: string;
+    title: string;
+    description: string;
+    level: 1 | 2 | 3;
+    path?: string;
 }
 
 app.setName("forgeOfIdeas");
 app.setPath("userData", path.join(app.getPath("userData"), "..", app.getName()));
+
+ipcMain.handle('create-idea', async (event, data: IdeaData) => {
+  try {
+    const savedPath = createIdea(data);
+    return savedPath;
+  } catch (error) {
+    console.error('Error in create-idea handler:', error);
+    throw error;
+  }
+});
 
 ipcMain.handle("save-edit", (event, newData: IdeaData, oldData: IdeaData) => {
   try {
@@ -45,15 +64,15 @@ ipcMain.handle('delete-idea', (event, data: IdeaData) => {
   }
 });
 
-ipcMain.handle('save-data', async (event, data: IdeaData) => {
-  try {
-    const savedPath = saveJsonToIdeas(data);
-    return savedPath;
-  } catch (error) {
-    console.error('Error in save-data handler:', error);
-    throw error;
-  }
-});
+// ipcMain.handle('save-data', async (event, data: IdeaData) => {
+//   try {
+//     const savedPath = saveJsonToIdeas(data);
+//     return savedPath;
+//   } catch (error) {
+//     console.error('Error in save-data handler:', error);
+//     throw error;
+//   }
+// });
 
 ipcMain.handle('forge-idea', async (event, data: IdeaData) => {
   return forgeIdea(data);
@@ -152,7 +171,7 @@ app.on("ready", () => {
   const cfg = loadConfig();
 
   const mainWindow = new BrowserWindow({
-      autoHideMenuBar: true,
+      // autoHideMenuBar: true,
       show: false, // <- ESSENCIAL
       webPreferences: {
           preload: getPreloadPath()

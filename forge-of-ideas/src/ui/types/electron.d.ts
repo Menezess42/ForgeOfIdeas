@@ -17,11 +17,10 @@ declare global {
         api: ElectronAPI;
     }
     interface IdeaData {
-        nome: string;
-        nivel: 1 | 2 | 3;
-        cor: string;
-        descricao: string;
-        path: string;
+        title: string;
+        description: string;
+        level: 1 | 2 | 3;
+        path?: string;
     }
 }
 

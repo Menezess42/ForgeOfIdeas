@@ -1,32 +1,44 @@
 import type { AppState, AppMode } from './MainLayout.tsx';
 import CreateForms from "./CreateForms.tsx";
+import {useState, useEffect} from 'react';
 
+
+interface IdeaData {
+    title: string;
+    description: string;
+    level: 1 | 2 | 3;
+    path?: string;
+}
 
 type ContextProps = {
-  appState: AppState;
-  onModeChange: (mode: AppMode, payload?: string | null) => void;
+    appState: AppState;
+    onModeChange: (mode: AppMode, payload?: string | null) => void;
+    handlers: {
+        onCreate?: (data: IdeaData) => Promise<string | null>;
+    }
 };
 
 
-export default function Context({ appState, onModeChange }: ContextProps) {
-  const handleCancel = () => {
-    onModeChange("idle", null);
-  };
+export default function Context({ appState, onModeChange, handlers }: ContextProps) {
 
-  switch (appState.mode) {
-    case "create":
-      return <CreateForms onCancel={handleCancel} />;
+    const handleCancel = () => {
+        onModeChange("idle", null);
+    };
 
-    case "read":
-      // implementar depois com appState.payload
-      return <div className="context-view read-view">Leitura — {appState.payload}</div>;
+    switch (appState.mode) {
+        case "create":
+            return <CreateForms onCancel={handleCancel} onSave={handlers.onCreate}/>;
 
-    case "edit":
-      // implementar depois
-      return <div className="context-view edit-view">Edição — {appState.payload}</div>;
+        case "read":
+            // implementar depois com appState.payload
+            return <div className="context-view read-view">Leitura — {appState.payload}</div>;
 
-    case "idle":
-    default:
-      return null;
-  }
+        case "edit":
+            // implementar depois
+            return <div className="context-view edit-view">Edição — {appState.payload}</div>;
+
+        case "idle":
+        default:
+            return null;
+    }
 }

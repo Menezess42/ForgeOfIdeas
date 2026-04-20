@@ -3,13 +3,15 @@ import '../styles/tokens.css';
 import { useState } from "react";
 import Hex from "./Hex";
 
+interface IdeaData {
+    title: string;
+    description: string;
+    level: 1 | 2 | 3;
+    path?: string;
+}
 type CreateFormProps = {
     onCancel: () => void;
-    onSave?: (data: {
-        title: string;
-        description: string;
-        level: number | null;
-    }) => void;
+    onSave?: (data:IdeaData) => void;
 };
 
 export default function CreateForm({ onCancel, onSave }: CreateFormProps) {
@@ -19,8 +21,15 @@ export default function CreateForm({ onCancel, onSave }: CreateFormProps) {
     const [level, setLevel] = useState<number | null>(1);
     var active_stroke = "#E6D5B8";
 
-    const handleSave = () => {
-        onSave?.({ title, description, level });
+    const handleSave = async () => {
+        let response = await onSave?.({ title, description, level });
+        console.log(response)
+        if (response == null){
+            setTitle("");
+            setDescription("");
+            setLevel(null);
+            onCancel();
+        }
     };
 
     return (
@@ -77,7 +86,7 @@ export default function CreateForm({ onCancel, onSave }: CreateFormProps) {
             </div>
 
             <div className="actions">
-                <button className="btn-save">SAVE</button>
+                <button className="btn-save" onClick={handleSave}>SAVE</button>
                 <button className="btn-cancel" onClick={onCancel}>CANCEL</button>
             </div>
         </div>

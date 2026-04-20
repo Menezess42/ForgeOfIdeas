@@ -2,16 +2,24 @@ import { ipcRenderer } from "electron";
 
 const electron = require('electron');
 
+//
+// interface IdeaData {
+//     nome: string;
+//     nivel: 1 | 2 | 3;
+//     cor: string;
+//     descricao: string;
+//     path?: string;
+// }
+
 interface IdeaData {
-    nome: string;
-    nivel: 1 | 2 | 3;
-    cor: string;
-    descricao: string;
+    title: string;
+    description: string;
+    level: 1 | 2 | 3;
     path?: string;
 }
 
 electron.contextBridge.exposeInMainWorld('api', {
-    saveData: (data: IdeaData) => electron.ipcRenderer.invoke('save-data', data),
+    saveData: (data: IdeaData) => electron.ipcRenderer.invoke('create-idea', data),
     loadIdeas: () => electron.ipcRenderer.invoke('load-ideas'),
     loadForgeIdea: () => electron.ipcRenderer.invoke('load-forge-idea'),
     getIdeaDetails: (ideaPath: string) => ipcRenderer.invoke('get-idea-details', ideaPath),

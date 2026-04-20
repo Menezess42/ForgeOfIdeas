@@ -4,37 +4,78 @@ import '../styles/mainLayout.css';
 import Shelf from './Shelf.tsx';
 import Context from './ContextWindow.tsx';
 
+
+interface IdeaData {
+    title: string;
+    description: string;
+    level: 1 | 2 | 3;
+    path?: string;
+}
+//    onSubmit: (data: IdeaData) => Promise <string | null>;
+
 export type AppMode = "idle" | "create" | "read" | "edit";
 
 export type AppState = {
-  mode: AppMode;
-  payload: string | null;
+    mode: AppMode;
+    payload: string | null;
 };
 
 export default function MainLayout() {
-  const [appState, setAppState] = useState<AppState>({ mode: "idle", payload: null });
+    const [ideas, setIdeas] = useState<IdeaData[]>([]);
+    const [appState, setAppState] = useState<AppState>({ mode: "idle", payload: null });
 
-  const handleModeChange = (mode: AppMode, payload: string | null = null) => {
-    setAppState({ mode, payload });
-  };
+    const handleModeChange = (mode: AppMode, payload: string | null = null) => {
+        setAppState({ mode, payload });
+    };
 
-  return (
-    <main className="grid-container">
-      <div className="col shelf">
-        <Shelf
-          onModeChange={(mode) => handleModeChange(mode)}
-          activeMode={appState.mode}
-        />
-      </div>
-      <div className="col anvil">
-        {/* <Anvil /> */}
-      </div>
-      <div className="col context">
-        <Context
-          appState={appState}
-          onModeChange={handleModeChange}
-        />
-      </div>
-    </main>
-  );
+    // useEffect(() => {
+    //     const loadIdeas = async () => {
+    //         const loadIdeas = await window.api.loadIdeas();
+    //         setIdeas(loadIdeas);
+    //     };
+    //     loadIdeas();
+    // }, []);
+
+    const handleRegistration = async(data: IdeaData): Promise<string | null> => {
+        const exists = ideas.some(i => i.title === data.title);
+        if (exists) {
+            // Gera um alerta
+            // Talvez levantar um toasted falando que já existe essa ideia
+        }
+        try{
+            const savedPath = await window.api.saveData(data);
+            console.log(savedPath)
+            const updateData: IdeaData = {...data, path: savedPath};
+            const updatedIdeas = [...ideas, updateData];
+            setIdeas(updatedIdeas);
+            return null;
+        }catch(error){
+            return error;
+        }
+    }
+
+    const handlers = {
+        onCreate: handleRegistration,
+    }
+
+    return (
+        <main className="grid-container">
+            <div className="col shelf">
+                <Shelf
+                    onModeChange={(mode) => handleModeChange(mode)}
+                    activeMode={appState.mode}
+                />
+            </div>
+            <div className="col anvil">
+                {/* <Anvil /> */}
+            </div>
+            <div className="col context">
+                <Context
+                    appState={appState}
+                    onModeChange={handleModeChange}
+                    handlers={handlers}
+                />
+            </div>
+        </main>
+    );
 }
