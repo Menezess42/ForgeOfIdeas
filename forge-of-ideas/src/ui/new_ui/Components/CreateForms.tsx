@@ -13,9 +13,10 @@ type CreateFormProps = {
 };
 
 export default function CreateForm({ onCancel, onSave }: CreateFormProps) {
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [level, setLevel] = useState<number | null>(2);
+    const [level, setLevel] = useState<number | null>(1);
     var active_stroke = "#E6D5B8";
 
     const handleSave = () => {

@@ -8,8 +8,6 @@ export interface ElectronAPI {
     forgeIdea: (data: IdeaData) => Promise<IdeaData>;
     loadForgeIdea: () => Promise<IdeaData>;
     deleteIdea: (data: IdeaData) => Promise<string|null>;
-
-// NOVAS CHAMADAS
     chooseIdeasFolder: () => Promise<string | null>;
     getConfig: () => Promise<{ ideasRoot?: string }>;
 }
