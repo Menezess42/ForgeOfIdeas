@@ -32,6 +32,17 @@ export function createIdea(json: IdeaData): string {
     const shelf = JSON.parse(shelfContent)
 
     const level = String(data.level) as "1" | "2" | "3";
+
+    if (level == "1"){
+        shelf["lvls_Qtde"]["1"] = String((Number(shelf["lvls_Qtde"]["1"])+1))
+    }
+    else if(level=="2"){
+        shelf["lvls_Qtde"]["2"] = String((Number(shelf["lvls_Qtde"]["2"])+1))
+    }
+    else{
+        shelf["lvls_Qtde"]["3"] = String((Number(shelf["lvls_Qtde"]["3"])+1))
+    }
+
     shelf[data.title]={
         level: level,
         title: data.title,

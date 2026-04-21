@@ -31,7 +31,8 @@ export default function MainLayout() {
     useEffect(() => {
         const loadIdeas = async () => {
             const loadedIdeas = await window.api.loadIdeas();
-            setIdeas(loadedIdeas);
+            setIdeas(loadedIdeas); // Need to modify because now I have to return two arrays
+            // one that has the counters for the number of ideas and one for the ideas
         };
         loadIdeas();
         // const loadForgeIdea = async () => {

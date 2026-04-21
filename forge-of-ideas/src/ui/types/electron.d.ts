@@ -6,7 +6,8 @@ export interface ElectronAPI {
     getIdeaDetails: (ideaPath: string) => Promise<IdeaData>;
     saveEdit: (data: IdeaData) => Promise<void>;
     forgeIdea: (data: IdeaData) => Promise<IdeaData>;
-    loadForgeIdea: () => Promise<IdeaData>;
+    loadForgeIdea: () => Promise<IdeaData>; // Have to change this becuase now this function
+    // will return two arrays. One for the counters and one for the ideas
     deleteIdea: (data: IdeaData) => Promise<string|null>;
     chooseIdeasFolder: () => Promise<string | null>;
     getConfig: () => Promise<{ ideasRoot?: string }>;

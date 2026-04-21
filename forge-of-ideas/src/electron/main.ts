@@ -47,7 +47,8 @@ ipcMain.handle('create-idea', async (event, data: IdeaData) => {
 });
 
 ipcMain.handle('load-ideas', () => { return loadShelfData();
-});
+});// I have to modify this maybe because now I will return two arrays. One with the
+// counters of ideas and one with the ideas
 
 ipcMain.handle("save-edit", (event, newData: IdeaData2, oldData: IdeaData2) => {
   try {

@@ -34,7 +34,14 @@ export function ensureShelfFile(): string {
     const shelfPath = path.join(ideasPath, "shelf.json");
 
     if (!fs.existsSync(shelfPath)) {
-        fs.writeFileSync(shelfPath, JSON.stringify({}, null, 2), "utf-8");
+        const basic_shelf_body = {
+            "lvls_Qtde": {
+            "1": "0",
+            "2": "0",
+            "3": "0",
+            },
+        }
+        fs.writeFileSync(shelfPath, JSON.stringify(basic_shelf_body, null, 2), "utf-8");
     }
 
     return shelfPath;
