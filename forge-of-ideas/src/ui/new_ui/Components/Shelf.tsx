@@ -88,7 +88,8 @@ export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}:
                         isActive={isCreateActive}
                         activeColor="#0D1B2A"
                         hoverColor="#1A1A1A"
-                    />                </div>
+                    />
+                </div>
             </div>
         </main>
     );

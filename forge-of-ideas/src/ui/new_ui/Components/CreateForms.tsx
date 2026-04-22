@@ -23,7 +23,6 @@ export default function CreateForm({ onCancel, onSave }: CreateFormProps) {
 
     const handleSave = async () => {
         let response = await onSave?.({ title, description, level });
-        console.log(response)
         if (response == null){
             setTitle("");
             setDescription("");

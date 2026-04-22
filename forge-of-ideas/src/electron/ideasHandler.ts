@@ -27,7 +27,6 @@ export function createIdea(json: IdeaData): string {
 
     const shelfContent = fs.readFileSync(shelfPath, 'utf-8');
 
-    console.log(shelfContent)
 
     const shelf = JSON.parse(shelfContent)
 
