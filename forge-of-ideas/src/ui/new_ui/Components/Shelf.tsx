@@ -1,6 +1,8 @@
 import '../styles/tokens.css';
 import '../styles/shelf.css';
 import Hex from './Hex.tsx';
+import IdeaCard from './IdeaCard.tsx';
+import { useState } from 'react';
 
 interface levelsCount {
     "1": string;
@@ -20,7 +22,6 @@ export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}:
     let ctr_lvl2 = lvlsCount?.["2"] ?? "0";
     let ctr_lvl3 = lvlsCount?.["3"] ?? "0";
 
-    console.log(lvlsCount)
 
     const isCreateActive = activeMode === "create";
 
@@ -28,7 +29,14 @@ export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}:
         onModeChange(isCreateActive ? "idle" : "create");
     };
 
-    // Need a function to the search bar
+
+    // dentro do componente:
+    const [search, setSearch] = useState("");
+    const filteredIdeas = ideasList.filter(idea =>
+        idea.title.toLowerCase().includes(search.toLowerCase())
+    );
+
+    const [selectedIdea, setSelectedIdea] = useState<string | null>(null);
 
     /* I have to decide if is better to create 3 list with ideas of lvl 1, 2 an 3
         or use just the main list and an aux list for when the user clicks on the 
@@ -46,15 +54,25 @@ export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}:
                     <Hex size={80} color="#3a4f66" label={ctr_lvl3} className="hex-dark"/>
                 </div>
             </div>
+
             <div className="row cards">
-                {/*the ideas goes here:
-                    - [ ] Maybe I need a search bar on top of this div
-                    - [ ] I need to make a component Card
-                    - [ ] then I have to pass idea from ideas
-                    - [ ] I don't want a scroll bar, so I need to display
-                          half way cards so the user can see that the list goes
-                          one. Like netflix does.
-                */}
+                <input
+                    className="search-bar"
+                    type="text"
+                    placeholder="Search..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <div className="cards-list">
+                    {filteredIdeas.map((idea) => (
+                        <IdeaCard
+                            key={idea.path}
+                            idea={idea}
+                            onClick={() => setSelectedIdea(selectedIdea === idea.path ? null : idea.path)}
+                            isActive={selectedIdea === idea.path}
+                        />
+                    ))}
+                </div>
             </div>
             <div className="row buttons">
                 <div className="hex-grid hex-buttons">

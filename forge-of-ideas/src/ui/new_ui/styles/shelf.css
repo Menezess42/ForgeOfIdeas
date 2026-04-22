@@ -1,12 +1,41 @@
-.shelf-grid-container{
+.shelf-grid-container {
     display: grid;
     grid-template-rows: auto 1fr auto;
     box-sizing: border-box;
     height: 100%;
     gap: 8px;
+    overflow: hidden;
 }
-.cards{
-    background-color: #f2ff5f;
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    min-height: 0;
+    flex: 1;
+    height: 100%; /* adiciona */
+    scrollbar-width: none; /* Firefox */
+}
+.cards-list::-webkit-scrollbar {
+    display: none; /* Chrome/Electron */
+}
+.search-bar {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 15px 15px;
+    outline: none;
+    flex-shrink: 0;
+    font-size: 20px;
 }
 .hex-grid {
     display: grid;

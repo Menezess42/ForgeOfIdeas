@@ -1,4 +1,4 @@
-import type { IdeaData } from '../Modal';
+ // import type { IdeaData } from '../Modal';
 
 interface LevelsCount{
     "1": string;
