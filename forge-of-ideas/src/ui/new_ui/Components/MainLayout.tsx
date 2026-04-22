@@ -11,7 +11,12 @@ interface IdeaData {
     level: 1 | 2 | 3;
     path?: string;
 }
-//    onSubmit: (data: IdeaData) => Promise <string | null>;
+
+interface LevelsCount {
+    "1": string;
+    "2": string;
+    "3": string;
+}
 
 export type AppMode = "idle" | "create" | "read" | "edit";
 
@@ -22,6 +27,7 @@ export type AppState = {
 
 export default function MainLayout() {
     const [ideas, setIdeas] = useState<IdeaData[]>([]);
+    const [lvlsCount, setLvlsCount] = useState<LevelsCount>({"1": "0","2": "0","3": "0"})
     const [appState, setAppState] = useState<AppState>({ mode: "idle", payload: null });
 
     const handleModeChange = (mode: AppMode, payload: string | null = null) => {
@@ -31,8 +37,8 @@ export default function MainLayout() {
     useEffect(() => {
         const loadIdeas = async () => {
             const loadedIdeas = await window.api.loadIdeas();
-            setIdeas(loadedIdeas); // Need to modify because now I have to return two arrays
-            // one that has the counters for the number of ideas and one for the ideas
+            setIdeas(loadedIdeas.ideas);
+            setLvlsCount(loadedIdeas.levelsCount);
         };
         loadIdeas();
         // const loadForgeIdea = async () => {
@@ -52,7 +58,6 @@ export default function MainLayout() {
         }
         try{
             const savedPath = await window.api.saveData(data);
-            console.log(savedPath)
             const updateData: IdeaData = {...data, path: savedPath};
             const updatedIdeas = [...ideas, updateData];
             setIdeas(updatedIdeas);
@@ -73,6 +78,7 @@ export default function MainLayout() {
                     onModeChange={(mode) => handleModeChange(mode)}
                     activeMode={appState.mode}
                     ideasList={ideas}
+                    lvlsCount={lvlsCount}
                 />
             </div>
             <div className="col anvil">

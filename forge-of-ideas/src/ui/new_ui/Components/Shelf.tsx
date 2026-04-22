@@ -2,16 +2,25 @@ import '../styles/tokens.css';
 import '../styles/shelf.css';
 import Hex from './Hex.tsx';
 
+interface levelsCount {
+    "1": string;
+    "2": string;
+    "3": string;
+}
+
 type ShelfProps = {
     onModeChange: (mode: "idle" | "create") => void;
     activeMode: "idle" | "create" | "read" | "edit";
     ideasList: IdeaData[];
+    lvlsCount: levelsCount;
 };
 
-export default function Shelf({ onModeChange, activeMode, ideasList}: ShelfProps) {
-    let ctr_lvl1 = "0";
-    let ctr_lvl2 = "0";
-    let ctr_lvl3 = "0";
+export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}: ShelfProps) {
+    let ctr_lvl1 = lvlsCount?.["1"] ?? "0";
+    let ctr_lvl2 = lvlsCount?.["2"] ?? "0";
+    let ctr_lvl3 = lvlsCount?.["3"] ?? "0";
+
+    console.log(lvlsCount)
 
     const isCreateActive = activeMode === "create";
 
@@ -21,7 +30,7 @@ export default function Shelf({ onModeChange, activeMode, ideasList}: ShelfProps
 
     // Need a function to the search bar
 
-    /* I have to decide, is better to create 3 list with ideas of lvl 1, 2 an 3
+    /* I have to decide if is better to create 3 list with ideas of lvl 1, 2 an 3
         or use just the main list and an aux list for when the user clicks on the 
         lvls counters and just the corresponding ideas shows on the list.
 

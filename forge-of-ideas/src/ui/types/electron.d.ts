@@ -1,8 +1,19 @@
 import type { IdeaData } from '../Modal';
 
+interface LevelsCount{
+    "1": string;
+    "2": string;
+    "3": string;
+}
+
+interface ShelfData{
+    ideas: IdeaData[];
+    levelsCount: LevelsCount;
+}
+
 export interface ElectronAPI {
     saveData: (json: json) => void;
-    loadIdeas: () => Promise<IdeaData[]>;
+    loadIdeas: () => Promise<ShelfData>;
     getIdeaDetails: (ideaPath: string) => Promise<IdeaData>;
     saveEdit: (data: IdeaData) => Promise<void>;
     forgeIdea: (data: IdeaData) => Promise<IdeaData>;
