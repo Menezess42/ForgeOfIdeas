@@ -6,12 +6,12 @@ import { ensureAnvilFile, ensureIdeasFolder, ensureShelfFile } from './ensureBas
 import { getPreloadPath } from './pathResolver.js';
 import {
   saveJsonToIdeas,
-  saveEdit,
+  // saveEdit,
   loadForge,
   forgeIdea,
   // deleteIdea
 } from './jsonService.js';
-import {deleteIdea} from './services.js';
+import {deleteIdea, updateIdea} from './services.js';
 import {loadShelfData} from './shelfHandler.js';
 import {createIdea, getIdeaDetails} from './ideasHandler.js';
 
@@ -46,9 +46,9 @@ ipcMain.handle('create-idea', async (event, data: IdeaData) => {
 ipcMain.handle('load-ideas', () => { return loadShelfData();
 });
 
-ipcMain.handle("save-edit", (event, newData: IdeaData2, oldData: IdeaData2) => {
+ipcMain.handle("update-idea", (event, newData: IdeaData, oldData: IdeaData) => {
   try {
-    const updatedPath = saveEdit(newData, oldData);
+    const updatedPath = updateIdea(newData, oldData);
     return updatedPath;
   } catch (error) {
     console.error("Error editing idea:", error);

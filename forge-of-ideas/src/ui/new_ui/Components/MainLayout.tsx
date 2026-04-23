@@ -25,7 +25,7 @@ export type AppMode = "idle" | "create" | "read" | "edit";
 
 export type AppState = {
     mode: AppMode;
-    payload: string | null;
+    payload: string | null | IdeaData;
 };
 
 export default function MainLayout() {
@@ -91,14 +91,14 @@ export default function MainLayout() {
 
         if(response)
             return response;
-        else{
+            else{
                 setIdeas(ideas.filter(item => item.title !== data?.title));
                 updateLevelsCount(data.level, -1);
-        }
+            }
         return response;
     }
 
-    const handleDetelidea = async (data: IdeaData): Promise<string | null> => {
+    const  handleDelIdea = async (data: IdeaData): Promise<string | null> => {
         try{
             let response;
             // if(selectedIdea?.nome == forgingIdea?.nome){
@@ -121,9 +121,55 @@ export default function MainLayout() {
             return "Error! Can't delete";
         }
     }
+
+    const handleEditIdea = (data: IdeaData) => {
+        const mode = 'edit';
+        const payload = data;
+        setAppState({ mode, payload });
+    }
+
+    const handleUpdate = async (data: IdeaData, old: IdeaData): Promise<String | null> =>{
+        // @ts-ignore
+        const nameChanged =  old.title !== data.title;
+
+        if (nameChanged) {
+            const exists = ideas.some(i => i.title === data.title);
+            if (exists) {
+                toast.error(`Existent Idea title: "${data.title}"!`, {
+                    className: 'minha-toast',
+                });
+                return `Existent Idea title: "${data.title}"!`;
+            }
+        }
+        try {
+            // @ts-ignore
+            const updatedPath = await window.api.updateIdea(data, old);
+            const updatedIdeas = ideas.map(i =>
+                // @ts-ignore
+                i.path === old.path
+                    ? { ...data, path: updatedPath }
+                    : i
+            );
+            // @ts-ignore
+            setIdeas(updatedIdeas);
+            if(data.level != old.level){
+                updateLevelsCount(old.level, -1);
+                updateLevelsCount(data.level, +1);
+            }
+            const mode = 'read';
+            const payload = data;
+            setAppState({ mode, payload });
+            return null;
+        } catch (error) {
+            console.error(error);
+            return "Erro ao editar a ideia";
+        }
+    }
     const handlers = {
         onCreate: handleRegistration,
-        onDelete: handleDetelidea,
+        onDelete: handleDelIdea,
+        onEdit: handleEditIdea,
+        onUpdate: handleUpdate,
     }
 
     return (
@@ -132,7 +178,7 @@ export default function MainLayout() {
             <div className="col shelf">
                 <Shelf
                     onModeChange={(mode, payload) => handleModeChange(mode, payload)}
-                    activeMode={appState.mode}
+                        activeMode={appState.mode}
                     ideasList={ideas}
                     lvlsCount={lvlsCount}
                 />

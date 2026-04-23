@@ -73,7 +73,7 @@ export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}:
     .filter(idea => idea.title.toLowerCase().includes(search.toLowerCase()));
 
     useEffect(() => {
-        if (activeMode !== "read"){
+        if (activeMode !== "read" && activeMode !== "edit") {
             setSelectedIdea(null);
         }
     }, [activeMode]);

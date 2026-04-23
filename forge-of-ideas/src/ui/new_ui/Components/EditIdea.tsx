@@ -10,30 +10,35 @@ interface IdeaData {
     path?: string;
 }
 type CreateFormProps = {
+    data: IdeaData;
     onCancel: () => void;
-    onSave?: (data:IdeaData) => Promise<string | null>;
+    onSave?: (data:IdeaData, oldTitle: IdeaData) => Promise<string | null>;
 };
 
-export default function CreateForm({ onCancel, onSave }: CreateFormProps) {
+export default function EditIdea({data, onCancel, onSave }: CreateFormProps) {
 
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [level, setLevel] = useState<number | null>(1);
+    const [title, setTitle] = useState(data.title);
+    const [old, setOld] = useState(data);
+    const [description, setDescription] = useState(data.description);
+    const [level, setLevel] = useState<number | null>(data.level);
+    const [path, setPath] = useState<number | null>(data.path);
     var active_stroke = "#E6D5B8";
 
     const handleSave = async () => {
-        let response = await onSave?.({ title, description, level });
+        let response = await onSave?.({ title, description, level}, old);
         if (response == null){
             setTitle("");
+            setOldTitle("");
             setDescription("");
             setLevel(null);
+            setPath("");
             onCancel();
         }
     };
 
     return (
         <div className="create-form">
-            <h1 className="create-title">NEW IDEA</h1>
+            <h1 className="create-title">EDIT IDEA</h1>
             <div className="form-group">
                 <label>TITLE</label>
                 <input

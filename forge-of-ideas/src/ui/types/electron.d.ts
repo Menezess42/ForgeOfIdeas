@@ -1,5 +1,3 @@
- // import type { IdeaData } from '../Modal';
-
 interface LevelsCount{
     "1": string;
     "2": string;
@@ -15,7 +13,7 @@ export interface ElectronAPI {
     saveData: (json: json) => void;
     loadIdeas: () => Promise<ShelfData>;
     getIdeaDetails: (ideaPath: string) => Promise<IdeaData>;
-    saveEdit: (data: IdeaData) => Promise<void>;
+    updateIdea: (data: IdeaData, oldIdea: IdeaData) => Promise<void>;
     forgeIdea: (data: IdeaData) => Promise<IdeaData>;
     loadForgeIdea: () => Promise<IdeaData>; // Have to change this becuase now this function
     // will return two arrays. One for the counters and one for the ideas

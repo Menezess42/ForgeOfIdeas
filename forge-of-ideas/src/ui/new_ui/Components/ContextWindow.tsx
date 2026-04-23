@@ -1,6 +1,7 @@
 import type { AppState, AppMode } from './MainLayout.tsx';
 import CreateForms from "./CreateForms.tsx";
 import ShowIdea from "./ShowIdea.tsx";
+import EditIdea from './EditIdea.tsx';
 import {useState, useEffect} from 'react';
 
 
@@ -17,6 +18,8 @@ type ContextProps = {
     handlers: {
         onCreate?: (data: IdeaData) => Promise<string | null>;
         onDelete?: (data: IdeaData) => Promise<string | null>;
+        onEdit?: (data: IdeaData) => void;
+        onUpdate?: (data: IdeaData, oldTitle: IdeaData) => Promise<string | null>;
     }
 };
 
@@ -24,7 +27,12 @@ type ContextProps = {
 export default function Context({ appState, onModeChange, handlers }: ContextProps) {
 
     const handleCancel = () => {
-        onModeChange("idle", null);
+        if (appState.mode === "edit") {
+            const idea = appState.payload as IdeaData;
+            onModeChange("read", idea.path);
+        } else {
+            onModeChange("idle", null);
+        }
     };
 
     switch (appState.mode) {
@@ -32,10 +40,13 @@ export default function Context({ appState, onModeChange, handlers }: ContextPro
             return <CreateForms onCancel={handleCancel} onSave={handlers.onCreate}/>;
 
         case "read":
-            return <ShowIdea path={appState.payload} onDelete={handlers.onDelete}/>;
+            return <ShowIdea path={appState.payload}
+                onDelete={handlers.onDelete}
+                onEdit={handlers.onEdit}
+            />;
 
         case "edit":
-            return <div className="context-view edit-view">Edição — {appState.payload}</div>;
+            return <EditIdea data={appState.payload} onCancel={handleCancel} onSave={handlers.onUpdate}/>;
 
         case "idle":
         default:
