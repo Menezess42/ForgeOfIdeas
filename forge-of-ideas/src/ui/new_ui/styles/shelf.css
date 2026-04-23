@@ -22,11 +22,36 @@
     overflow-y: auto;
     min-height: 0;
     flex: 1;
-    height: 100%; /* adiciona */
-    scrollbar-width: none; /* Firefox */
+    height: 100%;
+    scrollbar-width: none;
 }
+
 .cards-list::-webkit-scrollbar {
-    display: none; /* Chrome/Electron */
+    width: 0px;
+}
+
+.cards-list:hover {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.cards-list:hover::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cards-list:hover::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.cards-list:hover::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 6px;
+}
+
+.cards-list::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+    width: 0;
 }
 .search-bar {
     background: var(--bg-secondary);

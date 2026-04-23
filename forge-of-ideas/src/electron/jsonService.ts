@@ -148,23 +148,19 @@ export function saveEdit(newData: IdeaData, oldData: IdeaData): string {
     const oldFilePath = path.join(ideasPath, oldFileName);
     const newFilePath = path.join(ideasPath, newFileName);
 
-    // ---- Atualizar shelf ----
     const shelfPath = getShelfPath();
     const shelfContent = fs.readFileSync(shelfPath, "utf-8");
     const shelf: shelfStructure = JSON.parse(shelfContent);
 
-    // Remover entrada antiga do shelf
     const oldLevelKey = String(oldData.nivel) as "1" | "2" | "3";
     delete shelf[oldLevelKey][oldData.nome];
 
-    // Criar nova entrada no shelf
     const newLevelKey = String(newData.nivel) as "1" | "2" | "3";
     shelf[newLevelKey][newData.nome] = {
         cor: newData.cor,
         path: newFilePath
     };
 
-    // Se o nome mudou → excluir arquivo antigo e criar um novo
     if (nameChanged) {
         if (fs.existsSync(oldFilePath)) {
             fs.unlinkSync(oldFilePath);

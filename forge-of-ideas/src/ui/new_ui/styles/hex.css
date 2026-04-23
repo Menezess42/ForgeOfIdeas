@@ -4,7 +4,7 @@
 }
 
 .hex svg {
-  display: block; /* remove espaço estranho abaixo do svg */
+  display: block;
 }
 
 .hex-label {

@@ -6,8 +6,6 @@ import { ensureAnvilFile, ensureIdeasFolder, ensureShelfFile } from './ensureBas
 import { getPreloadPath } from './pathResolver.js';
 import {
   saveJsonToIdeas,
-  // loadShelfData,
-  readIdeaFile,
   saveEdit,
   loadForge,
   forgeIdea,
@@ -16,7 +14,7 @@ import {
 
 import {loadShelfData} from './shelfHandler.js';
 
-import {createIdea} from './ideasHandler.js';
+import {createIdea, getIdeaDetails} from './ideasHandler.js';
 
 interface IdeaData2 {
   nome: string;
@@ -47,8 +45,7 @@ ipcMain.handle('create-idea', async (event, data: IdeaData) => {
 });
 
 ipcMain.handle('load-ideas', () => { return loadShelfData();
-});// I have to modify this maybe because now I will return two arrays. One with the
-// counters of ideas and one with the ideas
+});
 
 ipcMain.handle("save-edit", (event, newData: IdeaData2, oldData: IdeaData2) => {
   try {
@@ -70,16 +67,6 @@ ipcMain.handle('delete-idea', (event, data: IdeaData2) => {
   }
 });
 
-// ipcMain.handle('save-data', async (event, data: IdeaData) => {
-//   try {
-//     const savedPath = saveJsonToIdeas(data);
-//     return savedPath;
-//   } catch (error) {
-//     console.error('Error in save-data handler:', error);
-//     throw error;
-//   }
-// });
-
 ipcMain.handle('forge-idea', async (event, data: IdeaData2) => {
   return forgeIdea(data);
 });
@@ -91,7 +78,7 @@ ipcMain.handle('load-forge-idea', () => {
 
 ipcMain.handle('get-idea-details', async (event, ideaPath: string) => {
   try {
-    const ideaDetails = await readIdeaFile(ideaPath);
+    const ideaDetails = await getIdeaDetails(ideaPath);
     return ideaDetails;
   } catch (error) {
     console.error('Error loading idea details:', error);
@@ -146,14 +133,11 @@ ipcMain.handle("choose-ideas-folder", async () => {
 
     const folder = result.filePaths[0];
 
-    // Atualiza config e salva
     config.ideasRoot = folder;
     saveConfig(config);
 
-    // Atualiza IDEAS_ROOT imediatamente
     process.env.IDEAS_ROOT = folder;
 
-    // Garante base de dados imediatamente
     try {
       ensureIdeasFolder();
       ensureShelfFile();
@@ -162,7 +146,6 @@ ipcMain.handle("choose-ideas-folder", async () => {
       console.error("Erro ao garantir estrutura de Ideas após escolha:", err);
     }
 
-    // Retorna já pronto para uso
     return folder;
   } catch (err) {
     console.error("Error in choose-ideas-folder handler:", err);
@@ -175,14 +158,12 @@ app.on("ready", () => {
   const cfg = loadConfig();
 
   const mainWindow = new BrowserWindow({
-      // autoHideMenuBar: true,
-      show: false, // <- ESSENCIAL
+      show: false,
       webPreferences: {
           preload: getPreloadPath()
       }
   });
 
-  // Só mostra quando o DOM estiver pronto
   mainWindow.webContents.once("dom-ready", () => {
       mainWindow.show();
   });

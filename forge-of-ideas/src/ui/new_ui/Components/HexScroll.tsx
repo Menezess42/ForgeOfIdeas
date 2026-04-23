@@ -14,6 +14,7 @@ type HexScrollProps = {
     direction: "up" | "down";
     targetRef: React.RefObject<HTMLDivElement>;
 };
+
 export default function HexScroll({ direction, targetRef, color, hoverColor, ...hexProps }: HexScrollProps) {
     const scrollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

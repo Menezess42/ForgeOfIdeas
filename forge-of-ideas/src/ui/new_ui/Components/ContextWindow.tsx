@@ -1,5 +1,6 @@
 import type { AppState, AppMode } from './MainLayout.tsx';
 import CreateForms from "./CreateForms.tsx";
+import ShowIdea from "./ShowIdea.tsx";
 import {useState, useEffect} from 'react';
 
 
@@ -30,11 +31,9 @@ export default function Context({ appState, onModeChange, handlers }: ContextPro
             return <CreateForms onCancel={handleCancel} onSave={handlers.onCreate}/>;
 
         case "read":
-            // implementar depois com appState.payload
-            return <div className="context-view read-view">Leitura — {appState.payload}</div>;
+            return <ShowIdea path={appState.payload}/>;
 
         case "edit":
-            // implementar depois
             return <div className="context-view edit-view">Edição — {appState.payload}</div>;
 
         case "idle":

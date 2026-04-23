@@ -6,7 +6,7 @@
   height: 40px;
 
   box-sizing: border-box;
-  overflow: hidden; /* impede estourar */
+  overflow: hidden;
 
   background-color: var(--bg-surface);
   border: 1px solid var(--border);
@@ -14,16 +14,14 @@
   font-family: var(--font-primary);
 }
 
-/* barra colada na esquerda */
 .ideaCard-bar {
   width: 20px;
   height: 100%;
   flex-shrink: 0;
 }
 
-/* título */
 .ideaCard-title {
-  margin-left: 30px; /* gap maior */
+  margin-left: 30px;
   
   color: var(--text-primary);
   font-size: 24px;
@@ -31,22 +29,19 @@
 
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* impede quebrar layout */
+  text-overflow: ellipsis;
 }
 
-/* hover (controlado por estado, não :hover) */
 .ideaCard-hover {
   background-color: #2a3a48;
   border-color: var(--text-secondary);
 }
 
-/* ativo */
 .ideaCard-active {
   background-color: #2f4150;
   border-color: var(--accent-cyan);
 }
 
-/* cursor só se clicável */
 .ideaCard-interactive {
   cursor: pointer;
 }

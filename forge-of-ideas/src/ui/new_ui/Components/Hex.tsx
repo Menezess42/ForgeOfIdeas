@@ -35,14 +35,12 @@ export default function Hex(props: HexProps) {
 
     const isInteractive = !!onClick;
 
-    // Resolve fill
     const resolvedFill = isActive && activeColor
         ? activeColor
         : isHovered && hoverColor
             ? hoverColor
             : color;
 
-    // Resolve stroke
     const resolvedStroke = isActive && activeStroke
         ? activeStroke
         : isHovered && hoverStroke

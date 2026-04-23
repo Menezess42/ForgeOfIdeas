@@ -52,3 +52,21 @@ export function createIdea(json: IdeaData): string {
 
     return ideaFilePath;
 }
+
+export async function getIdeasPath(ideaPath: string): Promise<IdeaData>{
+    try{
+        const fullPath = path.resolve(ideaPath);
+        // const fileContent = await fs.readFile(fullPath, 'utf-8');
+        const fileContent = await fs.readFileSync(fullPath, 'utf-8');
+        const ideaData: IdeaData = JSON.parse(fileContent);
+        return ideaData;
+    } catch (error) {
+        console.error(`Error reading idea file at ${ideaPath}: `, error);
+
+        if (error instanceof Error) {
+            throw new Error(`Failed to read idea file: ${error.message}`);
+        }
+
+        throw new Error(`Failed to read idea file: ${String(error)}`);
+    }
+}
