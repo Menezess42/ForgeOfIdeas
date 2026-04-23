@@ -55,3 +55,38 @@ export function loadShelfData(): ShelfData {
 
     return { ideas, levelsCount };
 }
+
+export function removeIdeaFromShelf(title: string): string {
+    try {
+        const shelfPath = getShelfPath();
+        const shelfContent = fs.readFileSync(shelfPath, 'utf-8');
+        const shelf = JSON.parse(shelfContent);
+        
+        let found = false;
+
+        if (shelf[title]) {
+
+            const idea = shelf[title];
+            const level = idea.level;
+
+            if (shelf.lvls_Qtde && shelf.lvls_Qtde[level]) {
+                const current = Number(shelf.lvls_Qtde[level]);
+                shelf.lvls_Qtde[level] = String(Math.max(0, current - 1));
+            }
+
+            delete shelf[title];
+
+            found = true;
+        }
+
+        if (!found) {
+            return "Error Not Found";
+        }
+        
+        fs.writeFileSync(shelfPath, JSON.stringify(shelf, null, 2), 'utf-8');
+        
+        return "ok";
+    } catch(error) {
+        return "Error";
+    }
+}

@@ -16,6 +16,7 @@ type ContextProps = {
     onModeChange: (mode: AppMode, payload?: string | null) => void;
     handlers: {
         onCreate?: (data: IdeaData) => Promise<string | null>;
+        onDelete?: (data: IdeaData) => Promise<string | null>;
     }
 };
 
@@ -31,7 +32,7 @@ export default function Context({ appState, onModeChange, handlers }: ContextPro
             return <CreateForms onCancel={handleCancel} onSave={handlers.onCreate}/>;
 
         case "read":
-            return <ShowIdea path={appState.payload}/>;
+            return <ShowIdea path={appState.payload} onDelete={handlers.onDelete}/>;
 
         case "edit":
             return <div className="context-view edit-view">Edição — {appState.payload}</div>;

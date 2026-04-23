@@ -41,7 +41,7 @@ export function createIdea(json: IdeaData): string {
     else{
         shelf["lvls_Qtde"]["3"] = String((Number(shelf["lvls_Qtde"]["3"])+1))
     }
-
+    
     shelf[data.title]={
         level: level,
         title: data.title,
@@ -53,7 +53,7 @@ export function createIdea(json: IdeaData): string {
     return ideaFilePath;
 }
 
-export async function getIdeasPath(ideaPath: string): Promise<IdeaData>{
+export async function  getIdeaDetails(ideaPath: string): Promise<IdeaData>{
     try{
         const fullPath = path.resolve(ideaPath);
         // const fileContent = await fs.readFile(fullPath, 'utf-8');

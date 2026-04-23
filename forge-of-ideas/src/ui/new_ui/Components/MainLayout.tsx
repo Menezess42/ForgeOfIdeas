@@ -54,6 +54,15 @@ export default function MainLayout() {
         // loadForgeIdea();
     }, []);
 
+    function updateLevelsCount(level: number, delta: number) {
+        const key = String(level);
+
+        setLvlsCount(prev => ({
+            ...prev,
+            [key]: String(Number(prev[key]) + delta)
+        }));
+    }
+
     const handleRegistration = async(data: IdeaData): Promise<string | null> => {
         const exists = ideas.some(i => i.title === data.title);
         if (exists) {
@@ -67,22 +76,8 @@ export default function MainLayout() {
                 const savedPath = await window.api.saveData(data);
                 const updateData: IdeaData = {...data, path: savedPath};
                 const updatedIdeas = [...ideas, updateData];
-                if (data.level == 1) {
-                    setLvlsCount(prev => ({
-                        ...prev,
-                        "1": String(Number(prev["1"]) + 1)
-                    }));
-                } else if (data.level == 2) {
-                    setLvlsCount(prev => ({
-                        ...prev,
-                        "2": String(Number(prev["2"]) + 1)
-                    }));
-                } else {
-                    setLvlsCount(prev => ({
-                        ...prev,
-                        "3": String(Number(prev["3"]) + 1)
-                    }));
-                }
+                // updateLevelsCount(data.level);
+                updateLevelsCount(data.level, +1);
                 setIdeas(updatedIdeas);
                 return null;
             }catch(error){
@@ -91,8 +86,44 @@ export default function MainLayout() {
         }
     }
 
+    const deleteShelfIdea = async (data: IdeaData): Promise<string|null> =>{
+        let response = await window.api.deleteIdea(data);
+
+        if(response)
+            return response;
+        else{
+                setIdeas(ideas.filter(item => item.title !== data?.title));
+                updateLevelsCount(data.level, -1);
+        }
+        return response;
+    }
+
+    const handleDetelidea = async (data: IdeaData): Promise<string | null> => {
+        try{
+            let response;
+            // if(selectedIdea?.nome == forgingIdea?.nome){
+            //    response = await deleteForgeIdea();  // ✅ COM AWAIT
+            // }else{
+            response = await deleteShelfIdea(data);
+            // }
+            if(response !== null){
+                toast.error("Can't delete this Idea", {
+                    className: 'minha-toast',
+                });
+                return "Can't delete this Idea";
+            }
+            const mode = 'idle';
+            const payload = null;
+            setAppState({ mode, payload });
+            return null;
+        } catch(error){
+            console.error("ERROR to delete:", error);
+            return "Error! Can't delete";
+        }
+    }
     const handlers = {
         onCreate: handleRegistration,
+        onDelete: handleDetelidea,
     }
 
     return (

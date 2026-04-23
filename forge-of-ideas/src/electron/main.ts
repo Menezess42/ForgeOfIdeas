@@ -9,11 +9,10 @@ import {
   saveEdit,
   loadForge,
   forgeIdea,
-  deleteIdea
+  // deleteIdea
 } from './jsonService.js';
-
+import {deleteIdea} from './services.js';
 import {loadShelfData} from './shelfHandler.js';
-
 import {createIdea, getIdeaDetails} from './ideasHandler.js';
 
 interface IdeaData2 {
@@ -57,7 +56,7 @@ ipcMain.handle("save-edit", (event, newData: IdeaData2, oldData: IdeaData2) => {
   }
 });
 
-ipcMain.handle('delete-idea', (event, data: IdeaData2) => {
+ipcMain.handle('delete-idea', (event, data: IdeaData) => {
   try {
     const response = deleteIdea(data);
     return response;

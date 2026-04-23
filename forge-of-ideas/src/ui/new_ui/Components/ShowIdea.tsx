@@ -4,15 +4,17 @@ import '../styles/showIdea.css';
 
 interface ShowIdeaProps {
     path: string;
+    onDelete: (data: IdeaData) => Promise<string | null>; 
 }
 
 interface IdeaData {
     title: string;
     description: string;
     level: number;
+    path?: string;
 }
 
-export default function ShowIdea({ path }: ShowIdeaProps) {
+export default function ShowIdea({ path, onDelete}: ShowIdeaProps) {
     const [data, setData] = useState<IdeaData | null>(null);
 
     useEffect(() => {
@@ -40,7 +42,9 @@ export default function ShowIdea({ path }: ShowIdeaProps) {
                 return '#8A9BB0';
         }
     }
-
+    function deleteIdea(){
+        onDelete(data)
+    }
     return (
         <main className="idea-view">
 
@@ -70,7 +74,7 @@ export default function ShowIdea({ path }: ShowIdeaProps) {
                 <div className="idea-actions">
                     <button className="btn-forge">FORGE</button>
                     <button className="btn-edit">EDIT</button>
-                    <button className="btn-delete">DELETE</button>
+                    <button className="btn-delete" onClick={deleteIdea}>DELETE</button>
                 </div>
             </div>
 
