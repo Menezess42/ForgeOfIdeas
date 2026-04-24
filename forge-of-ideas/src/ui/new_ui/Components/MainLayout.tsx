@@ -127,6 +127,15 @@ export default function MainLayout() {
         const payload = data;
         setAppState({ mode, payload });
     }
+    const handleForgeIdea = (data: IdeaData) => {
+        // const mode = 'edit';
+        // const payload = data;
+        // setAppState({ mode, payload });
+        console.log(data)
+        const mode = 'idle';
+        setAppState({ mode});
+
+    }
 
     const handleUpdate = async (data: IdeaData, old: IdeaData): Promise<String | null> =>{
         // @ts-ignore
@@ -170,6 +179,7 @@ export default function MainLayout() {
         onDelete: handleDelIdea,
         onEdit: handleEditIdea,
         onUpdate: handleUpdate,
+        onForge: handleForgeIdea,
     }
 
     return (

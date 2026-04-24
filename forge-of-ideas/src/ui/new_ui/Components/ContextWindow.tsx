@@ -20,6 +20,7 @@ type ContextProps = {
         onDelete?: (data: IdeaData) => Promise<string | null>;
         onEdit?: (data: IdeaData) => void;
         onUpdate?: (data: IdeaData, oldTitle: IdeaData) => Promise<string | null>;
+        onForge?: (data: IdeaData) => void;
     }
 };
 
@@ -44,6 +45,7 @@ export default function Context({ appState, onModeChange, handlers }: ContextPro
             return <ShowIdea path={appState.payload}
                 onDelete={handlers.onDelete}
                 onEdit={handlers.onEdit}
+                onForge={handlers.onForge}
             />;
 
         case "edit":
