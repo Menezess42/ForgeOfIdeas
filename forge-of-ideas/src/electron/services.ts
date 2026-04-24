@@ -24,7 +24,7 @@ interface ShelfStructure {
 
 export function deleteIdea(data: IdeaData): string|null{
     let response;
-    response = removeIdeaFromShelf(data.title);
+    response = removeIdeaFromShelf(data);
     if(response=="ok" && data.path){
         fs.unlinkSync(data.path);
         return null;
@@ -49,9 +49,15 @@ export function updateIdea(newData: IdeaData, oldData: IdeaData): string {
 
     delete shelf[oldData.title];
 
+    newData.path = newFilePath;
+
     shelf[newData.title] = {
-        path: newFilePath
+        level: newData.level,
+        title: newData.title,
+        path: newFilePath,
     };
+
+
 
     if (shelf.lvls_Qtde && newData.level != oldData.level) {
         const current = Number(shelf.lvls_Qtde[oldData.level]);

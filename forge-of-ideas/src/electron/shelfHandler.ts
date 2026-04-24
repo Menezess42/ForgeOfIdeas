@@ -56,7 +56,7 @@ export function loadShelfData(): ShelfData {
     return { ideas, levelsCount };
 }
 
-export function removeIdeaFromShelf(title: string): string {
+export function removeIdeaFromShelf(data: IdeaData): string {
     try {
         const shelfPath = getShelfPath();
         const shelfContent = fs.readFileSync(shelfPath, 'utf-8');
@@ -64,17 +64,14 @@ export function removeIdeaFromShelf(title: string): string {
         
         let found = false;
 
-        if (shelf[title]) {
+        if (shelf[data.title]) {
 
-            const idea = shelf[title];
-            const level = idea.level;
-
-            if (shelf.lvls_Qtde && shelf.lvls_Qtde[level]) {
-                const current = Number(shelf.lvls_Qtde[level]);
-                shelf.lvls_Qtde[level] = String(Math.max(0, current - 1));
+            if (shelf.lvls_Qtde && shelf.lvls_Qtde[data.level]) {
+                const current = Number(shelf.lvls_Qtde[data.level]);
+                shelf.lvls_Qtde[data.level] = String(Math.max(0, current - 1));
             }
 
-            delete shelf[title];
+            delete shelf[data.title];
 
             found = true;
         }

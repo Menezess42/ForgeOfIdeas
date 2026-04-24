@@ -157,7 +157,7 @@ export default function MainLayout() {
                 updateLevelsCount(data.level, +1);
             }
             const mode = 'read';
-            const payload = data;
+            const payload = updatedPath;
             setAppState({ mode, payload });
             return null;
         } catch (error) {

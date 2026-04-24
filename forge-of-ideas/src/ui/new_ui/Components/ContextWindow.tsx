@@ -29,6 +29,7 @@ export default function Context({ appState, onModeChange, handlers }: ContextPro
     const handleCancel = () => {
         if (appState.mode === "edit") {
             const idea = appState.payload as IdeaData;
+            console.log(idea)
             onModeChange("read", idea.path);
         } else {
             onModeChange("idle", null);

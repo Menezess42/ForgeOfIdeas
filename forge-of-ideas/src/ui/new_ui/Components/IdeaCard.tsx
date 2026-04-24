@@ -21,6 +21,7 @@ export default function IdeaCard({ idea, onClick, isActive = false }: IdeaCardPr
     const [isHovered, setIsHovered] = useState(false);
     const isInteractive = !!onClick;
 
+    console.log(idea.level);
     const levelColor = getLevelColor(idea.level);
 
     const stateClass = isActive
