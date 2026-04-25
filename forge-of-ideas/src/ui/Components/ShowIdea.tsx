@@ -9,12 +9,14 @@ interface ShowIdeaProps {
     onForge?: (data: IdeaData) => void;
 }
 
+
 interface IdeaData {
     title: string;
     description: string;
     level: number;
     path?: string;
 }
+
 
 export default function ShowIdea({ path, onDelete, onEdit, onForge}: ShowIdeaProps) {
     const [data, setData] = useState<IdeaData | null>(null);
@@ -44,14 +46,19 @@ export default function ShowIdea({ path, onDelete, onEdit, onForge}: ShowIdeaPro
                 return '#8A9BB0';
         }
     }
-    function deleteIdea(){
-        onDelete(data)
+    function deleteIdea() {
+        if (!data) return;
+        onDelete(data);
     }
-    function editIdea(){
-        onEdit(data)
+
+    function editIdea() {
+        if (!data) return;
+        onEdit(data);
     }
-    function forgeIdea(){
-        onForge(data)
+
+    function forgeIdea() {
+        if (!data || !onForge) return;
+        onForge(data);
     }
     return (
         <main className="idea-view">
