@@ -12,7 +12,7 @@ type HexScrollProps = {
     activeColor?: string;
     hoverColor?: string;
     direction: "up" | "down";
-    targetRef: React.RefObject<HTMLDivElement>;
+    targetRef: React.RefObject<HTMLDivElement | null>;
 };
 
 export default function HexScroll({ direction, targetRef, color, hoverColor, ...hexProps }: HexScrollProps) {
