@@ -34,31 +34,7 @@ export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}:
 
     const scrollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
     const [isUpPressed, setIsUpPressed] = useState(false);
-    const [isDownPressed, setIsDownPressed] = useState(false);
 
-    const startScroll = (direction: "up" | "down") => {
-        const step = direction === "up" ? -20 : 20;
-
-        listRef.current?.scrollBy({ top: step });
-
-        const timeout = setTimeout(() => {
-            scrollIntervalRef.current = setInterval(() => {
-                listRef.current?.scrollBy({ top: step });
-            }, 50);
-        }, 400);
-
-        scrollIntervalRef.current = timeout as unknown as ReturnType<typeof setInterval>;
-    };
-
-    const stopScroll = () => {
-        if (scrollIntervalRef.current) {
-            clearInterval(scrollIntervalRef.current);
-            clearTimeout(scrollIntervalRef.current as unknown as ReturnType<typeof setTimeout>);
-            scrollIntervalRef.current = null;
-        }
-        setIsUpPressed(false);
-        setIsDownPressed(false);
-    };
 
     const [search, setSearch] = useState("");
     const [selectedIdea, setSelectedIdea] = useState<string | null>(null);
@@ -119,10 +95,15 @@ export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}:
                         <IdeaCard
                             key={idea.path}
                             idea={idea}
-                            onClick={ () => {
+                            onClick={() => {
                                 const isAlreadySelected = selectedIdea === idea.path;
-                                setSelectedIdea(isAlreadySelected ? null : idea.path);
-                                onModeChange(isAlreadySelected ? "idle":"read", isAlreadySelected ? null : idea.path);
+
+                                setSelectedIdea(isAlreadySelected ? null : idea.path ?? null);
+
+                                onModeChange(
+                                    isAlreadySelected ? "idle" : "read",
+                                    isAlreadySelected ? null : idea.path ?? null
+                                );
                             }}
                             isActive={selectedIdea === idea.path}
                         />
