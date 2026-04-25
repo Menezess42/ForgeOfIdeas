@@ -24,7 +24,7 @@
                     version = "1.0.0";
                     src = ./forge-of-ideas;
 
-                    npmDepsHash = pkgs.lib.fakeHash;
+                    npmDepsHash ="sha256-0p/luw6AUroe/i+zq4bZ8wFqh4l2m8tvHGGap4Vfo6Y=";
                     makeCacheWritable = true;
 
                     env = {
