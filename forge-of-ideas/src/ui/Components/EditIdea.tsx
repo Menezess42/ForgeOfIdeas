@@ -25,10 +25,10 @@ export default function EditIdea({data, onCancel, onSave }: CreateFormProps) {
     var active_stroke = "#E6D5B8";
 
     const handleSave = async () => {
-        let response = await onSave?.({ title, description, level}, old);
+        let response = await onSave?.({ title, description, level: level ?? 1 }, old);
         if (response == null){
             setTitle("");
-            setOld("");
+            setOld(null as any);
             setDescription("");
             setLevel(null);
             setPath(null);

@@ -56,7 +56,7 @@ export default function MainLayout() {
     }, []);
 
     function updateLevelsCount(level: number, delta: number) {
-        const key = level as "1" | "2" | "3";
+        const key = String(level) as "1" | "2" | "3";
 
         setLvlsCount(prev => ({
             ...prev,
