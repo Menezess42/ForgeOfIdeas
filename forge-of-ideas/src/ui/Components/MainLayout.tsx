@@ -158,7 +158,7 @@ export default function MainLayout() {
         }
     }
 
-    const handleUpdate = async (data: IdeaData, old: IdeaData): Promise<String | null> =>{
+    const handleUpdate = async (data: IdeaData, old: IdeaData): Promise<string | null> =>{
         // @ts-ignore
         const nameChanged =  old.title !== data.title;
 
@@ -222,7 +222,7 @@ export default function MainLayout() {
             <Toaster position="top-center" />
             <div className="col shelf">
                 <Shelf
-                    onModeChange={(mode, payload) => handleModeChange(mode, payload)}
+                    onModeChange={(mode, payload ?? null) => handleModeChange(mode, payload)}
                     activeMode={appState.mode}
                     ideasList={ideas}
                     lvlsCount={lvlsCount}
