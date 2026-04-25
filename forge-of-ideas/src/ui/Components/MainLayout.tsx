@@ -222,7 +222,7 @@ export default function MainLayout() {
             <Toaster position="top-center" />
             <div className="col shelf">
                 <Shelf
-                    onModeChange={(mode, payload ?? null) => handleModeChange(mode, payload)}
+                    onModeChange={(mode, payload) => handleModeChange(mode, payload ?? null)}
                     activeMode={appState.mode}
                     ideasList={ideas}
                     lvlsCount={lvlsCount}
