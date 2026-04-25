@@ -5,13 +5,6 @@ import EditIdea from './EditIdea.tsx';
 import {useState, useEffect} from 'react';
 
 
-interface IdeaData {
-    title: string;
-    description: string;
-    level: 1 | 2 | 3;
-    path?: string;
-}
-
 type ContextProps = {
     appState: AppState;
     onModeChange: (mode: AppMode, payload?: string | null) => void;

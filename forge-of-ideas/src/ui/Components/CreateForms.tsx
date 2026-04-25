@@ -3,12 +3,6 @@ import '../styles/tokens.css';
 import { useState } from "react";
 import Hex from "./Hex";
 
-interface IdeaData {
-    title: string;
-    description: string;
-    level: 1 | 2 | 3;
-    path?: string;
-}
 type CreateFormProps = {
     onCancel: () => void;
     onSave?: (data:IdeaData) => Promise<string | null>;

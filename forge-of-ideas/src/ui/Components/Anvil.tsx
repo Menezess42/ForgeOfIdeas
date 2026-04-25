@@ -7,12 +7,6 @@ interface AnvilProps {
     onDelete: () => void;
 }
 
-interface IdeaData {
-    title: string;
-    description: string;
-    level: number;
-    path?: string;
-}
 
 export default function Anvil({anvilData, onDelete}: AnvilProps) {
 

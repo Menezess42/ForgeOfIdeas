@@ -10,12 +10,6 @@ interface ShowIdeaProps {
 }
 
 
-interface IdeaData {
-    title: string;
-    description: string;
-    level: number;
-    path?: string;
-}
 
 
 export default function ShowIdea({ path, onDelete, onEdit, onForge}: ShowIdeaProps) {

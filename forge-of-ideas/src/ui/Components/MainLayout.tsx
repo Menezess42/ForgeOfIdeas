@@ -9,12 +9,6 @@ import { Toaster } from 'react-hot-toast';
 import toast from 'react-hot-toast';
 
 
-interface IdeaData {
-    title: string;
-    description: string;
-    level: 1 | 2 | 3;
-    path?: string;
-}
 
 interface LevelsCount {
     "1": string;
