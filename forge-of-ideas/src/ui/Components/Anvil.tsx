@@ -48,8 +48,8 @@ export default function Anvil({anvilData, onDelete}: AnvilProps) {
             </div>
             <div className="anvil-view__row buttons">
                 <div className="anvil-actions">
-                    <button className="anvil-btn-forge" onClick={deleteIdea}>FORGED</button>
                     <button className="anvil-btn-delete" onClick={deleteIdea}>DELETE</button>
+                    <button className="anvil-btn-forge" onClick={deleteIdea}>FORGED</button>
                 </div>
             </div>
         </main>

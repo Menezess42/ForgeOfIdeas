@@ -1,4 +1,4 @@
-import './new_ui/styles/app.css';
+import './styles/app.css';
 import MainLayout from './Components/MainLayout';
 import EnsureDir from './Components/EnsureDir';
 import { useBasePathStore } from './stores/useBasePathStore';
