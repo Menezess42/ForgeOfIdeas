@@ -22,7 +22,7 @@ export default function CreateForm({ onCancel, onSave }: CreateFormProps) {
     var active_stroke = "#E6D5B8";
 
     const handleSave = async () => {
-        let response = await onSave?.({ title, description, level });
+        let response = await onSave?.({ title, description, level: (level ?? 1) as 1 | 2 | 3 });
         if (response == null){
             setTitle("");
             setDescription("");

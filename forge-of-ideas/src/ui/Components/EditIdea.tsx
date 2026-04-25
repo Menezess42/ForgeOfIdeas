@@ -21,7 +21,6 @@ export default function EditIdea({data, onCancel, onSave }: CreateFormProps) {
     const [old, setOld] = useState(data);
     const [description, setDescription] = useState(data.description);
     const [level, setLevel] = useState<number | null>(data.level);
-    const [path, setPath] = useState<string | null>(data.path ?? null);
     var active_stroke = "#E6D5B8";
 
     const handleSave = async () => {
@@ -31,7 +30,6 @@ export default function EditIdea({data, onCancel, onSave }: CreateFormProps) {
             setOld(null as any);
             setDescription("");
             setLevel(null);
-            setPath(null);
             onCancel();
         }
     };

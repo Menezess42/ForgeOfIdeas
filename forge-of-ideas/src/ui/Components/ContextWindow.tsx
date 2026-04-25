@@ -48,7 +48,7 @@ export default function Context({ appState, onModeChange, handlers }: ContextPro
             />;
 
         case "edit":
-            return <EditIdea data={appState.payload} onCancel={handleCancel} onSave={handlers.onUpdate}/>;
+            return <EditIdea data={appState.payload as IdeaData} onCancel={handleCancel} onSave={handlers.onUpdate}/>;
 
         case "idle":
         default:
