@@ -217,7 +217,6 @@ export default function MainLayout() {
         onForge: handleForgeIdea,
     }
 
-    console.log(forgeIdea)
     return (
         <main className="grid-container">
             <Toaster position="top-center" />
