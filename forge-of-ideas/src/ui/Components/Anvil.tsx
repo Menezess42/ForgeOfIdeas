@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Hex from './Hex.tsx';
 import '../styles/anvil.css';
 

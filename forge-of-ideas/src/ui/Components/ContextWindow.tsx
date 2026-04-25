@@ -2,7 +2,6 @@ import type { AppState, AppMode } from './MainLayout.tsx';
 import CreateForms from "./CreateForms.tsx";
 import ShowIdea from "./ShowIdea.tsx";
 import EditIdea from './EditIdea.tsx';
-import {useState, useEffect} from 'react';
 
 
 type ContextProps = {
@@ -34,7 +33,7 @@ export default function Context({ appState, onModeChange, handlers }: ContextPro
             return <CreateForms onCancel={handleCancel} onSave={handlers.onCreate}/>;
 
         case "read":
-            return <ShowIdea path={appState.payload}
+            return <ShowIdea path={appState.payload as string}
                 onDelete={handlers.onDelete}
                 onEdit={handlers.onEdit}
                 onForge={handlers.onForge}
