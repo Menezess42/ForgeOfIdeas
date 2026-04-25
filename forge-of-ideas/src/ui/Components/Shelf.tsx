@@ -1,90 +1,157 @@
-import { useState } from "react";
-import "../Styles/Shelf.css";
+import '../styles/tokens.css';
+import '../styles/shelf.css';
+import Hex from './Hex.tsx';
+import HexScroll from './HexScroll.tsx';
+import IdeaCard from './IdeaCard.tsx';
+import { useState, useRef, useEffect } from 'react';
+import AppMode from './MainLayout.tsx';
 
-interface ShelfProps {
-  openRegistrationModal: () => void; 
-  ideas: IdeaData[];
-  onIdeaClick: (ideaPath: string) => void;
-  setIsForge: React.Dispatch<React.SetStateAction<boolean>>;
+interface levelsCount {
+    "1": string;
+    "2": string;
+    "3": string;
 }
 
-export default function Shelf({ openRegistrationModal, ideas, onIdeaClick, setIsForge}: ShelfProps) {
-  const [offset, setOffset] = useState(0);
+type ShelfProps = {
+    onModeChange: (mode: AppMode, payload?: string | null ) => void;
+    activeMode: "idle" | "create" | "read" | "edit";
+    ideasList: IdeaData[];
+    lvlsCount: levelsCount;
+};
 
-  const getBorderColor = (nivel: 1 | 2 | 3): string => {
-    const colors = {
-      1: '#00d2c3',
-      2: '#f7941e',
-      3: '#f5e1b9'
+export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}: ShelfProps) {
+    let ctr_lvl1 = lvlsCount?.["1"] ?? "0";
+    let ctr_lvl2 = lvlsCount?.["2"] ?? "0";
+    let ctr_lvl3 = lvlsCount?.["3"] ?? "0";
+
+    const listRef = useRef<HTMLDivElement>(null);
+
+    const isCreateActive = activeMode === "create";
+
+    const handlePlusClick = () => {
+        onModeChange(isCreateActive ? "idle" : "create");
     };
-    return colors[nivel];
-  };
 
-  const handleUp = () => {
-      if (offset + 32 < ideas.length){
-          setOffset(offset+8);
-      }
-  };
+    const scrollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const [isUpPressed, setIsUpPressed] = useState(false);
+    const [isDownPressed, setIsDownPressed] = useState(false);
 
-  const handleDown = () => {
-      if (offset > 0){
-          setOffset(offset - 8);
-      }
-  }
+    const startScroll = (direction: "up" | "down") => {
+        const step = direction === "up" ? -20 : 20;
 
-    const shelves = [
-      ideas.slice(offset, offset + 8),
-      ideas.slice(offset + 8, offset + 16),
-      ideas.slice(offset + 16, offset + 24),
-      ideas.slice(offset + 24, offset + 32)
-    ];
+        listRef.current?.scrollBy({ top: step });
 
-  function openDisplay(ideaPath: string){
-      setIsForge(false);
-      onIdeaClick(ideaPath);
-  }
-  return (
-    <div className="Shelf">
-      <div className="ButtonDiv item-1">
-        <div className="ButtonArea BA-left">
-          <button 
-            onClick={openRegistrationModal}
-            className="Button B-plus"
-          >
-            <h1>+</h1>
-          </button>
-        </div>
-      </div>
-      
-      <div className="IdeasShelf">
-      {shelves.map((shelfIdeas, shelfIndex) => (
-          <div key={shelfIndex}>
-          <div className={`shelf-${shelfIndex + 1}`}>
-          {shelfIdeas.map((idea, ideaIndex) => (
-              <div
-              onClick={() => openDisplay(idea.path)}
-              key={ideaIndex}
-              className="idea-square"
-              style={{
-                  backgroundColor: idea.cor,
-                  borderColor: getBorderColor(idea.nivel)
-              }}
-              title={idea.nome}
-              >
-              </div>
-          ))}
-          </div>
-          {shelfIndex < 3 && <div className="shelf-space"></div>} 
-          </div>
-      ))}
-      </div>
-      
-      <div className="ButtonDiv">
-        <div className="ButtonArea BA-right">
-        <button className="Button B-up" onClick={handleUp}><b>Ʌ</b></button>
-        <button className="Button B-down" onClick={handleDown}><b>V</b></button>
-        </div>
-      </div>
-    </div>
-  );
+        const timeout = setTimeout(() => {
+            scrollIntervalRef.current = setInterval(() => {
+                listRef.current?.scrollBy({ top: step });
+            }, 50);
+        }, 400);
+
+        scrollIntervalRef.current = timeout as unknown as ReturnType<typeof setInterval>;
+    };
+
+    const stopScroll = () => {
+        if (scrollIntervalRef.current) {
+            clearInterval(scrollIntervalRef.current);
+            clearTimeout(scrollIntervalRef.current as unknown as ReturnType<typeof setTimeout>);
+            scrollIntervalRef.current = null;
+        }
+        setIsUpPressed(false);
+        setIsDownPressed(false);
+    };
+
+    const [search, setSearch] = useState("");
+    const [selectedIdea, setSelectedIdea] = useState<string | null>(null);
+    const [filterLevel, setFilterLevel] = useState<string | null>(null);
+
+    const handleLevelClick = (level: string) => {
+        setFilterLevel(prev => prev === level ? null : level);
+    };
+
+    const filteredIdeas = ideasList
+    .filter(idea => !filterLevel || String(idea.level) === filterLevel)
+    .filter(idea => idea.title.toLowerCase().includes(search.toLowerCase()));
+
+    useEffect(() => {
+        if (activeMode !== "read" && activeMode !== "edit") {
+            setSelectedIdea(null);
+        }
+    }, [activeMode]);
+
+    return (
+        <main className="shelf-grid-container">
+            <div className="row v-indicators">
+                <div className="hex-grid">
+                    <Hex size={80} color="#ff5a1f" label={ctr_lvl1} 
+                        className="hex-orange"
+                        onClick={() => handleLevelClick("1")}
+                        isActive={filterLevel === "1"}
+                        activeStroke="#E6D5B8"
+                        strokeWidth={3}
+                    />
+                    <Hex size={80} color="#00c2b2" label={ctr_lvl2} 
+                        className="hex-cyan"
+                        onClick={() => handleLevelClick("2")}
+                        isActive={filterLevel === "2"}
+                        activeStroke="#E6D5B8"
+                        strokeWidth={3}
+                    />
+                    <Hex size={80} color="#3a4f66" label={ctr_lvl3}
+                        className="hex-dark"
+                        onClick={() => handleLevelClick("3")}
+                        isActive={filterLevel === "3"}
+                        activeStroke="#E6D5B8"
+                        strokeWidth={3}
+                    />
+                </div>
+            </div>
+
+            <div className="row cards">
+                <input
+                    className="search-bar"
+                    type="text"
+                    placeholder="Search..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <div className="cards-list" ref={listRef}>
+                    {filteredIdeas.map((idea) => (
+                        <IdeaCard
+                            key={idea.path}
+                            idea={idea}
+                            onClick={ () => {
+                                const isAlreadySelected = selectedIdea === idea.path;
+                                setSelectedIdea(isAlreadySelected ? null : idea.path);
+                                onModeChange(isAlreadySelected ? "idle":"read", isAlreadySelected ? null : idea.path);
+                            }}
+                            isActive={selectedIdea === idea.path}
+                        />
+                    ))}
+                </div>
+            </div>
+            <div className="row buttons">
+                <div className="hex-grid hex-buttons">
+                    <HexScroll size={70} color="#22303c" label="▲" className="hex-bUp"
+                        stroke="#8A9BB0" hoverColor="#1A1A1A" activeColor="#0D1B2A"
+                        direction="up" targetRef={listRef}
+                    />
+                    <HexScroll size={70} color="#22303c" label="▼" className="hex-bDown"
+                        stroke="#8A9BB0" hoverColor="#1A1A1A" activeColor="#0D1B2A"
+                        direction="down" targetRef={listRef}
+                    />
+                    <Hex
+                        size={70}
+                        color="#22303c"
+                        label="+"
+                        className="hex-bPlus"
+                        stroke="#8A9BB0"
+                        onClick={handlePlusClick}
+                        isActive={isCreateActive}
+                        activeColor="#0D1B2A"
+                        hoverColor="#1A1A1A"
+                    />
+                </div>
+            </div>
+        </main>
+    );
 }

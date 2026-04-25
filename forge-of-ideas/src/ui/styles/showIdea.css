@@ -1,0 +1,142 @@
+.idea-view {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.idea-view__content {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    gap: 10px;
+}
+
+.idea-view__title {
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.idea-view__desc-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    scrollbar-width: none;
+}
+
+.idea-view__desc-wrapper::-webkit-scrollbar {
+    width: 0px;
+}
+
+.idea-view__desc-wrapper:hover {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.idea-view__desc-wrapper:hover::-webkit-scrollbar {
+    width: 8px;
+}
+
+.idea-view__desc-wrapper:hover::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.idea-view__desc-wrapper:hover::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 6px;
+}
+
+.idea-view__desc-wrapper::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+    width: 0;
+}
+
+.idea-view__desc {
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-size: 18px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.idea-view__hex-grid {
+    display: flex;
+    justify-content: center;
+}
+
+.idea-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.btn-forge {
+    padding: 14px;
+
+    background: transparent;
+    border: 2px solid var(--accent-cyan);
+
+    color: var(--accent-cyan);
+
+    font-family: var(--font-primary);
+    font-size: 25px;
+    font-weight: var(--font-semibold);
+    letter-spacing: 1px;
+
+    cursor: pointer;
+}
+
+.btn-edit, .btn-delete {
+    padding: 14px;
+
+    background: transparent;
+    border: 2px solid var(--border);
+
+    color: var(--text-primary);
+
+    font-family: var(--font-primary);
+    font-size: 25px;
+    font-weight: var(--font-semibold);
+    letter-spacing: 1px;
+
+    cursor: pointer;
+}
+
+.btn-forge {
+    transition: all 0.15s ease;
+}
+
+.btn-forge:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+.btn-forge:active {
+    transform: scale(0.97);
+    filter: brightness(0.85);
+}
+
+.btn-edit,
+.btn-delete {
+    transition: all 0.15s ease;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+    background: var(--bg-surface);
+    border-color: var(--text-secondary);
+}
+
+.btn-edit:active,
+.btn-delete:active {
+    transform: scale(0.97);
+    filter: brightness(0.85);
+}

@@ -1,0 +1,8 @@
+.minha-toast {
+    background: var(--bg-surface) !important;
+    color: var(--accent-orange) !important;
+    border: 3px solid var(--border) !important;
+    border-radius: 0px;
+    font-family: var(--font-primary) !important;
+    font-size: 20px;
+}

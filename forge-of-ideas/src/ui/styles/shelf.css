@@ -1,0 +1,126 @@
+.shelf-grid-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    box-sizing: border-box;
+    height: 100%;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    min-height: 0;
+    flex: 1;
+    height: 100%;
+    scrollbar-width: none;
+}
+
+.cards-list::-webkit-scrollbar {
+    width: 0px;
+}
+
+.cards-list:hover {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.cards-list:hover::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cards-list:hover::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.cards-list:hover::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 6px;
+}
+
+.cards-list::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+    width: 0;
+}
+.search-bar {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 15px 15px;
+    outline: none;
+    flex-shrink: 0;
+    font-size: 20px;
+}
+.hex-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 15px;
+
+    justify-content: center;
+}
+
+.hex-buttons{
+    padding-bottom: 20px;
+}
+
+.hex-orange .hex-label {
+    color: var(--text-dark);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+
+.hex-cyan .hex-label {
+    color: var(--text-dark);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+
+.hex-dark .hex-label {
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+
+.hex-bUp .hex-label {
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+.hex-bDown .hex-label {
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+.hex-bPlus .hex-label {
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 70px;
+}
+.hex-bUp .hex-label {
+  transform: translate(-50%, -50%);
+}
+
+.hex-bDown .hex-label {
+  transform: translate(-50%, -45%);
+}
+
+.hex-bPlus .hex-label {
+  transform: translate(-50%, -52%);
+}

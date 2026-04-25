@@ -1,0 +1,147 @@
+.create-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 20px;
+}
+
+.create-title {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 40px;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group textarea {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--text-secondary);
+
+  padding: 10px;
+  font-size: 16px;
+  font-family: var(--font-mono);
+
+  outline: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  font-size: 16px;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.form-group textarea {
+  height: 220px;
+  resize: none;
+}
+
+.hex-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-save {
+  padding: 14px;
+
+  background: transparent;
+  border: 2px solid var(--accent-cyan);
+
+  color: var(--accent-cyan);
+
+  font-family: var(--font-primary);
+  font-size: 25px;
+  font-weight: var(--font-semibold);
+  letter-spacing: 1px;
+
+  cursor: pointer;
+}
+
+.btn-save{
+    transition: all 0.15s ease;
+}
+
+.btn-save:hover{
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+btn-save:active{
+    transform: scale(0.97);
+    filter: brightness(0.85);
+}
+
+.btn-cancel {
+  padding: 14px;
+
+  background: transparent;
+  border: 2px solid var(--border);
+
+  color: var(--text-primary);
+
+  font-family: var(--font-primary);
+  font-size: 25px;
+  font-weight: var(--font-semibold);
+  letter-spacing: 1px;
+
+  cursor: pointer;
+}
+
+.btn-cancel{
+    transition: all 0.15s ease;
+}
+
+.btn-cancel:hover{
+    background: var(--bg-surface);
+    border-color: var(--text-secondary);
+}
+
+.btn-cancel:active{
+    transform: scale(0.97);
+    filter: brightness(0.85);
+}
+
+.hex-orange .hex-label {
+    color: var(--text-dark);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+
+.hex-cyan .hex-label {
+    color: var(--text-dark);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
+
+.hex-dark .hex-label {
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    font-size: 40px;
+}
