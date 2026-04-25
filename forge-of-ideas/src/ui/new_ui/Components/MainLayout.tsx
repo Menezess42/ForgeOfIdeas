@@ -4,6 +4,7 @@ import '../styles/mainLayout.css';
 import '../styles/toast.css';
 import Shelf from './Shelf.tsx';
 import Context from './ContextWindow.tsx';
+import Anvil from './Anvil.tsx';
 import { Toaster } from 'react-hot-toast';
 import toast from 'react-hot-toast';
 
@@ -30,6 +31,7 @@ export type AppState = {
 
 export default function MainLayout() {
     const [ideas, setIdeas] = useState<IdeaData[]>([]);
+    const [forgeIdea, setForgeIdea] = useState<IdeaData | null>(null);
     const [lvlsCount, setLvlsCount] = useState<LevelsCount>({"1": "0","2": "0","3": "0"})
     const [appState, setAppState] = useState<AppState>({ mode: "idle", payload: null });
     const [creatError, setCreatError] = useState<string | null>(null);
@@ -45,13 +47,13 @@ export default function MainLayout() {
             setLvlsCount(loadedIdeas.levelsCount);
         };
         loadIdeas();
-        // const loadForgeIdea = async () => {
-        //     const loadedForgeIdea = await window.api.loadForgeIdea();
-        //     if(loadedForgeIdea){
-        //         setForgingIdea(loadedForgeIdea)
-        //     }
-        // };
-        // loadForgeIdea();
+        const loadForgeIdea = async () => {
+            const loadedForgeIdea = await window.api.loadForgeIdea();
+            if(loadedForgeIdea){
+                setForgeIdea(loadedForgeIdea)
+            }
+        };
+        loadForgeIdea();
     }, []);
 
     function updateLevelsCount(level: number, delta: number) {
@@ -86,26 +88,29 @@ export default function MainLayout() {
         }
     }
 
+    const handleEditIdea = (data: IdeaData) => {
+        const mode = 'edit';
+        const payload = data;
+        setAppState({ mode, payload });
+    }
+
     const deleteShelfIdea = async (data: IdeaData): Promise<string|null> =>{
         let response = await window.api.deleteIdea(data);
 
-        if(response)
+        if(response){
             return response;
-            else{
-                setIdeas(ideas.filter(item => item.title !== data?.title));
-                updateLevelsCount(data.level, -1);
-            }
+        }
+        else{
+            setIdeas(ideas.filter(item => item.title !== data?.title));
+            updateLevelsCount(data.level, -1);
+        }
         return response;
     }
 
     const  handleDelIdea = async (data: IdeaData): Promise<string | null> => {
         try{
             let response;
-            // if(selectedIdea?.nome == forgingIdea?.nome){
-            //    response = await deleteForgeIdea();  // ✅ COM AWAIT
-            // }else{
             response = await deleteShelfIdea(data);
-            // }
             if(response !== null){
                 toast.error("Can't delete this Idea", {
                     className: 'minha-toast',
@@ -122,19 +127,35 @@ export default function MainLayout() {
         }
     }
 
-    const handleEditIdea = (data: IdeaData) => {
-        const mode = 'edit';
-        const payload = data;
-        setAppState({ mode, payload });
-    }
-    const handleForgeIdea = (data: IdeaData) => {
-        // const mode = 'edit';
-        // const payload = data;
-        // setAppState({ mode, payload });
-        console.log(data)
-        const mode = 'idle';
-        setAppState({ mode});
+    const handleForgeIdea = async (data: IdeaData)  => {
+        try{
+            if(forgeIdea){
+                toast.error(`Forge is occupied!!`, {
+                    className: 'minha-toast',
+                });
+            } else{
+                const forgingResponse = await window.api.forgeIdea(data);
 
+                if(forgingResponse == "ok"){
+                    const delIdea_response = await handleDelIdea(data); // deleta primeiro
+                    if(!delIdea_response){
+                        setForgeIdea(data); // só depois atualiza o estado
+                    }
+                    const mode = 'idle';
+                    const payload = null;
+                    setAppState({ mode, payload });
+                }
+                else{
+                    toast.error(`ERROR on the forge: ${forgingResponse}`, {
+                        className: 'minha-toast',
+                    });
+                }
+            }
+        }catch(error){
+            toast.error(`Forge ERROR: \n ${error}`, {
+                className: 'minha-toast',
+            });
+        }
     }
 
     const handleUpdate = async (data: IdeaData, old: IdeaData): Promise<String | null> =>{
@@ -174,6 +195,20 @@ export default function MainLayout() {
             return "Erro ao editar a ideia";
         }
     }
+
+    const deleteForge = async () =>{ 
+        let response = await window.api.deleteForge();
+
+        if(response == "ok"){
+            setForgeIdea(null);
+        }
+        else{
+            toast.error(`Error deleting Forge: "${response}"!`, {
+                className: 'minha-toast',
+            });
+        }
+    }
+
     const handlers = {
         onCreate: handleRegistration,
         onDelete: handleDelIdea,
@@ -182,19 +217,22 @@ export default function MainLayout() {
         onForge: handleForgeIdea,
     }
 
+    console.log(forgeIdea)
     return (
         <main className="grid-container">
             <Toaster position="top-center" />
             <div className="col shelf">
                 <Shelf
                     onModeChange={(mode, payload) => handleModeChange(mode, payload)}
-                        activeMode={appState.mode}
+                    activeMode={appState.mode}
                     ideasList={ideas}
                     lvlsCount={lvlsCount}
                 />
             </div>
             <div className="col anvil">
-                {/* <Anvil /> */}
+                {forgeIdea ? (
+                    <Anvil anvilData={forgeIdea} onDelete={deleteForge}/>
+                ) : ( <></>)}
             </div>
             <div className="col context">
                 <Context

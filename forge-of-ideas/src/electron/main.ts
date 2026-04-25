@@ -7,10 +7,11 @@ import { getPreloadPath } from './pathResolver.js';
 import {
   saveJsonToIdeas,
   // saveEdit,
-  loadForge,
-  forgeIdea,
+  // loadForge,
+  // forgeIdea,
   // deleteIdea
 } from './jsonService.js';
+import {loadForge, forgeIdea, deleteForge} from './anvilHandler.js';
 import {deleteIdea, updateIdea} from './services.js';
 import {loadShelfData} from './shelfHandler.js';
 import {createIdea, getIdeaDetails} from './ideasHandler.js';
@@ -43,6 +44,9 @@ ipcMain.handle('create-idea', async (event, data: IdeaData) => {
   }
 });
 
+ipcMain.handle('delete-forge', () => { return deleteForge();
+});
+
 ipcMain.handle('load-ideas', () => { return loadShelfData();
 });
 
@@ -66,7 +70,7 @@ ipcMain.handle('delete-idea', (event, data: IdeaData) => {
   }
 });
 
-ipcMain.handle('forge-idea', async (event, data: IdeaData2) => {
+ipcMain.handle('forge-idea', async (event, data: IdeaData) => {
   return forgeIdea(data);
 });
 

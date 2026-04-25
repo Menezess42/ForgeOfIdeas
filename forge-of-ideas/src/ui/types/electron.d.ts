@@ -14,12 +14,12 @@ export interface ElectronAPI {
     loadIdeas: () => Promise<ShelfData>;
     getIdeaDetails: (ideaPath: string) => Promise<IdeaData>;
     updateIdea: (data: IdeaData, oldIdea: IdeaData) => Promise<void>;
-    forgeIdea: (data: IdeaData) => Promise<IdeaData>;
+    forgeIdea: (data: IdeaData) => Promise<string>;
     loadForgeIdea: () => Promise<IdeaData>; // Have to change this becuase now this function
-    // will return two arrays. One for the counters and one for the ideas
     deleteIdea: (data: IdeaData) => Promise<string|null>;
     chooseIdeasFolder: () => Promise<string | null>;
     getConfig: () => Promise<{ ideasRoot?: string }>;
+    deleteForge: () => Promise<string>;
 }
 
 declare global {

@@ -17,6 +17,7 @@ electron.contextBridge.exposeInMainWorld('api', {
     updateIdea: (newData: IdeaData, oldData: IdeaData) => ipcRenderer.invoke("update-idea", newData, oldData),
     forgeIdea: (data: IdeaData) => ipcRenderer.invoke("forge-idea", data),
     deleteIdea: (data: IdeaData) => ipcRenderer.invoke('delete-idea', data),
+    deleteForge: () => ipcRenderer.invoke('delete-forge'),
 
     chooseIdeasFolder: () => electron.ipcRenderer.invoke("choose-ideas-folder"),
     getConfig: () => electron.ipcRenderer.invoke("get-config"),
