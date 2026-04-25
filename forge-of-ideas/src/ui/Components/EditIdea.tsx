@@ -22,16 +22,15 @@ export default function EditIdea({data, onCancel, onSave }: CreateFormProps) {
     const [description, setDescription] = useState(data.description);
     const [level, setLevel] = useState<number | null>(data.level);
     const [path, setPath] = useState<string | null>(data.path ?? null); // string | null, não number | null
+    var active_stroke = "#E6D5B8";
 
     const handleSave = async () => {
         let response = await onSave?.({ title, description, level: (level ?? 1) as 1 | 2 | 3 }, old);
         if (response == null){
             setTitle("");
-            setOldTitle("");
             setDescription("");
             setLevel(null);
-            setPath(null);  // null, não ""
-            onCancel();
+            setPath(null); 
         }
     };
 
