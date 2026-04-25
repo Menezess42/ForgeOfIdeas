@@ -4,7 +4,7 @@ import Hex from './Hex.tsx';
 import HexScroll from './HexScroll.tsx';
 import IdeaCard from './IdeaCard.tsx';
 import { useState, useRef, useEffect } from 'react';
-import AppMode from './MainLayout.tsx';
+import { AppMode } from './MainLayout';
 
 interface levelsCount {
     "1": string;
@@ -31,9 +31,6 @@ export default function Shelf({ onModeChange, activeMode, ideasList, lvlsCount}:
     const handlePlusClick = () => {
         onModeChange(isCreateActive ? "idle" : "create");
     };
-
-    const scrollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-    const [isUpPressed, setIsUpPressed] = useState(false);
 
 
     const [search, setSearch] = useState("");
