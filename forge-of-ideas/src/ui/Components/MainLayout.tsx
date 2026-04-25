@@ -34,7 +34,6 @@ export default function MainLayout() {
     const [forgeIdea, setForgeIdea] = useState<IdeaData | null>(null);
     const [lvlsCount, setLvlsCount] = useState<LevelsCount>({"1": "0","2": "0","3": "0"})
     const [appState, setAppState] = useState<AppState>({ mode: "idle", payload: null });
-    const [creatError, setCreatError] = useState<string | null>(null);
 
     const handleModeChange = (mode: AppMode, payload: string | null = null) => {
         setAppState({ mode, payload });
@@ -57,7 +56,7 @@ export default function MainLayout() {
     }, []);
 
     function updateLevelsCount(level: number, delta: number) {
-        const key = String(level);
+        const key = level as "1" | "2" | "3";
 
         setLvlsCount(prev => ({
             ...prev,

@@ -31,7 +31,7 @@ export default function EditIdea({data, onCancel, onSave }: CreateFormProps) {
             setOld("");
             setDescription("");
             setLevel(null);
-            setPath("");
+            setPath(null);
             onCancel();
         }
     };
