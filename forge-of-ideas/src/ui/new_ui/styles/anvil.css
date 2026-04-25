@@ -1,4 +1,4 @@
-.idea-view {
+.anvil-view {
     display: grid;
     grid-template-rows: auto 1fr auto;
     height: 100%;
@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 
-.idea-view__content {
+.anvil-view__content {
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -14,7 +14,7 @@
     gap: 4px;
 }
 
-.idea-view__title {
+.anvil-view__title {
     color: var(--text-primary);
     font-family: var(--font-primary);
     font-weight: var(--font-bold);
@@ -23,42 +23,42 @@
     margin: 0;
 }
 
-.idea-view__desc-wrapper {
+.anvil-view__desc-wrapper {
     flex: 1;
     overflow-y: auto;
     min-height: 0;
     scrollbar-width: none;
 }
 
-.idea-view__desc-wrapper::-webkit-scrollbar {
+.anvil-view__desc-wrapper::-webkit-scrollbar {
     width: 0px;
 }
 
-.idea-view__desc-wrapper:hover {
+.anvil-view__desc-wrapper:hover {
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
 }
 
-.idea-view__desc-wrapper:hover::-webkit-scrollbar {
+.anvil-view__desc-wrapper:hover::-webkit-scrollbar {
     width: 8px;
 }
 
-.idea-view__desc-wrapper:hover::-webkit-scrollbar-track {
+.anvil-view__desc-wrapper:hover::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.idea-view__desc-wrapper:hover::-webkit-scrollbar-thumb {
+.anvil-view__desc-wrapper:hover::-webkit-scrollbar-thumb {
     background-color: var(--border);
     border-radius: 6px;
 }
 
-.idea-view__desc-wrapper::-webkit-scrollbar-button {
+.anvil-view__desc-wrapper::-webkit-scrollbar-button {
     display: none;
     height: 0;
     width: 0;
 }
 
-.idea-view__desc {
+.anvil-view__desc {
     color: var(--text-secondary);
     font-family: var(--font-primary);
     font-size: 28px;
@@ -69,13 +69,13 @@
     margin: 0;
 }
 
-.idea-view__hex-grid {
+.anvil-view__hex-grid {
     display: flex;
     justify-content: center;
     margin-bottom: 4px;
 }
 
-.idea-actions {
+.anvil-actions {
     margin-top: auto;
     display: flex;
     flex-direction: row;
@@ -83,15 +83,15 @@
     width: 100%;
 }
 
-.idea-actions button {
+.anvil-actions button {
     flex: 1;
 }
 
-.btn-forge {
+.anvil-btn-forge {
     padding: 14px;
-    background: transparent;
-    border: 2px solid var(--accent-cyan);
-    color: var(--accent-cyan);
+    background: var(--accent-orange);
+    border: 2px solid var(--accent-orange);
+    color: var(--text-dark);
     font-family: var(--font-primary);
     font-size: 25px;
     font-weight: var(--font-semibold);
@@ -100,39 +100,35 @@
     transition: all 0.15s ease;
 }
 
-.btn-forge:hover {
-    background: var(--accent-cyan);
-    color: var(--bg-primary);
+.anvil-btn-forge:hover {
+    filter: brightness(0.9);
 }
 
-.btn-forge:active {
+.anvil-btn-forge:active {
     transform: scale(0.97);
-    filter: brightness(0.85);
+    filter: brightness(0.8);
 }
 
-.btn-edit,
-.btn-delete {
+
+.anvil-btn-delete {
     padding: 14px;
     background: transparent;
-    border: 2px solid var(--border);
-    color: var(--text-primary);
+    border: 2px solid var(--accent-orange);
+    color: var(--accent-orange);
     font-family: var(--font-primary);
     font-size: 25px;
     font-weight: var(--font-semibold);
     letter-spacing: 1px;
     cursor: pointer;
-}
-
-.btn-delete {
     transition: all 0.15s ease;
 }
 
-.btn-delete:hover {
-    background: var(--bg-surface);
-    border-color: var(--text-secondary);
+.anvil-btn-delete:hover {
+    background: var(--accent-orange);
+    color: var(--text-dark);
 }
 
-.btn-delete:active {
+.anvil-btn-delete:active {
     transform: scale(0.97);
     filter: brightness(0.85);
 }

@@ -34,22 +34,22 @@ export default function Anvil({anvilData, onDelete}: AnvilProps) {
     }
 
     return (
-        <main className="idea-view">
-            <div className="idea-view__row v-indicators">
-                <div className="idea-view__hex-grid">
+        <main className="anvil-view">
+            <div className="anvil-view__row v-indicators">
+                <div className="anvil-view__hex-grid">
                     <Hex size={80} color={getHexColor(anvilData?.level)} strokeWidth={3} />
                 </div>
             </div>
-            <div className="idea-view__row idea-view__content">
-                <h1 className="idea-view__title">{anvilData?.title}</h1>
-                <div className="idea-view__desc-wrapper">
-                    <p className="idea-view__desc">{anvilData?.description}</p>
+            <div className="anvil-view__row anvil-view__content">
+                <h1 className="anvil-view__title">{anvilData?.title}</h1>
+                <div className="anvil-view__desc-wrapper">
+                    <p className="anvil-view__desc">{anvilData?.description}</p>
                 </div>
             </div>
-            <div className="idea-view__row buttons">
-                <div className="idea-actions">
-                    <button className="btn-forge" onClick={deleteIdea}>FORGED</button>
-                    <button className="btn-delete" onClick={deleteIdea}>DELETE</button>
+            <div className="anvil-view__row buttons">
+                <div className="anvil-actions">
+                    <button className="anvil-btn-forge" onClick={deleteIdea}>FORGED</button>
+                    <button className="anvil-btn-delete" onClick={deleteIdea}>DELETE</button>
                 </div>
             </div>
         </main>
