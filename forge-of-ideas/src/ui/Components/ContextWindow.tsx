@@ -10,8 +10,8 @@ type ContextProps = {
     onModeChange: (mode: AppMode, payload?: string | null) => void;
     handlers: {
         onCreate?: (data: IdeaData) => Promise<string | null>;
-        onDelete?: (data: IdeaData) => Promise<string | null>;
-        onEdit?: (data: IdeaData) => void;
+        onDelete: (data: IdeaData) => Promise<string | null>;
+        onEdit: (data: IdeaData) => void;
         onUpdate?: (data: IdeaData, oldTitle: IdeaData) => Promise<string | null>;
         onForge?: (data: IdeaData) => void;
     }
