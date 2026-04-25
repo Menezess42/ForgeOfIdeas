@@ -27,7 +27,7 @@ export default function EditIdea({data, onCancel, onSave }: CreateFormProps) {
         let response = await onSave?.({ title, description, level: (level ?? 1) as 1 | 2 | 3 }, old);
         if (response == null){
             setTitle("");
-            // setOldTitle(""); → NÃO EXISTE, remove
+            setOldTitle("");
             setDescription("");
             setLevel(null);
             setPath(null);  // null, não ""
