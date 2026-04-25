@@ -76,14 +76,14 @@ export default function MainLayout() {
         else{
             try{
                 const savedPath = await window.api.saveData(data);
-                const updateData: IdeaData = {...data, path: savedPath};
+                const updateData: IdeaData = {...data, path: savedPath ?? undefined};
                 const updatedIdeas = [...ideas, updateData];
                 // updateLevelsCount(data.level);
                 updateLevelsCount(data.level, +1);
                 setIdeas(updatedIdeas);
                 return null;
             }catch(error){
-                return error;
+                return String(error);
             }
         }
     }
@@ -188,7 +188,7 @@ export default function MainLayout() {
             }
             const mode = 'read';
             const payload = updatedPath;
-            setAppState({ mode, payload });
+            setAppState({ mode, payload: payload ?? null });
             return null;
         } catch (error) {
             console.error(error);
