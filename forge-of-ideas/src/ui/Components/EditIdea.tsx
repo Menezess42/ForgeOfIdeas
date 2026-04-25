@@ -3,6 +3,12 @@ import '../styles/tokens.css';
 import { useState } from "react";
 import Hex from "./Hex";
 
+interface IdeaData {
+    title: string;
+    description: string;
+    level: 1 | 2 | 3;
+    path?: string;
+}
 type CreateFormProps = {
     data: IdeaData;
     onCancel: () => void;
@@ -15,15 +21,17 @@ export default function EditIdea({data, onCancel, onSave }: CreateFormProps) {
     const [old, setOld] = useState(data);
     const [description, setDescription] = useState(data.description);
     const [level, setLevel] = useState<number | null>(data.level);
+    const [path, setPath] = useState<number | null>(data.path);
     var active_stroke = "#E6D5B8";
 
     const handleSave = async () => {
-        let response = await onSave?.({ title, description, level: (level ?? 1) as 1 | 2 | 3 }, old);
+        let response = await onSave?.({ title, description, level}, old);
         if (response == null){
             setTitle("");
-            setOld(null as any);
+            setOldTitle("");
             setDescription("");
             setLevel(null);
+            setPath("");
             onCancel();
         }
     };
