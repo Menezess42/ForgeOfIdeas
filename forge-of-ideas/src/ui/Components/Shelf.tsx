@@ -4,7 +4,7 @@ import Hex from './Hex.tsx';
 import HexScroll from './HexScroll.tsx';
 import IdeaCard from './IdeaCard.tsx';
 import { useState, useRef, useEffect } from 'react';
-import { AppMode } from './MainLayout';
+import type { AppMode } from './MainLayout';
 
 interface levelsCount {
     "1": string;
